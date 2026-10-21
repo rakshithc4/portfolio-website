@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { motion } from "motion/react"
-import { ArrowUpRight, Briefcase, FolderGit2 } from "lucide-react"
+import { ArrowUpRight, Briefcase, FolderGit2, NotebookText } from "lucide-react"
 
 import { Reveal } from "@/components/reveal"
 import { SectionLabel } from "@/components/section-label"
@@ -93,6 +93,17 @@ export function Projects() {
                     <FolderGit2 size={15} />
                     GitHub
                   </a>
+                  {project.colabUrl && (
+                    <a
+                      href={project.colabUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors duration-150 hover:border-primary/40"
+                    >
+                      <NotebookText size={15} />
+                      Model Output
+                    </a>
+                  )}
                 </div>
               </div>
 

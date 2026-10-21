@@ -72,6 +72,7 @@ export const projects = [
     ],
     href: "https://github.com/rakshithc4/assetpulse",
     liveDemo: "https://assetpulse-psi.vercel.app/login",
+    colabUrl: null as string | null,
     image: "/assetpulse-01.jpg" as string | null,
   },
   {
@@ -96,6 +97,7 @@ export const projects = [
     ],
     href: "https://github.com/rakshithc4/procureflow",
     liveDemo: "https://procureflow-alpha.vercel.app/login",
+    colabUrl: null as string | null,
     image: "/procureflow-01.jpg" as string | null,
   },
   {
@@ -120,6 +122,7 @@ export const projects = [
     ],
     href: "https://github.com/rakshithc4/brain-tumour-cnn-classification",
     liveDemo: null as string | null,
+    colabUrl: "https://colab.research.google.com/drive/1vvph17UAAuNw68lGIp_GgqsNjHtncsZt?usp=sharing",
     image: "/brain-tumor-01.png" as string | null,
   },
 ]
