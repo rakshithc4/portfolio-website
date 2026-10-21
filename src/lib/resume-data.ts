@@ -1,0 +1,207 @@
+export const profile = {
+  name: "Rakshith Chandra Shekar",
+  role: "Software Engineer · SAP ABAP Cloud · Applied AI/ML",
+  location: "Chippendale, Sydney NSW",
+  email: "rakshithc46@gmail.com",
+  phone: "+61 0478 086 899",
+  linkedin: "linkedin.com/in/rakshithc46",
+  linkedinUrl: "https://linkedin.com/in/rakshithc46",
+  github: "github.com/rakshithc46",
+  githubUrl: "https://github.com/rakshithc46",
+  // Full paragraph, kept for reference / meta text. The About section renders
+  // aboutLead + aboutBody instead of this in one block — see below.
+  summary:
+    "Penultimate-year Computer Science student at the University of Sydney with hands-on experience building and deploying real enterprise systems, including two production-style SAP ABAP Cloud applications built end-to-end on SAP BTP. Co-authored applied machine learning research benchmarking multiple model architectures. Comfortable across the full engineering lifecycle — design, build, test, and deployment — combined with proven leadership managing 22-person teams, cross-functional coordination, and stakeholder communication. Seeking internship opportunities in technology, enterprise systems, or consulting.",
+}
+
+// Split out for the About section: one strong lead sentence at display size,
+// a shorter supporting paragraph below it — instead of one long wall of text.
+export const aboutLead =
+  "Penultimate-year Computer Science student at the University of Sydney, with hands-on experience building and deploying real enterprise systems."
+
+export const aboutBody =
+  "Two production-style SAP ABAP Cloud applications shipped end-to-end on SAP BTP, plus co-authored applied machine learning research. Comfortable across the full engineering lifecycle — design, build, test, deployment — backed by proven leadership managing 22-person teams and cross-functional stakeholders."
+
+export const aboutHighlights = [
+  { value: "2", label: "Production SAP systems shipped end-to-end" },
+  { value: "22", label: "Person committee led as President" },
+  { value: "4", label: "CNN architectures benchmarked in research" },
+]
+
+export const heroStats = [
+  { value: "2", label: "SAP RAP systems shipped" },
+  { value: "95.5%", label: "CNN test accuracy" },
+  { value: "12/12", label: "AssetPulse unit tests" },
+]
+
+export const skillMarquee = [
+  "ABAP Cloud",
+  "SAP BTP",
+  "RAP Model",
+  "CDS Views",
+  "Python",
+  "TensorFlow / Keras",
+  "Next.js",
+  "FastAPI",
+  "TanStack Query",
+  "SQL",
+  "Java",
+  "Git / GitHub",
+]
+
+export const projects = [
+  {
+    id: "assetpulse",
+    name: "AssetPulse",
+    tagline: "SAP Plant Maintenance-Style Asset System · Mining",
+    period: "2025 – Present",
+    description:
+      "An SAP Plant Maintenance-style asset maintenance system for mining operations, built on real SAP RAP business objects with a dark-themed Next.js control-room frontend and a Python FastAPI analytics service. Models the full lifecycle — fault reported → triaged into a work order → scheduled → executed — with MTTR, availability %, and downtime surfaced on a live dashboard.",
+    highlights: [
+      "Cross-business-object transactional logic in ABAP: starting repair work flips the linked equipment's status to \"under maintenance\", completing it restores \"operational\" — real state changes, not just UI state",
+      "Next.js 14 (App Router, TypeScript, Tailwind, TanStack Query) control-room frontend consuming the OData v4 service layer",
+      "FastAPI + pandas analytics service computing MTTR, availability, and downtime KPIs",
+      "12/12 ABAP Unit tests passing, ATC-clean static analysis, GitHub Actions CI, published via abapGit for public source visibility",
+    ],
+    stack: ["SAP BTP", "RAP", "CDS Views", "OData V4", "Next.js", "TanStack Query", "FastAPI", "pandas"],
+    stats: [
+      { value: "12/12", label: "unit tests" },
+      { value: "2", label: "linked services" },
+      { value: "3", label: "live KPIs" },
+      { value: "0", label: "ATC findings" },
+    ],
+    href: "https://github.com/rakshithc4/assetpulse",
+    liveDemo: "https://assetpulse-psi.vercel.app/login",
+    image: "/assetpulse-01.jpg" as string | null,
+  },
+  {
+    id: "procureflow",
+    name: "ProcureFlow",
+    tagline: "SAP ABAP Cloud Procurement Workflow",
+    period: "2025 – Present",
+    description:
+      "An end-to-end RAP business object on SAP BTP ABAP Environment implementing a procurement requisition-to-purchase-order approval workflow — data modelling, business logic, service exposure, and unit testing across 17 activated objects.",
+    highlights: [
+      "Full status lifecycle (DRAFT → SUBMITTED → APPROVED/REJECTED) with 4 RAP actions: SubmitForApproval, Approve, Reject, CreatePurchaseOrder",
+      "Field-level validations, duplicate PO prevention, and a 7-message domain-specific message class",
+      "Resolved 15 complex activation bugs via root-cause analysis: schema mismatches, UUID key-type conflicts, strict-mode raw DB write violations, RAP redirection restrictions",
+      "6/6 ABAP Unit tests passing with a clean ATC scan — zero structural or logic errors",
+    ],
+    stack: ["ABAP Cloud", "RAP", "CDS Views", "OData V4", "Eclipse ADT", "SAP BTP", "SQL", "Git"],
+    stats: [
+      { value: "17", label: "objects" },
+      { value: "4", label: "RAP actions" },
+      { value: "6/6", label: "unit tests" },
+      { value: "15", label: "bugs resolved" },
+    ],
+    href: "https://github.com/rakshithc4/procureflow",
+    liveDemo: "https://procureflow-alpha.vercel.app/login",
+    image: "/procureflow-01.jpg" as string | null,
+  },
+  {
+    id: "brain-tumour-cnn",
+    name: "Brain Tumour Classification",
+    tagline: "Deep Learning · CNN Benchmark Study",
+    period: "Jan 2024 – Jun 2025",
+    description:
+      "A deep learning study (co-authored with Sneha Sinha, University of Sydney) benchmarking 4 CNN architectures — ResNet50V2, InceptionV3, VGG16, and a custom Advanced Residual CNN — across 7,023 brain MRI scans spanning 4 tumour classes.",
+    highlights: [
+      "ResNet50V2 achieved 95.5% test accuracy with precision, recall, and F1-score all at 0.95",
+      "Full preprocessing pipeline: multi-source dataset curation (Figshare, SARTAJ, Br35H), RGB standardisation, normalisation, class-imbalance augmentation",
+      "Custom CNN from scratch incorporating CBAM attention, Swish activation, and two-phase focal-loss training",
+      "Grad-CAM visualisations applied for clinical interpretability",
+    ],
+    stack: ["Python", "TensorFlow/Keras", "ResNet50V2", "InceptionV3", "VGG16", "Transfer Learning", "Grad-CAM"],
+    stats: [
+      { value: "7,023", label: "MRI scans" },
+      { value: "4", label: "architectures" },
+      { value: "95.5%", label: "test accuracy" },
+      { value: "0.95", label: "F1-score" },
+    ],
+    href: "https://github.com/rakshithc4/brain-tumour-cnn-classification",
+    liveDemo: null as string | null,
+    image: "/brain-tumor-01.png" as string | null,
+  },
+]
+
+export const experience = [
+  {
+    role: "Guest Relations Representative",
+    org: "BridgeClimb",
+    location: "Sydney, NSW",
+    period: "Jul 2026 – Present",
+    points: [
+      "Deliver safety-critical customer service to international visitors in a high-pressure, time-constrained environment.",
+      "Manage group logistics and give clear instructions to large groups.",
+    ],
+  },
+  {
+    role: "Peer Mentor",
+    org: "University of Sydney",
+    location: "Sydney, NSW",
+    period: "2025 – Present",
+    points: [
+      "Support new Computer Science students with academic guidance and transition advice.",
+      "Translate technical concepts into clear, accessible explanations for students new to the degree.",
+    ],
+  },
+  {
+    role: "President, Student Council",
+    org: "Manipal Academy of Higher Education",
+    location: "India",
+    period: "2022 – 2024",
+    points: [
+      "Led a 22-person student committee to plan and run 17 campus events for a student body of 800+.",
+      "Coordinated budgets, vendors, and cross-team logistics across the full event calendar.",
+    ],
+  },
+]
+
+export const skillGroups = [
+  { label: "Languages", items: ["Python", "Java", "C / C++", "SQL", "R"] },
+  { label: "AI / ML", items: ["CNNs", "Transfer Learning", "ResNet / VGG / InceptionV3", "TensorFlow / Keras", "Grad-CAM"] },
+  { label: "SAP & ERP", items: ["ABAP Cloud", "RAP Model", "CDS Views", "SAP BTP", "SAP Fiori", "OData V4"] },
+  { label: "Cloud & Tools", items: ["Git / GitHub", "Next.js", "Vercel", "FastAPI", "TanStack Query", "GitHub Actions", "abapGit"] },
+  { label: "SDLC & Quality", items: ["Agile / Scrum", "Version Control", "Unit Testing", "Debugging & Troubleshooting", "ATC Static Analysis"] },
+  { label: "Leadership", items: ["Stakeholder Communication", "Team Coordination", "Cross-functional Collaboration"] },
+]
+
+export const education = [
+  {
+    degree: "Bachelor of Advanced Computing (Honours)",
+    org: "University of Sydney",
+    location: "Sydney, NSW",
+    period: "Expected 2027/2028",
+    detail: "Major: Computer Science · Minor: Software Development · WAM: 76 · 2+2 transfer from Manipal Academy of Higher Education, India.",
+  },
+]
+
+export const certifications = [
+  {
+    name: "Positioning SAP Business Data Cloud",
+    org: "SAP",
+    period: "Issued Apr 2026",
+    credentialId: null as string | null,
+    href: "https://badger.learning.sap.com/verify/xefuc-mudaf-gebaf-medug-hisac",
+  },
+  {
+    name: "Object-Oriented C++: Inheritance and Encapsulation",
+    org: "Codio",
+    period: "Issued Jan 2024",
+    credentialId: "FGT2FHQNCNDE",
+    href: "https://www.coursera.org/account/accomplishments/verify/FGT2FHQNCNDE",
+  },
+  {
+    name: "C_ABAPD_2507 — SAP Certified Associate: Back-End Developer ABAP Cloud",
+    org: "In progress",
+    period: "",
+    credentialId: null as string | null,
+    href: null as string | null,
+  },
+]
+
+export const languages = [
+  { name: "English", level: "Fluent" },
+  { name: "Hindi", level: "Fluent" },
+  { name: "Kannada", level: "Native" },
+]
