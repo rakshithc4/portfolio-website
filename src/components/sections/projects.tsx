@@ -12,10 +12,10 @@ export function Projects() {
   return (
     <section id="work" className="mx-auto max-w-6xl px-6 py-24 md:px-8 md:py-32">
       <Reveal>
-        <SectionLabel icon={Briefcase} index="02">Work</SectionLabel>
+        <SectionLabel icon={Briefcase} index="02">Selected Projects</SectionLabel>
         <p className="mt-4 max-w-md text-ink-muted">
-          Real systems shipped end-to-end — SAP RAP business objects, a
-          control-room dashboard, and applied deep learning research.
+          SAP RAP business objects, a control-room dashboard, and applied
+          deep learning research.
         </p>
       </Reveal>
 
@@ -101,7 +101,17 @@ export function Projects() {
                       className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors duration-150 hover:border-primary/40"
                     >
                       <NotebookText size={15} />
-                      Model Output
+                      View model output
+                    </a>
+                  )}
+                  {project.demoLoginNote && (
+                    <a
+                      href={`${project.href}#readme`}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-xs text-ink-faint underline decoration-dotted transition-colors duration-150 hover:text-ink-muted"
+                    >
+                      {project.demoLoginNote}
                     </a>
                   )}
                 </div>

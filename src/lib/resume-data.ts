@@ -3,11 +3,13 @@ export const profile = {
   role: "Software Engineer · SAP ABAP Cloud · Applied AI/ML",
   location: "Chippendale, Sydney NSW",
   email: "rakshithc46@gmail.com",
-  phone: "+61 0478 086 899",
   linkedin: "linkedin.com/in/rakshithc46",
   linkedinUrl: "https://linkedin.com/in/rakshithc46",
-  github: "github.com/rakshithc46",
-  githubUrl: "https://github.com/rakshithc46",
+  // Was rakshithc46 — all three project repos (assetpulse, procureflow,
+  // brain-tumour-cnn-classification) live under rakshithc4, so that's the
+  // profile that actually has the work on it.
+  github: "github.com/rakshithc4",
+  githubUrl: "https://github.com/rakshithc4",
   // Full paragraph, kept for reference / meta text. The About section renders
   // aboutLead + aboutBody instead of this in one block — see below.
   summary:
@@ -17,21 +19,21 @@ export const profile = {
 // Split out for the About section: one strong lead sentence at display size,
 // a shorter supporting paragraph below it — instead of one long wall of text.
 export const aboutLead =
-  "Penultimate-year Computer Science student at the University of Sydney, with hands-on experience building and deploying real enterprise systems."
+  "Computer Science student at the University of Sydney (graduating Dec 2027), with hands-on experience building and deploying real enterprise systems."
 
 export const aboutBody =
-  "Two production-style SAP ABAP Cloud applications shipped end-to-end on SAP BTP, plus co-authored applied machine learning research. Comfortable across the full engineering lifecycle — design, build, test, deployment — backed by proven leadership managing 22-person teams and cross-functional stakeholders."
+  "Two SAP ABAP Cloud applications built and deployed on SAP BTP, plus co-authored applied machine learning research. Comfortable across the full engineering lifecycle — design, build, test, deployment — backed by proven leadership managing 22-person teams and cross-functional stakeholders."
 
 export const aboutHighlights = [
-  { value: "2", label: "Production SAP systems shipped end-to-end" },
-  { value: "22", label: "Person committee led as President" },
-  { value: "4", label: "CNN architectures benchmarked in research" },
+  { value: "2", label: "SAP systems built and deployed" }, // TODO(Rakshith): verify count
+  { value: "22", label: "22-person committee led as President" },
+  { value: "4", label: "CNN architectures benchmarked in research" }, // TODO(Rakshith): verify count
 ]
 
 export const heroStats = [
-  { value: "2", label: "SAP RAP systems shipped" },
-  { value: "95.5%", label: "CNN test accuracy" },
-  { value: "12/12", label: "AssetPulse unit tests" },
+  { value: "2", label: "SAP RAP systems built" }, // TODO(Rakshith): verify count
+  { value: "95.5%", label: "CNN test accuracy" }, // TODO(Rakshith): verify against research notebook
+  { value: "12/12", label: "AssetPulse unit tests" }, // TODO(Rakshith): verify against repo CI
 ]
 
 export const skillMarquee = [
@@ -65,13 +67,20 @@ export const projects = [
     ],
     stack: ["SAP BTP", "RAP", "CDS Views", "OData V4", "Next.js", "TanStack Query", "FastAPI", "pandas"],
     stats: [
-      { value: "12/12", label: "unit tests" },
-      { value: "2", label: "linked services" },
-      { value: "3", label: "live KPIs" },
-      { value: "0", label: "ATC findings" },
+      { value: "12/12", label: "unit tests" }, // TODO(Rakshith): verify against repo CI
+      { value: "2", label: "linked services" }, // TODO(Rakshith): verify
+      { value: "3", label: "live KPIs" }, // TODO(Rakshith): verify
+      { value: "0", label: "ATC findings" }, // TODO(Rakshith): verify against latest ATC run
     ],
     href: "https://github.com/rakshithc4/assetpulse",
     liveDemo: "https://assetpulse-psi.vercel.app/login",
+    // TODO(Rakshith): AssetPulse's README says the hosted demo runs in mock
+    // mode and you "pick any persona card" — there's no username/password
+    // login documented, so no "Demo login: see README" note was added here
+    // (per instructions, only add it where the README actually has one).
+    // Confirm: should this say something like "No login — pick a persona"
+    // instead?
+    demoLoginNote: null as string | null,
     colabUrl: null as string | null,
     image: "/assetpulse-01.jpg" as string | null,
   },
@@ -90,13 +99,16 @@ export const projects = [
     ],
     stack: ["ABAP Cloud", "RAP", "CDS Views", "OData V4", "Eclipse ADT", "SAP BTP", "SQL", "Git"],
     stats: [
-      { value: "17", label: "objects" },
-      { value: "4", label: "RAP actions" },
-      { value: "6/6", label: "unit tests" },
-      { value: "15", label: "bugs resolved" },
+      { value: "17", label: "objects" }, // TODO(Rakshith): verify against repo
+      { value: "4", label: "RAP actions" }, // TODO(Rakshith): verify
+      { value: "6/6", label: "unit tests" }, // TODO(Rakshith): verify against repo CI
+      { value: "15", label: "bugs resolved" }, // TODO(Rakshith): verify
     ],
     href: "https://github.com/rakshithc4/procureflow",
     liveDemo: "https://procureflow-alpha.vercel.app/login",
+    // Confirmed in the repo README: requestor@demo / approver@demo, both
+    // password demo1234.
+    demoLoginNote: "Demo login: see README" as string | null,
     colabUrl: null as string | null,
     image: "/procureflow-01.jpg" as string | null,
   },
@@ -115,13 +127,14 @@ export const projects = [
     ],
     stack: ["Python", "TensorFlow/Keras", "ResNet50V2", "InceptionV3", "VGG16", "Transfer Learning", "Grad-CAM"],
     stats: [
-      { value: "7,023", label: "MRI scans" },
-      { value: "4", label: "architectures" },
-      { value: "95.5%", label: "test accuracy" },
-      { value: "0.95", label: "F1-score" },
+      { value: "7,023", label: "MRI scans" }, // TODO(Rakshith): verify against dataset
+      { value: "4", label: "architectures" }, // TODO(Rakshith): verify
+      { value: "95.5%", label: "test accuracy" }, // TODO(Rakshith): verify against notebook
+      { value: "0.95", label: "F1-score" }, // TODO(Rakshith): verify against notebook
     ],
     href: "https://github.com/rakshithc4/brain-tumour-cnn-classification",
     liveDemo: null as string | null,
+    demoLoginNote: null as string | null,
     colabUrl: "https://colab.research.google.com/drive/1vvph17UAAuNw68lGIp_GgqsNjHtncsZt?usp=sharing",
     image: "/brain-tumor-01.png" as string | null,
   },
@@ -171,10 +184,10 @@ export const skillGroups = [
 
 export const education = [
   {
-    degree: "Bachelor of Advanced Computing (Honours)",
+    degree: "Bachelor of Advanced Computing",
     org: "University of Sydney",
     location: "Sydney, NSW",
-    period: "Expected 2027/2028",
+    period: "Graduating Dec 2027",
     detail: "Major: Computer Science · Minor: Software Development · WAM: 76 · 2+2 transfer from Manipal Academy of Higher Education, India.",
   },
 ]
@@ -188,18 +201,22 @@ export const certifications = [
     href: "https://badger.learning.sap.com/verify/xefuc-mudaf-gebaf-medug-hisac",
   },
   {
-    name: "Object-Oriented C++: Inheritance and Encapsulation",
-    org: "Codio",
-    period: "Issued Jan 2024",
-    credentialId: "FGT2FHQNCNDE",
-    href: "https://www.coursera.org/account/accomplishments/verify/FGT2FHQNCNDE",
-  },
-  {
     name: "C_ABAPD_2507 — SAP Certified Associate: Back-End Developer ABAP Cloud",
     org: "In progress",
     period: "",
     credentialId: null as string | null,
     href: null as string | null,
+  },
+  // Not SAP-related — kept last, after both SAP entries.
+  {
+    name: "Object-Oriented C++: Inheritance and Encapsulation",
+    // Issuing org is Codio (an authoring partner); Coursera is just the
+    // hosting/verification platform — the verify URL does belong to this
+    // course, confirmed against the cert page content. No mismatch here.
+    org: "Codio",
+    period: "Issued Jan 2024",
+    credentialId: "FGT2FHQNCNDE",
+    href: "https://www.coursera.org/account/accomplishments/verify/FGT2FHQNCNDE",
   },
 ]
 

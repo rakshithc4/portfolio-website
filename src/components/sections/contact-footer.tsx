@@ -66,13 +66,10 @@ export function ContactFooter() {
             >
               GitHub
             </a>
-            <a
-              href={`tel:${profile.phone.replace(/\s+/g, "")}`}
-              className="text-ink-muted transition-colors duration-150 hover:text-foreground"
-            >
-              {profile.phone}
-            </a>
           </div>
+          {/* Keep in sync with the hero's "Portfolio · {year}" label (hero.tsx)
+              — both derive from the same current-year call, not a hardcoded
+              value, so they can't drift apart. */}
           <p className="text-[13px] text-ink-faint">
             © {new Date().getFullYear()} {profile.name}
           </p>

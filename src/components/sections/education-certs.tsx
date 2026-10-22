@@ -77,8 +77,10 @@ export function EducationCerts() {
           </div>
 
           <Reveal delay={0.1}>
+            {/* "Spoken" distinguishes this from the Skills section's
+                "Languages" group (programming languages). */}
             <span className="mt-12 block font-mono text-xs uppercase tracking-[0.2em] text-ink-faint">
-              Languages
+              Spoken languages
             </span>
             <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2">
               {languages.map((lang) => (

@@ -21,13 +21,15 @@ const geistMono = Geist_Mono({
 
 const title = "Rakshith Chandra Shekar";
 const description =
-  "Computer Science graduate (USyd) and aspiring SAP BTP platform engineer — SAP RAP systems built end-to-end and applied deep learning research.";
+  "Computer Science student at the University of Sydney (graduating Dec 2027) and aspiring SAP BTP platform engineer — SAP RAP systems built and deployed, plus applied deep learning research.";
 
 export const metadata: Metadata = {
-  // ponytail: update this to the real Vercel/custom domain once deployed —
-  // without it, link-preview images resolve against whatever host serves
-  // the page, which works but isn't guaranteed across every platform.
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"),
+  // Production URL — needed so Open Graph/Twitter image URLs resolve
+  // correctly when the link is shared, instead of pointing at localhost.
+  // Override with NEXT_PUBLIC_SITE_URL if the domain ever changes.
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://rakshith-portfolio-04.vercel.app"
+  ),
   title,
   description,
   openGraph: {

@@ -17,7 +17,7 @@ export function Hero() {
         className="relative z-10 text-center"
       >
         <span className="text-[13px] font-medium uppercase tracking-[0.2em] text-ink-faint">
-          SAP ABAP Cloud · SAP BTP Developer
+          SAP ABAP Cloud · RAP · SAP BTP | CS Student, University of Sydney
         </span>
 
         <h1 className="mt-4 font-heading text-5xl font-bold uppercase tracking-tight text-foreground sm:text-7xl md:text-8xl">
@@ -25,13 +25,14 @@ export function Hero() {
         </h1>
 
         <span className="mt-4 block text-[13px] font-medium uppercase tracking-[0.2em] text-ink-faint">
-          Portfolio · 2027
+          Portfolio · {new Date().getFullYear()}
         </span>
 
         <p className="mx-auto mt-8 max-w-lg text-ink-muted">
-          Computer Science graduate (USyd) building real SAP RAP systems on
-          SAP BTP and applying deep learning research — open to graduate
-          technology roles anywhere in Australia from Dec 2027.
+          Computer Science student at the University of Sydney (graduating
+          Dec 2027), building real SAP RAP systems on SAP BTP and applying
+          deep learning research — open to graduate technology roles
+          anywhere in Australia from Dec 2027.
         </p>
 
         <div className="mt-8 flex justify-center gap-3">
