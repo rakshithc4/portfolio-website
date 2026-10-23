@@ -21,7 +21,7 @@ const geistMono = Geist_Mono({
 
 const title = "Rakshith Chandra Shekar";
 const description =
-  "Computer Science student at the University of Sydney (graduating Dec 2027) and aspiring SAP BTP platform engineer — SAP RAP systems built and deployed, plus applied deep learning research.";
+  "Final-year Computer Science student (USyd), graduating Dec 2027 — SAP ABAP Cloud / BTP Developer with SAP RAP apps built and deployed, plus applied deep learning research.";
 
 export const metadata: Metadata = {
   // Production URL — needed so Open Graph/Twitter image URLs resolve

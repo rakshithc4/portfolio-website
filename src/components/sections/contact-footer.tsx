@@ -26,8 +26,14 @@ export function ContactFooter() {
             >
               {profile.email}
             </a>
+            <a
+              href={profile.phoneHref}
+              className="mt-2 block text-sm text-ink-muted transition-colors duration-150 hover:text-foreground"
+            >
+              {profile.phone}
+            </a>
             <p className="mt-6 max-w-sm text-ink-muted">
-              Open to SAP BTP platform engineering and graduate technology
+              Open to SAP ABAP Cloud / BTP Developer and graduate technology
               roles across Australia from Dec 2027 — reach out anytime.
             </p>
           </div>
@@ -67,9 +73,6 @@ export function ContactFooter() {
               GitHub
             </a>
           </div>
-          {/* Keep in sync with the hero's "Portfolio · {year}" label (hero.tsx)
-              — both derive from the same current-year call, not a hardcoded
-              value, so they can't drift apart. */}
           <p className="text-[13px] text-ink-faint">
             © {new Date().getFullYear()} {profile.name}
           </p>

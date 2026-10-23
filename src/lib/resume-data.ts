@@ -3,6 +3,9 @@ export const profile = {
   role: "Software Engineer · SAP ABAP Cloud · Applied AI/ML",
   location: "Chippendale, Sydney NSW",
   email: "rakshithc46@gmail.com",
+  // Corrected format: no leading 0 after the "+61" country code.
+  phone: "+61 478 086 899",
+  phoneHref: "tel:+61478086899",
   linkedin: "linkedin.com/in/rakshithc46",
   linkedinUrl: "https://linkedin.com/in/rakshithc46",
   // Was rakshithc46 — all three project repos (assetpulse, procureflow,
@@ -13,8 +16,13 @@ export const profile = {
   // Full paragraph, kept for reference / meta text. The About section renders
   // aboutLead + aboutBody instead of this in one block — see below.
   summary:
-    "Penultimate-year Computer Science student at the University of Sydney with hands-on experience building and deploying real enterprise systems, including two production-style SAP ABAP Cloud applications built end-to-end on SAP BTP. Co-authored applied machine learning research benchmarking multiple model architectures. Comfortable across the full engineering lifecycle — design, build, test, and deployment — combined with proven leadership managing 22-person teams, cross-functional coordination, and stakeholder communication. Seeking internship opportunities in technology, enterprise systems, or consulting.",
+    "Final-year Computer Science student at the University of Sydney (graduating Dec 2027) with hands-on experience building and deploying SAP RAP applications end-to-end on SAP BTP. Co-authored applied machine learning research benchmarking multiple model architectures. Comfortable across the full engineering lifecycle — design, build, test, and deployment — combined with proven leadership managing 22-person teams, cross-functional coordination, and stakeholder communication. Seeking graduate opportunities in technology, enterprise systems, or consulting.",
 }
+
+// Toggle to true (and add " (Honours)" where `education` is rendered — just
+// append `honoursSuffix` to `degree`) if Honours is confirmed later.
+export const honoursConfirmed = false
+export const honoursSuffix = honoursConfirmed ? " (Honours)" : ""
 
 // Split out for the About section: one strong lead sentence at display size,
 // a shorter supporting paragraph below it — instead of one long wall of text.
@@ -31,9 +39,9 @@ export const aboutHighlights = [
 ]
 
 export const heroStats = [
-  { value: "2", label: "SAP RAP systems built" }, // TODO(Rakshith): verify count
-  { value: "95.5%", label: "CNN test accuracy" }, // TODO(Rakshith): verify against research notebook
-  { value: "12/12", label: "AssetPulse unit tests" }, // TODO(Rakshith): verify against repo CI
+  { value: "2", label: "SAP RAP apps built" },
+  { value: "18/18", label: "ABAP Unit tests passing" },
+  { value: "0", label: "ATC findings" },
 ]
 
 export const skillMarquee = [
@@ -67,20 +75,20 @@ export const projects = [
     ],
     stack: ["SAP BTP", "RAP", "CDS Views", "OData V4", "Next.js", "TanStack Query", "FastAPI", "pandas"],
     stats: [
-      { value: "12/12", label: "unit tests" }, // TODO(Rakshith): verify against repo CI
-      { value: "2", label: "linked services" }, // TODO(Rakshith): verify
-      { value: "3", label: "live KPIs" }, // TODO(Rakshith): verify
-      { value: "0", label: "ATC findings" }, // TODO(Rakshith): verify against latest ATC run
+      { value: "12/12", label: "ABAP Unit tests" }, // confirmed against repo CI
+      { value: "2", label: "linked services" },
+      { value: "3", label: "live KPIs" }, // MTTR, availability %, downtime — confirmed against README dashboard
+      { value: "0", label: "ATC findings" }, // confirmed: README reports 0 errors
     ],
     href: "https://github.com/rakshithc4/assetpulse",
     liveDemo: "https://assetpulse-psi.vercel.app/login",
-    // TODO(Rakshith): AssetPulse's README says the hosted demo runs in mock
-    // mode and you "pick any persona card" — there's no username/password
-    // login documented, so no "Demo login: see README" note was added here
-    // (per instructions, only add it where the README actually has one).
-    // Confirm: should this say something like "No login — pick a persona"
-    // instead?
-    demoLoginNote: null as string | null,
+    // AssetPulse's README says the hosted demo runs on sample data — you
+    // pick a persona card, there's no username/password login.
+    demoLoginNote: "No login — pick a persona card" as string | null,
+    // Placeholder until a real walkthrough video exists.
+    watchDemoUrl: "#" as string | null,
+    sampleDataNote:
+      "Hosted demo uses sample data; backend built and tested on SAP BTP ABAP Environment." as string | null,
     colabUrl: null as string | null,
     image: "/assetpulse-01.jpg" as string | null,
   },
@@ -99,16 +107,20 @@ export const projects = [
     ],
     stack: ["ABAP Cloud", "RAP", "CDS Views", "OData V4", "Eclipse ADT", "SAP BTP", "SQL", "Git"],
     stats: [
-      { value: "17", label: "objects" }, // TODO(Rakshith): verify against repo
-      { value: "4", label: "RAP actions" }, // TODO(Rakshith): verify
-      { value: "6/6", label: "unit tests" }, // TODO(Rakshith): verify against repo CI
-      { value: "15", label: "bugs resolved" }, // TODO(Rakshith): verify
+      { value: "17", label: "objects" },
+      { value: "4", label: "RAP actions" },
+      { value: "6/6", label: "ABAP Unit tests" }, // confirmed against repo CI
+      { value: "0", label: "ATC findings" }, // confirmed: README reports a clean ATC scan
     ],
     href: "https://github.com/rakshithc4/procureflow",
     liveDemo: "https://procureflow-alpha.vercel.app/login",
     // Confirmed in the repo README: requestor@demo / approver@demo, both
     // password demo1234.
-    demoLoginNote: "Demo login: see README" as string | null,
+    demoLoginNote: "Demo credentials on login page" as string | null,
+    // Placeholder until a real walkthrough video exists.
+    watchDemoUrl: "#" as string | null,
+    sampleDataNote:
+      "Hosted demo uses sample data; backend built and tested on SAP BTP ABAP Environment." as string | null,
     colabUrl: null as string | null,
     image: "/procureflow-01.jpg" as string | null,
   },
@@ -135,6 +147,8 @@ export const projects = [
     href: "https://github.com/rakshithc4/brain-tumour-cnn-classification",
     liveDemo: null as string | null,
     demoLoginNote: null as string | null,
+    watchDemoUrl: null as string | null,
+    sampleDataNote: null as string | null,
     colabUrl: "https://colab.research.google.com/drive/1vvph17UAAuNw68lGIp_GgqsNjHtncsZt?usp=sharing",
     image: "/brain-tumor-01.png" as string | null,
   },
@@ -184,10 +198,10 @@ export const skillGroups = [
 
 export const education = [
   {
-    degree: "Bachelor of Advanced Computing",
+    degree: `Bachelor of Advanced Computing${honoursSuffix}`,
     org: "University of Sydney",
     location: "Sydney, NSW",
-    period: "Graduating Dec 2027",
+    period: "Expected Dec 2027",
     detail: "Major: Computer Science · Minor: Software Development · WAM: 76 · 2+2 transfer from Manipal Academy of Higher Education, India.",
   },
 ]

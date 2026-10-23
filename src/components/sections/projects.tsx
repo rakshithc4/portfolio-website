@@ -84,6 +84,16 @@ export function Projects() {
                       <ArrowUpRight size={15} />
                     </motion.a>
                   )}
+                  {project.watchDemoUrl && (
+                    <a
+                      href={project.watchDemoUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full border border-border px-4 py-2 text-sm font-medium text-foreground transition-colors duration-150 hover:border-primary/40"
+                    >
+                      Watch demo
+                    </a>
+                  )}
                   <a
                     href={project.href}
                     target="_blank"
@@ -115,6 +125,12 @@ export function Projects() {
                     </a>
                   )}
                 </div>
+
+                {project.liveDemo && project.sampleDataNote && (
+                  <p className="mt-2 text-xs text-ink-faint">
+                    {project.sampleDataNote}
+                  </p>
+                )}
               </div>
 
               {/* Screenshot — right on desktop, contained (not full-bleed) */}

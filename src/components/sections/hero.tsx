@@ -25,14 +25,14 @@ export function Hero() {
         </h1>
 
         <span className="mt-4 block text-[13px] font-medium uppercase tracking-[0.2em] text-ink-faint">
-          Portfolio · {new Date().getFullYear()}
+          Open to graduate roles · Dec 2027
         </span>
 
         <p className="mx-auto mt-8 max-w-lg text-ink-muted">
-          Computer Science student at the University of Sydney (graduating
-          Dec 2027), building real SAP RAP systems on SAP BTP and applying
-          deep learning research — open to graduate technology roles
-          anywhere in Australia from Dec 2027.
+          Final-year Computer Science student at the University of Sydney
+          (graduating Dec 2027), building SAP RAP apps on SAP BTP and
+          applying deep learning research — open to graduate technology
+          roles anywhere in Australia from Dec 2027.
         </p>
 
         <div className="mt-8 flex justify-center gap-3">
