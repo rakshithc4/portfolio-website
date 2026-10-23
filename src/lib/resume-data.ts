@@ -117,8 +117,7 @@ export const projects = [
     // Confirmed in the repo README: requestor@demo / approver@demo, both
     // password demo1234.
     demoLoginNote: "Demo credentials on login page" as string | null,
-    // Placeholder until a real walkthrough video exists.
-    watchDemoUrl: "#" as string | null,
+    watchDemoUrl: null as string | null,
     sampleDataNote:
       "Hosted demo uses sample data; backend built and tested on SAP BTP ABAP Environment." as string | null,
     colabUrl: null as string | null,
