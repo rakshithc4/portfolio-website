@@ -2,6 +2,7 @@ import { site } from "@/content/site";
 import { BridgeHero } from "@/components/blueprint/bridge-hero";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
 import { textStep } from "@/lib/motion-config";
+import { Arrow } from "@/components/arrow";
 import { CountUp } from "@/components/count-up";
 
 export function Hero() {
@@ -35,22 +36,22 @@ export function Hero() {
             <div className="flex gap-3">
             <a
               href="#work"
-              className="bg-ink px-4 py-3 text-[15px] sm:px-5 font-medium text-bg transition-colors duration-150 hover:bg-accent-text"
+              className="btn bg-ink px-4 py-3 text-[15px] sm:px-5 font-medium text-bg transition-colors duration-150 hover:bg-accent-text"
             >
-              View work →
+              View work <Arrow dir="e" />
             </a>
             <a
               href={`mailto:${site.contact.email}`}
-              className="border border-ink px-4 py-3 text-[15px] sm:px-5 font-medium transition-colors duration-150 hover:bg-ink hover:text-bg"
+              className="btn border border-ink px-4 py-3 text-[15px] sm:px-5 font-medium transition-colors duration-150 hover:bg-ink hover:text-bg"
             >
               Email me
             </a>
             </div>
             <div className="flex gap-6">
-            <a href={site.contact.github} className="text-[15px] text-muted underline underline-offset-4 hover:text-ink">
+            <a href={site.contact.github} className="text-[15px] text-muted link-u hover:text-ink">
               GitHub
             </a>
-            <a href={site.contact.linkedin} className="text-[15px] text-muted underline underline-offset-4 hover:text-ink">
+            <a href={site.contact.linkedin} className="text-[15px] text-muted link-u hover:text-ink">
               LinkedIn
             </a>
             </div>

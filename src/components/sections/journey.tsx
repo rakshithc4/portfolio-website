@@ -17,7 +17,7 @@ function Text({ p }: { p: Pier }) {
       {p.text.split(re).map((part, i) => {
         const l = p.links!.find((x) => x.text === part);
         return l ? (
-          <a key={i} href={l.href} className="font-medium underline underline-offset-4 hover:text-accent-text">
+          <a key={i} href={l.href} className="font-medium link-u hover:text-accent-text">
             {part}
           </a>
         ) : (
@@ -43,7 +43,7 @@ function PierCard({ p, i }: { p: Pier; i: number }) {
         <Text p={p} />
       </p>
       {p.cta && (
-        <a href={p.cta.href} className="mt-4 inline-block font-medium underline underline-offset-4 hover:text-accent-text">
+        <a href={p.cta.href} className="mt-4 inline-block font-medium link-u hover:text-accent-text">
           {p.cta.label.replace(/\s*→$/, "")} <Arrow dir="e" />
         </a>
       )}

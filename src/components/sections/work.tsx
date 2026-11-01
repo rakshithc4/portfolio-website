@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Arrow } from "@/components/arrow";
 import { InView } from "@/components/in-view";
 import { CountUp } from "@/components/count-up";
 import { r } from "@/lib/motion-config";
@@ -100,13 +101,13 @@ function ProjectCard({ p }: { p: Project }) {
 
           <div data-r="up" className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[15px]" style={r(0.8)}>
             {p.links.map((l) => (
-              <a key={l.href} href={l.href} className="font-medium underline underline-offset-4 hover:text-accent-text">
-                {l.label} ↗
+              <a key={l.href} href={l.href} className="font-medium link-u hover:text-accent-text">
+                {l.label} <Arrow dir="ne" />
               </a>
             ))}
             {p.videoUrl && (
-              <a href={p.videoUrl} className="font-medium underline underline-offset-4 hover:text-accent-text">
-                Watch demo ↗
+              <a href={p.videoUrl} className="font-medium link-u hover:text-accent-text">
+                Watch demo <Arrow dir="ne" />
               </a>
             )}
           </div>

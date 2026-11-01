@@ -1,13 +1,22 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { site } from "@/content/site";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { ProgressLine } from "@/components/blueprint/span-gauge";
 
+const EASE_ARR = [0.22, 1, 0.36, 1] as const; // same curve as EASE in motion-config
+
 export function SiteHeader() {
+  const reduced = useReducedMotion();
   const [active, setActive] = useState<string>("");
   const [open, setOpen] = useState(false);
+  const [ind, setInd] = useState<{ x: number; w: number } | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const menuBtn = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
 
   // Highlight the nav link for the section nearest the middle of the viewport.
   useEffect(() => {
@@ -24,54 +33,97 @@ export function SiteHeader() {
     return () => io.disconnect();
   }, []);
 
-  // Escape closes the mobile menu.
+  // Desktop nav: one indicator that slides (transform only) to the active link.
+  useEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const place = () => {
+      const a = active ? nav.querySelector<HTMLAnchorElement>(`a[href="#${active}"]`) : null;
+      setInd(a && a.offsetWidth ? { x: a.offsetLeft, w: a.offsetWidth } : null);
+    };
+    const ro = new ResizeObserver(place); // fires once on observe, then on resize
+    ro.observe(nav);
+    place();
+    return () => ro.disconnect();
+  }, [active]);
+
+  // Mobile menu: Escape closes, Tab is trapped inside the header, page behind is inert.
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
+    const behind = ["main", "contact"].map((id) => (id === "main" ? document.getElementById("main") : document.getElementById(id)));
+    behind.forEach((el) => el?.setAttribute("inert", ""));
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpen(false);
+        menuBtn.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab" || !headerRef.current) return;
+      const f = [...headerRef.current.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")].filter(
+        (el) => el.offsetParent !== null,
+      );
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
     addEventListener("keydown", onKey);
-    return () => removeEventListener("keydown", onKey);
+    const raf = requestAnimationFrame(() => menuRef.current?.querySelector("a")?.focus());
+    return () => {
+      removeEventListener("keydown", onKey);
+      cancelAnimationFrame(raf);
+      behind.forEach((el) => el?.removeAttribute("inert"));
+    };
   }, [open]);
 
-  const link = (id: string, label: string, mobile: boolean) => (
-    <a
-      key={id}
-      href={`#${id}`}
-      onClick={() => setOpen(false)}
-      aria-current={active === id ? "true" : undefined}
-      className={
-        mobile
-          ? `border-b border-line py-3 text-base ${active === id ? "text-ink" : "text-muted"}`
-          : `border-b-2 py-1 text-[15px] transition-colors duration-150 ${
-              active === id ? "border-accent text-ink" : "border-transparent text-muted hover:text-ink"
-            }`
-      }
-    >
-      {label}
-    </a>
-  );
-
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-bg">
+    <header ref={headerRef} className="sticky top-0 z-40 border-b border-line bg-bg">
       <div className="mx-auto flex max-w-[1100px] items-center justify-between gap-3 px-5 py-3 md:px-8">
         <a href="#" className="whitespace-nowrap text-[15px] font-semibold tracking-tight md:text-base">
           {site.name}
         </a>
 
-        <nav aria-label="Primary" className="hidden gap-6 md:flex">
-          {site.nav.map((n) => link(n.id, n.label, false))}
+        <nav ref={navRef} aria-label="Primary" className="relative hidden gap-6 md:flex">
+          {site.nav.map((n) => (
+            <a
+              key={n.id}
+              href={`#${n.id}`}
+              aria-current={active === n.id ? "true" : undefined}
+              className={`py-1 text-[15px] transition-colors duration-150 ${
+                active === n.id ? "text-ink" : "text-muted hover:text-ink"
+              }`}
+            >
+              {n.label}
+            </a>
+          ))}
+          <span
+            aria-hidden
+            className="absolute bottom-0 left-0 h-0.5 w-px origin-left bg-accent"
+            style={{
+              transform: `translateX(${ind?.x ?? 0}px) scaleX(${ind?.w ?? 1})`,
+              opacity: ind ? 1 : 0,
+              transition: reduced ? "none" : "transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.2s",
+            }}
+          />
         </nav>
 
         <div className="flex items-center gap-2 md:gap-3">
           <ThemeToggle />
           <a
             href={site.resumeHref}
-            className="hidden border border-ink px-3.5 py-1.5 text-sm font-medium transition-colors duration-150 hover:bg-ink hover:text-bg md:inline-block"
+            className="btn hidden border border-ink px-3.5 py-1.5 text-sm font-medium hover:bg-ink hover:text-bg md:inline-block"
           >
             Resume ↓
           </a>
           <button
+            ref={menuBtn}
             type="button"
-            aria-label="Menu"
+            aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             aria-controls="mobile-menu"
             onClick={() => setOpen((o) => !o)}
@@ -86,18 +138,35 @@ export function SiteHeader() {
 
       <ProgressLine />
 
-      {open && (
-        <nav
-          id="mobile-menu"
-          aria-label="Mobile"
-          className="absolute inset-x-0 top-full flex flex-col border-b border-line bg-bg px-5 pb-4 md:hidden"
-        >
-          {site.nav.map((n) => link(n.id, n.label, true))}
-          <a href={site.resumeHref} className="mt-4 border border-ink px-4 py-3 text-center text-[15px] font-medium">
-            Resume ↓
-          </a>
-        </nav>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.nav
+            ref={menuRef}
+            id="mobile-menu"
+            aria-label="Mobile"
+            initial={{ opacity: 0, y: reduced ? 0 : -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: reduced ? 0 : -8 }}
+            transition={{ duration: reduced ? 0 : 0.2, ease: EASE_ARR }}
+            className="absolute inset-x-0 top-full flex flex-col border-b border-line bg-bg px-5 pb-4 md:hidden"
+          >
+            {site.nav.map((n) => (
+              <a
+                key={n.id}
+                href={`#${n.id}`}
+                onClick={() => setOpen(false)}
+                aria-current={active === n.id ? "true" : undefined}
+                className={`border-b border-line py-3 text-base ${active === n.id ? "text-ink" : "text-muted"}`}
+              >
+                {n.label}
+              </a>
+            ))}
+            <a href={site.resumeHref} className="btn mt-4 border border-ink px-4 py-3 text-center text-[15px] font-medium">
+              Resume ↓
+            </a>
+          </motion.nav>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

@@ -16,7 +16,13 @@ const getTheme = (): Theme =>
   document.documentElement.dataset.theme === "blueprint" ? "blueprint" : "paper";
 
 function setTheme(t: Theme) {
-  document.documentElement.dataset.theme = t;
+  const root = document.documentElement;
+  // Fade colours for ~200ms while switching (skipped for reduced motion).
+  if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    root.classList.add("theme-anim");
+    setTimeout(() => root.classList.remove("theme-anim"), 260);
+  }
+  root.dataset.theme = t;
   try {
     localStorage.setItem("theme", t);
   } catch {

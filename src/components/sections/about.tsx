@@ -3,6 +3,7 @@ import Image from "next/image";
 import { site } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
+import { Arrow } from "@/components/arrow";
 import { InView } from "@/components/in-view";
 import { r, reveal } from "@/lib/motion-config";
 
@@ -84,8 +85,8 @@ export function About() {
                 style={r(0.05 + i * reveal.stagger)}
               >
                 {c.href ? (
-                  <a href={c.href} className="underline underline-offset-4 hover:text-accent-text">
-                    {c.label} ↗
+                  <a href={c.href} className="link-u hover:text-accent-text">
+                    {c.label} <Arrow dir="ne" />
                   </a>
                 ) : (
                   c.label
