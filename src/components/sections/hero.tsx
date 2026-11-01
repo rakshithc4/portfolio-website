@@ -2,6 +2,7 @@ import { site } from "@/content/site";
 import { BridgeHero } from "@/components/blueprint/bridge-hero";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
 import { textStep } from "@/lib/motion-config";
+import { CountUp } from "@/components/count-up";
 
 export function Hero() {
   const h = site.hero;
@@ -75,7 +76,9 @@ export function Hero() {
         {h.proof.map((p, i) => (
           <div key={p.label} className={`flex flex-col-reverse py-6 sm:px-8 ${i > 0 ? "border-t border-line sm:border-l sm:border-t-0" : "sm:pl-0"}`}>
             <dt className="font-mono text-xs uppercase tracking-wide text-muted">{p.label}</dt>
-            <dd className="tnum text-4xl font-semibold tracking-tight">{p.value}</dd>
+            <dd className="text-4xl font-semibold tracking-tight">
+              <CountUp value={p.value} delay={0.5} />
+            </dd>
           </div>
         ))}
       </dl>
