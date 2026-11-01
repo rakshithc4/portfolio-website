@@ -1,4 +1,7 @@
 import Image from "next/image";
+import { InView } from "@/components/in-view";
+import { CountUp } from "@/components/count-up";
+import { r } from "@/lib/motion-config";
 import { site, type Project } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
@@ -15,26 +18,31 @@ function ScanIcon() {
   );
 }
 
+// Text blocks fade up in step with the span diagram nodes lighting (delays match nodeDelay in span-diagram).
 function Rows({ p }: { p: Project }) {
   return (
     <>
-    {p.summary && <p className="mt-5 text-[15px]">{p.summary}</p>}
-    {(p.problem || p.built) && (
-    <dl className="mt-5 grid gap-4 text-[15px]">
-      {p.problem && (
-        <div>
-          <dt className="font-mono text-xs text-accent-text">PROBLEM</dt>
-          <dd className="mt-1">{p.problem}</dd>
-        </div>
+      {p.summary && (
+        <p data-r="up" className="mt-5 text-[15px]" style={r(0.1)}>
+          {p.summary}
+        </p>
       )}
-      {p.built && (
-        <div>
-          <dt className="font-mono text-xs text-accent-text">WHAT I BUILT</dt>
-          <dd className="mt-1">{p.built}</dd>
-        </div>
+      {(p.problem || p.built) && (
+        <dl className="mt-5 grid gap-4 text-[15px]">
+          {p.problem && (
+            <div data-r="up" style={r(0.1)}>
+              <dt className="font-mono text-xs text-accent-text">PROBLEM</dt>
+              <dd className="mt-1">{p.problem}</dd>
+            </div>
+          )}
+          {p.built && (
+            <div data-r="up" style={r(0.3)}>
+              <dt className="font-mono text-xs text-accent-text">WHAT I BUILT</dt>
+              <dd className="mt-1">{p.built}</dd>
+            </div>
+          )}
+        </dl>
       )}
-    </dl>
-    )}
     </>
   );
 }
@@ -42,10 +50,11 @@ function Rows({ p }: { p: Project }) {
 function ProjectCard({ p }: { p: Project }) {
   const sap = p.kind === "sap";
   return (
-    <article
+    <InView
+      as="article"
       id={p.id}
       aria-labelledby={`${p.id}-name`}
-      className="border border-line bg-card p-5 md:p-8"
+      className="card-hover border border-line bg-card p-5 md:p-8"
     >
       <div className={sap ? "grid gap-8 lg:grid-cols-[1.1fr_1fr]" : "grid gap-8 lg:grid-cols-[1.1fr_1fr]"}>
         <div>
@@ -67,7 +76,7 @@ function ProjectCard({ p }: { p: Project }) {
 
           <Rows p={p} />
 
-          <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
+          <ul data-r="up" className="mt-5 flex flex-wrap gap-2" aria-label="Technologies" style={r(0.5)}>
             {p.tags.map((t) => (
               <li key={t} className="whitespace-nowrap border border-line px-2 py-0.5 font-mono text-xs text-muted">
                 {t}
@@ -76,18 +85,20 @@ function ProjectCard({ p }: { p: Project }) {
           </ul>
 
           <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-line pt-5">
-            {p.metrics.map((m) => (
-              <div key={m.label} className="flex flex-col-reverse justify-end">
+            {p.metrics.map((m, i) => (
+              <div key={m.label} data-r="up" className="flex flex-col-reverse justify-end" style={r(0.65 + i * 0.06)}>
                 <dt className="font-mono text-[13px] text-muted">
                   {m.label}
                   {m.sub && <span className="mt-0.5 block text-ink">{m.sub}</span>}
                 </dt>
-                <dd className="tnum text-3xl font-semibold tracking-tight text-ink">{m.value}</dd>
+                <dd className="text-3xl font-semibold tracking-tight text-ink">
+                  <CountUp value={m.value} delay={0.65 + i * 0.06} />
+                </dd>
               </div>
             ))}
           </dl>
 
-          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[15px]">
+          <div data-r="up" className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[15px]" style={r(0.8)}>
             {p.links.map((l) => (
               <a key={l.href} href={l.href} className="font-medium underline underline-offset-4 hover:text-accent-text">
                 {l.label} ↗
@@ -99,11 +110,15 @@ function ProjectCard({ p }: { p: Project }) {
               </a>
             )}
           </div>
-          {p.note && <p className="mt-3 text-sm text-muted">{p.note}</p>}
+          {p.note && (
+            <p data-r="up" className="mt-3 text-sm text-muted" style={r(0.9)}>
+              {p.note}
+            </p>
+          )}
         </div>
 
         <figure className="m-0 self-start">
-          <DrawingFrame>
+          <DrawingFrame animate veil>
             <Image
               src={p.image.src}
               alt={p.image.alt}
@@ -118,7 +133,7 @@ function ProjectCard({ p }: { p: Project }) {
           </figcaption>
         </figure>
       </div>
-    </article>
+    </InView>
   );
 }
 

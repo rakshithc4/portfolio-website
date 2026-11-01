@@ -152,3 +152,29 @@ html[data-js] [data-r="veil"][data-in] { opacity: 0; }
   html[data-js] [data-r] { opacity: 1; transform: none; stroke-dashoffset: 0; transition: none; }
   html[data-js] [data-r="veil"] { opacity: 0; }
 }
+
+/* ---- Work card hover (pointer devices only) ---- */
+.card-hover { transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s; }
+.span-runner::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px -4.5px 0 0;
+  border-radius: 9999px;
+  background: var(--accent);
+  opacity: 0;
+}
+@media (hover: hover) and (pointer: fine) {
+  .card-hover:hover { transform: translateY(-3px); border-color: var(--ink); }
+  .card-hover:hover .span-runner { animation: span-run 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1 both; }
+  .card-hover:hover .span-runner::after { animation: span-run-dot 0.9s linear 1 both; }
+}
+@keyframes span-run { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+@keyframes span-run-dot { 0% { opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .card-hover:hover { transform: none; }
+  .card-hover:hover .span-runner, .card-hover:hover .span-runner::after { animation: none; }
+}
