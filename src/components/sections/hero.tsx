@@ -19,7 +19,12 @@ export function Hero() {
 
           <p className="mt-8 inline-flex items-start gap-2.5 rounded-full border border-line px-4 py-2 text-sm text-balance">
             <span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-ok" />
-            {h.status}
+            <span>
+              {h.status.split(" · ")[0]}
+              <span aria-hidden className="hidden sm:inline"> · </span>
+              <span className="sr-only sm:hidden"> · </span>
+              <span className="block sm:inline">{h.status.split(" · ")[1]}</span>
+            </span>
           </p>
 
           <div className="mt-8 grid gap-4">

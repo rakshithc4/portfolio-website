@@ -83,7 +83,7 @@ const CALLOUTS = [
   { n: 2, x: 148, y: 72, tx: 182, ty: archY(0.2), label: "CDS DATA MODEL", side: "r" },
   { n: 3, x: 290, y: 40, tx: 290, ty: archY(0.435), label: "RAP BUSINESS OBJECT", side: "r" },
   { n: 4, x: 450, y: 72, tx: 450, ty: archY(0.783), label: "ODATA V4 SERVICE", side: "l" },
-  { n: 5, x: 570, y: 40, tx: 570, ty: 130, label: "UI · FIORI", side: "l" },
+  { n: 5, x: 585, y: 40, tx: 585, ty: 130, label: "UI · FIORI", side: "l" },
 ] as const;
 
 function Callouts() {
