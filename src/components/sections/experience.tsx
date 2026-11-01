@@ -6,7 +6,7 @@ import { SheetHeader } from "@/components/blueprint/sheet-header";
 export function Experience() {
   return (
     <section id="experience" aria-label="experience" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
-      <SheetHeader n="03" name="EXPERIENCE" title={site.experience.heading} />
+      <SheetHeader n="04" name="EXPERIENCE" title={site.experience.heading} />
       <ol className="mt-12 grid gap-10 border-l-2 border-ink pl-6 md:grid-cols-3 md:gap-8 md:border-l-0 md:border-t-2 md:pl-0">
         {site.experience.roles.map((r) => (
           <li key={r.title} className="relative md:pt-10">

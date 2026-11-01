@@ -39,6 +39,7 @@ function ProjectCard({ p }: { p: Project }) {
   const sap = p.kind === "sap";
   return (
     <article
+      id={p.id}
       aria-labelledby={`${p.id}-name`}
       className="border border-line bg-card p-5 md:p-8"
     >

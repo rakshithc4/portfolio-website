@@ -3,6 +3,17 @@
 
 export type Link = { label: string; href: string };
 
+export type Pier = {
+  stage: string;
+  title: string;
+  icon: "house" | "books" | "plane" | "speech" | "gear" | "blueprint" | "flag";
+  text: string;
+  links?: { text: string; href: string }[];
+  cta?: Link;
+  /** Drawn as dashed line-work: the span that isn't built yet. */
+  unfinished?: boolean;
+};
+
 export type Project = {
   id: string;
   kind: "sap" | "ml";
@@ -30,6 +41,7 @@ export const site = {
   resumeHref: "/Rakshith-Chandra-Shekar-Resume.pdf",
   nav: [
     { id: "work", label: "Work" },
+    { id: "journey", label: "Journey" },
     { id: "experience", label: "Experience" },
     { id: "about", label: "About" },
     { id: "contact", label: "Contact" },
@@ -177,6 +189,61 @@ export const site = {
     ] satisfies Project[],
   },
 
+  journey: {
+    heading: "How this bridge got built",
+    intro: "Every bridge starts on one bank. Mine started in Bangalore.",
+    piers: [
+      {
+        stage: "FOUNDATIONS",
+        title: "Bangalore",
+        icon: "house",
+        text: "I grew up in a middle-class family in Bangalore and had never left my home state. My parents are my world. They taught me to be organised, to finish every job I'm given, and to listen. I always had one instinct: if everyone went one way, I'd look at the other.",
+      },
+      {
+        stage: "SURVEY",
+        title: "Manipal",
+        icon: "books",
+        text: "I dreamed of seeing the world, but finances meant starting closer to home. I joined Manipal's 2+2 program, worked hard, and earned a place at the University of Sydney — even though it wasn't one of the program's partner universities.",
+      },
+      {
+        stage: "CROSSING",
+        title: "Sydney",
+        icon: "plane",
+        text: "Landing in Sydney was a shock. New culture, new people, and honestly, I didn't know how to talk to anyone yet.",
+      },
+      {
+        stage: "LOAD TEST",
+        title: "BridgeClimb",
+        icon: "speech",
+        text: "My job on the Sydney Harbour Bridge changed that. Guiding climbers from all over the world taught me to communicate clearly under pressure. Today people tell me I'm a confident speaker — I wasn't when I arrived. I learned because I was willing to.",
+      },
+      {
+        stage: "DESIGN",
+        title: "Finding SAP",
+        icon: "gear",
+        text: "My dad is an auditor. He'd always talked about SAP — how it runs businesses, and how he once dreamed of working with it. When I researched it myself, everything clicked: organising complex systems, automation, consulting, and the technology behind it on SAP BTP. It felt like all the things I enjoy in one place.",
+      },
+      {
+        stage: "BUILD",
+        title: "Proof, not promises",
+        icon: "blueprint",
+        text: "I knew nobody would hire me on potential alone, so I set out to be useful first. I studied on SAP Learning Hub and built two production-style SAP applications on BTP — ProcureFlow and AssetPulse — with automated tests and clean code-quality checks. I'm completing the C_ABAPD certification by January 2027.",
+        links: [
+          { text: "ProcureFlow", href: "#procureflow" },
+          { text: "AssetPulse", href: "#assetpulse" },
+        ],
+      },
+      {
+        stage: "NEXT SPAN — UNDER CONSTRUCTION",
+        title: "Under construction",
+        icon: "flag",
+        unfinished: true,
+        text: "Looking for my first summer internship (Dec 2026 – Feb 2027) and SAP ABAP Cloud / BTP graduate roles from Dec 2027. Let's build the next span together.",
+        cta: { label: "Get in touch →", href: "#contact" },
+      },
+    ] as Pier[],
+  },
+
   experience: {
     heading: "Experience",
     roles: [
@@ -211,9 +278,7 @@ export const site = {
       height: 542,
     },
     paragraphs: [
-      "I'm a Bachelor of Advanced Computing student at the University of Sydney (major Computer Science, minor Software Development, WAM 76, 2+2 transfer from Manipal), graduating Dec 2027.",
-      "I'm drawn to SAP because it runs the processes that pay people, buy things and keep equipment running.",
-      "When I'm not coding, I'm on the Sydney Harbour Bridge helping climbers from around the world.",
+      "I'm a Bachelor of Advanced Computing student at the University of Sydney (major Computer Science, minor Software Development, WAM 76), graduating Dec 2027. I like turning messy business processes into clean, reliable systems — and explaining them in plain English.",
     ],
     languages: "English, Hindi, Kannada",
     bom: [

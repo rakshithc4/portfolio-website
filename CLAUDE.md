@@ -25,7 +25,7 @@ Read `AGENTS.md` first — this project pins **Next.js 16**, which has breaking 
 
 ## Architecture
 
-- **`src/app/page.tsx`** — the whole site. Renders `SiteHeader`, then `Hero → Work → Experience → About`, then `Contact` (footer). To reorder/add/remove a section, touch this file.
+- **`src/app/page.tsx`** — the whole site. Renders `SiteHeader`, then `Hero (Sheet 01) → Work (02) → Journey / Construction log (03) → Experience (04) → About (05)`, then `Contact` (06, footer). Nav ids: work, journey, experience, about, contact. To reorder/add/remove a section, touch this file.
 - **`src/content/site.ts`** — single source of truth for all copy: hero, projects, experience, about, credentials, contact. Edit text here, not in components. Projects have an optional `videoUrl`; a "Watch demo" button renders only when it is set. Preserve `TODO(Rakshith)` comments and provenance notes when editing.
 - **`src/app/layout.tsx`** — root layout: Inter Tight + JetBrains Mono via `next/font/google`, metadata (`metadataBase` https://rakshithchandrashekar.com), and an inline script that sets `data-theme` before first paint.
 - **`src/app/globals.css`** — Tailwind v4 `@theme inline` plus the two theme token sets (`paper`, `blueprint`).

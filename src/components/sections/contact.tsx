@@ -5,7 +5,7 @@ export function Contact() {
   const c = site.contact;
   return (
     <footer id="contact" aria-label="contact" className="mx-auto max-w-[1100px] px-5 pb-10 pt-16 md:px-8">
-      <SheetHeader n="05" name="CONTACT" title={c.heading} />
+      <SheetHeader n="06" name="CONTACT" title={c.heading} />
       <a
         href={`mailto:${c.email}`}
         className="mt-8 inline-block break-all text-3xl font-semibold tracking-tight underline decoration-accent decoration-2 underline-offset-8 hover:text-accent-text md:text-5xl"

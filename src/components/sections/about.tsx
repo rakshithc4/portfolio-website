@@ -7,7 +7,7 @@ export function About() {
   const a = site.about;
   return (
     <section id="about" aria-label="about" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
-      <SheetHeader n="04" name="ABOUT" title={a.heading} />
+      <SheetHeader n="05" name="ABOUT" title={a.heading} />
 
       <div className="mt-10 grid gap-12 md:grid-cols-[300px_1fr]">
         <figure className="m-0 max-w-[300px] self-start">
