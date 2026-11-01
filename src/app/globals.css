@@ -178,3 +178,13 @@ html[data-js] [data-r="veil"][data-in] { opacity: 0; }
   .card-hover:hover { transform: none; }
   .card-hover:hover .span-runner, .card-hover:hover .span-runner::after { animation: none; }
 }
+
+/* ---- Link arrows nudge 2px on hover/focus ---- */
+.arrow { display: inline-block; transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1); }
+a:hover > .arrow-ne, a:focus-visible > .arrow-ne { transform: translate(2px, -2px); }
+a:hover > .arrow-e, a:focus-visible > .arrow-e { transform: translateX(2px); }
+a:hover > .arrow-s, a:focus-visible > .arrow-s { transform: translateY(2px); }
+@media (prefers-reduced-motion: reduce) {
+  .arrow { transition: none; }
+  a:hover > .arrow, a:focus-visible > .arrow { transform: none; }
+}

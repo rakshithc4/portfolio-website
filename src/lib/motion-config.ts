@@ -50,3 +50,13 @@ export const r = (delay = 0, dur: number = reveal.dur, y?: number): Vars => ({
   ...t(delay, dur),
   ...(y === undefined ? {} : { "--y": `${y}px` }),
 });
+
+/** Construction log: piers rise in order, then the unfinished span draws last. */
+export const journey = {
+  deckDur: 1.0, // solid deck draws left to right
+  pierStart: 0.2,
+  pierStep: 0.15, // stagger between piers
+  stemLag: 0.12, // node -> stem
+  cardLag: 0.3, // node -> card
+  dashedDeckDelay: 1.3, // last: the dashed span
+} as const;
