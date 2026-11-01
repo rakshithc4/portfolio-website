@@ -17,13 +17,16 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rakshithchandrashekar.com"),
+  // www is the address the site serves from (the bare domain redirects to it).
+  metadataBase: new URL("https://www.rakshithchandrashekar.com"),
+  alternates: { canonical: "/" },
   title: site.meta.title,
   description: site.meta.description,
   openGraph: {
     title: site.meta.title,
     description: site.meta.description,
     type: "website",
+    url: "/",
   },
   twitter: {
     card: "summary_large_image",
