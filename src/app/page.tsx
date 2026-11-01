@@ -1,27 +1,31 @@
-import { SiteHeader } from "@/components/site-header"
-import { Hero } from "@/components/sections/hero"
-import { Marquee } from "@/components/sections/marquee"
-import { About } from "@/components/sections/about"
-import { Projects } from "@/components/sections/projects"
-import { Experience } from "@/components/sections/experience"
-import { Skills } from "@/components/sections/skills"
-import { EducationCerts } from "@/components/sections/education-certs"
-import { ContactFooter } from "@/components/sections/contact-footer"
+import { SpanGauge } from "@/components/blueprint/span-gauge";
+import { SiteHeader } from "@/components/site-header";
+import { Hero } from "@/components/sections/hero";
+import { Work } from "@/components/sections/work";
+import { Journey } from "@/components/sections/journey";
+import { Experience } from "@/components/sections/experience";
+import { About } from "@/components/sections/about";
+import { Contact } from "@/components/sections/contact";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-ink focus:px-3 focus:py-2 focus:text-bg"
+      >
+        Skip to content
+      </a>
       <SiteHeader />
-      <main className="flex-1">
+      <SpanGauge />
+      <main id="main">
         <Hero />
-        <Marquee />
-        <About />
-        <Projects />
+        <Work />
+        <Journey />
         <Experience />
-        <Skills />
-        <EducationCerts />
+        <About />
       </main>
-      <ContactFooter />
-    </div>
-  )
+      <Contact />
+    </>
+  );
 }

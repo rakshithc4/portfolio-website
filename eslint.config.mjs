@@ -12,6 +12,8 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Scraped reference material, not part of the build.
+    "REF/**",
   ]),
 ]);
 

@@ -1,60 +1,59 @@
 import type { Metadata } from "next";
-import { DM_Sans, Space_Grotesk, Geist_Mono } from "next/font/google";
+import { Inter_Tight, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
+import { site } from "@/content/site";
 
-import { LiveBackground } from "@/components/ui/live-background";
-
-const sans = DM_Sans({
-  variable: "--font-sans",
+const sans = Inter_Tight({
+  variable: "--font-inter-tight",
   subsets: ["latin"],
+  display: "swap",
 });
 
-const heading = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const mono = JetBrains_Mono({
+  variable: "--font-jetbrains",
   subsets: ["latin"],
+  display: "swap",
 });
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const title = "Rakshith Chandra Shekar";
-const description =
-  "Final-year Computer Science student (USyd), graduating Dec 2027 — SAP ABAP Cloud / BTP Developer with SAP RAP apps built and deployed, plus applied deep learning research.";
 
 export const metadata: Metadata = {
-  // Production URL — needed so Open Graph/Twitter image URLs resolve
-  // correctly when the link is shared, instead of pointing at localhost.
-  // Override with NEXT_PUBLIC_SITE_URL if the domain ever changes.
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://rakshith-portfolio-04.vercel.app"
-  ),
-  title,
-  description,
+  metadataBase: new URL("https://rakshithchandrashekar.com"),
+  title: site.meta.title,
+  description: site.meta.description,
   openGraph: {
-    title,
-    description,
+    title: site.meta.title,
+    description: site.meta.description,
     type: "website",
-    images: [{ url: "/og-image.jpg", width: 800, height: 420 }],
   },
   twitter: {
     card: "summary_large_image",
-    title,
-    description,
-    images: ["/og-image.jpg"],
+    title: site.meta.title,
+    description: site.meta.description,
   },
 };
+
+// Runs before first paint so there is no theme flash.
+// Saved choice wins; otherwise follow the OS setting.
+const themeScript = `(function(){var t;try{t=localStorage.getItem("theme")}catch(e){}
+if(t!=="paper"&&t!=="blueprint"){t=matchMedia("(prefers-color-scheme: dark)").matches?"blueprint":"paper"}
+document.documentElement.dataset.theme=t;
+// Marks that scripts run: scroll reveals only hide content when this is set, so no-JS visitors see everything.
+document.documentElement.dataset.js=""})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${heading.variable} ${geistMono.variable} h-full antialiased`}
+      data-theme="paper"
+      suppressHydrationWarning
+      className={`${sans.variable} ${mono.variable} antialiased`}
     >
-      <body className="flex min-h-full flex-col bg-background text-foreground">
-        <LiveBackground />
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body>
         {children}
+        <Analytics />
       </body>
     </html>
   );
