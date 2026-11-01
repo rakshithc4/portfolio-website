@@ -188,3 +188,45 @@ a:hover > .arrow-s, a:focus-visible > .arrow-s { transform: translateY(2px); }
   .arrow { transition: none; }
   a:hover > .arrow, a:focus-visible > .arrow { transform: none; }
 }
+
+/* ---- Link underlines grow on hover/focus (transform only) ---- */
+.link-u {
+  position: relative;
+  text-decoration: underline;
+  text-decoration-color: var(--line);
+  text-underline-offset: 4px;
+}
+.link-u::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: var(--accent-text);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.link-u:hover::after, .link-u:focus-visible::after { transform: scaleX(1); }
+/* big email link: constant hairline, accent underline draws left to right on hover/focus */
+.u-draw { position: relative; padding-bottom: 8px; }
+.u-draw::before, .u-draw::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3px;
+}
+.u-draw::before { background: var(--line); }
+.u-draw::after {
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.u-draw:hover::after, .u-draw:focus-visible::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .link-u::after, .u-draw::after { transition: none; }
+}
