@@ -34,3 +34,19 @@ export const t = (delay: number, dur: number): Vars => ({
 
 /** Nth hero text block (0-based). */
 export const textStep = (n: number) => t(n * intro.text.stagger, intro.text.dur);
+
+/** Scroll-triggered entries (play once). Used through the `r()` helper -> CSS in globals.css. */
+export const reveal = {
+  dur: 0.5,
+  y: 12, // fade-up distance for content
+  headerY: 8, // fade-up distance for sheet labels/headings
+  ruleDur: 0.7, // hairline rule draws across
+  stagger: 0.06, // list rows
+  count: 0.8, // count-ups
+} as const;
+
+/** Timing (and optional rise distance in px) for one scroll-revealed element. */
+export const r = (delay = 0, dur: number = reveal.dur, y?: number): Vars => ({
+  ...t(delay, dur),
+  ...(y === undefined ? {} : { "--y": `${y}px` }),
+});

@@ -116,3 +116,39 @@
   .fade, .rise { opacity: 1; transform: none; animation: none; }
   .pulse { display: none; }
 }
+
+/* ---- Scroll reveals (play once) ----
+   Hidden states apply only when html[data-js] is set (see layout.tsx), so with JS off
+   everything is simply visible. <InView> adds [data-in] to a group when it scrolls into view;
+   any [data-r] item inside (or the group itself) then transitions to its shown state.
+   Timing comes from inline --delay/--dur/--y (see r() in motion-config.ts).
+   Only opacity, transform and stroke-dashoffset are animated. */
+html[data-js] [data-r] {
+  transition-property: opacity, transform, stroke-dashoffset;
+  transition-duration: var(--dur, 0.5s);
+  transition-timing-function: var(--ease, cubic-bezier(0.22, 1, 0.36, 1));
+  transition-delay: var(--delay, 0s);
+}
+html[data-js] [data-r="up"] { opacity: 0; transform: translateY(var(--y, 12px)); }
+html[data-js] [data-r="fade"] { opacity: 0; }
+html[data-js] [data-r="draw"] { stroke-dasharray: 1; stroke-dashoffset: 1; }
+html[data-js] [data-r="line-x"] { transform: scaleX(0); transform-origin: left; }
+html[data-js] [data-r="line-y"] { transform: scaleY(0); transform-origin: top; }
+html[data-js] [data-r="stem-up"] { transform: scaleY(0); transform-origin: bottom; }
+html[data-js] [data-r="stem-down"] { transform: scaleY(0); transform-origin: top; }
+html[data-js] [data-r="pop"] { opacity: 0; transform: scale(0.5); transform-box: fill-box; transform-origin: center; }
+html[data-js] [data-r="bracket"] { opacity: 0; transform: translate(var(--bx, 0), var(--by, 0)); }
+html[data-js] [data-r="veil"] { opacity: 0.7; }
+html[data-js] [data-r="hang"] { transform: scaleX(0); transform-origin: left; }
+@media (min-width: 768px) {
+  html[data-js] [data-r="hang"] { transform: scaleY(0); transform-origin: top; }
+}
+/* shown state: the item is, or sits inside, an element that has scrolled into view */
+html[data-js] [data-in] [data-r],
+html[data-js] [data-r][data-in] { opacity: 1; transform: none; stroke-dashoffset: 0; }
+html[data-js] [data-in] [data-r="veil"],
+html[data-js] [data-r="veil"][data-in] { opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+  html[data-js] [data-r] { opacity: 1; transform: none; stroke-dashoffset: 0; transition: none; }
+  html[data-js] [data-r="veil"] { opacity: 0; }
+}
