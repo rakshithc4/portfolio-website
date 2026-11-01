@@ -65,7 +65,7 @@ function ProjectCard({ p }: { p: Project }) {
 
           <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
             {p.tags.map((t) => (
-              <li key={t} className="border border-line px-2 py-0.5 font-mono text-xs text-muted">
+              <li key={t} className="whitespace-nowrap border border-line px-2 py-0.5 font-mono text-xs text-muted">
                 {t}
               </li>
             ))}

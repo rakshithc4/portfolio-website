@@ -221,7 +221,7 @@ export const site = {
         stage: "DESIGN",
         title: "Finding SAP",
         icon: "gear",
-        text: "My dad is an auditor. He'd always talked about SAP — how it runs businesses, and how he once dreamed of working with it. When I researched it myself, everything clicked: organising complex systems, automation, consulting, and the technology behind it on SAP BTP. It felt like all the things I enjoy in one place.",
+        text: "My dad is an auditor. He'd always talked about SAP — how it runs businesses, and how he once dreamed of working with it. When I researched it myself, everything clicked: organising complex systems, automation, consulting and SAP BTP. It felt like all the things I enjoy in one place.",
       },
       {
         stage: "BUILD",
@@ -234,7 +234,7 @@ export const site = {
         ],
       },
       {
-        stage: "NEXT SPAN — UNDER CONSTRUCTION",
+        stage: "NEXT SPAN",
         title: "Under construction",
         icon: "flag",
         unfinished: true,

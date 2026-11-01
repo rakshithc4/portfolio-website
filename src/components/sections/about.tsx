@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import Image from "next/image";
 import { site } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
@@ -9,8 +10,10 @@ export function About() {
     <section id="about" aria-label="about" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
       <SheetHeader n="05" name="ABOUT" title={a.heading} />
 
-      <div className="mt-10 grid gap-12 md:grid-cols-[300px_1fr]">
-        <figure className="m-0 max-w-[300px] self-start">
+      {/* Mobile order: photo, text, bill of materials, credentials.
+          Desktop: photo | text + credentials, then bill of materials full width. */}
+      <div className="mt-10 grid gap-x-12 gap-y-12 lg:grid-cols-[300px_1fr]">
+        <figure className="m-0 max-w-[300px] self-start lg:row-span-2">
           <DrawingFrame>
             <Image
               src={a.photo.src}
@@ -34,21 +37,28 @@ export function About() {
             <span className="font-mono text-xs text-accent-text">LANGUAGES</span> · {a.languages}
           </p>
         </div>
-      </div>
 
-      <div className="mt-14 grid gap-12 md:grid-cols-2">
-        <div>
+        <div className="lg:col-span-2 lg:row-start-3">
           <h3 className="font-mono text-xs tracking-wide text-accent-text">BILL OF MATERIALS</h3>
           <dl className="mt-3 border-t-2 border-ink">
             {a.bom.map((g) => (
               <div key={g.group} className="grid gap-1 border-b border-line py-3 sm:grid-cols-[96px_1fr]">
                 <dt className="font-mono text-xs text-muted">{g.group}</dt>
-                <dd className="text-[15px]">{g.items.join(" · ")}</dd>
+                <dd className="text-[15px]">
+                  {/* each skill stays on one line; wrapping happens only between skills */}
+                  {g.items.map((it, i) => (
+                    <Fragment key={it}>
+                      {i > 0 && " · "}
+                      <span className="whitespace-nowrap">{it}</span>
+                    </Fragment>
+                  ))}
+                </dd>
               </div>
             ))}
           </dl>
         </div>
-        <div>
+
+        <div className="lg:col-start-2 lg:row-start-2">
           <h3 className="font-mono text-xs tracking-wide text-accent-text">CREDENTIALS</h3>
           <ul className="mt-3 border-t-2 border-ink">
             {a.credentials.map((c) => (
