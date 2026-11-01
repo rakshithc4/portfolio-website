@@ -1,125 +1,82 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* Blueprint design tokens. Two themes: "paper" (light, default) and
+   "blueprint" (dark cyanotype). Every stroke/fill in the SVGs reads these
+   variables, so the drawings work in both. */
+:root,
+[data-theme="paper"] {
+  --bg: #f4f6f8;
+  --ink: #14284b;
+  --muted: #5b6b82;
+  --line: #c9d3df;
+  --panel: #eaeff5;
+  --card: #f9fafb;
+  --accent: #e8590c; /* strokes, dot, large numerals */
+  --accent-text: #b8400a; /* small text: AA on --bg */
+  --ok: #2f8f5b;
+  color-scheme: light;
+}
+
+[data-theme="blueprint"] {
+  --bg: #0f2a4a;
+  --ink: #eaf0f6;
+  --muted: #a9b8cb;
+  --line: #2f4e73;
+  --panel: #0c2340;
+  --card: #123257;
+  --accent: #ff8a4c;
+  --accent-text: #ff9a63;
+  --ok: #5fcf8e;
+  color-scheme: dark;
+}
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-space-grotesk);
-  --color-ink-muted: var(--ink-muted);
-  --color-ink-faint: var(--ink-faint);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
+  --color-bg: var(--bg);
+  --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
+  --color-line: var(--line);
+  --color-panel: var(--panel);
   --color-card: var(--card);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
-}
-
-/* Dark-navy tech palette — matches the blue-violet tint (#5B6EF5) already
-   baked into web-gl-shader.tsx / particle-field.tsx, restored per request
-   in place of the light-editorial palette that had replaced it. */
-:root {
-  --background: #0a0e1a;
-  --foreground: #f1f3fa;
-  --ink-muted: #9aa3c0;
-  --ink-faint: #6b7394;
-  --card: #121829;
-  --card-foreground: #f1f3fa;
-  --popover: #121829;
-  --popover-foreground: #f1f3fa;
-  --primary: #5b6ef5;
-  --primary-foreground: #ffffff;
-  --secondary: #121829;
-  --secondary-foreground: #f1f3fa;
-  --muted: #121829;
-  --muted-foreground: #8089ab;
-  --accent: #5b6ef5;
-  --accent-foreground: #ffffff;
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: rgb(255 255 255 / 10%);
-  --input: rgb(255 255 255 / 12%);
-  --ring: #5b6ef5;
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.5rem;
-  --sidebar: oklch(0.145 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-@keyframes marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-ok: var(--ok);
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 @layer base {
-  * {
-    @apply border-border outline-ring/50;
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 72px; /* sticky nav height */
   }
   body {
-    @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
-    scroll-behavior: smooth;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 17px;
+    line-height: 1.6;
   }
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
     }
   }
-  a:focus-visible,
-  button:focus-visible,
-  [tabindex]:focus-visible {
-    outline: 2px solid var(--primary);
+  :focus-visible {
+    outline: 2px solid var(--accent);
     outline-offset: 3px;
-    border-radius: 2px;
   }
+}
+
+/* Faint drawing grid: only used inside illustration panels. */
+.grid-paper {
+  background-color: var(--panel);
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--line) 50%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--line) 50%, transparent) 1px, transparent 1px);
+  background-size: 16px 16px;
+  background-blend-mode: normal;
+}
+
+.tnum {
+  font-variant-numeric: tabular-nums;
 }

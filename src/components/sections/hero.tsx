@@ -1,74 +1,76 @@
-"use client"
-
-import { motion } from "motion/react"
-
-import { heroStats } from "@/lib/resume-data"
+import { site } from "@/content/site";
+import { BridgeHero } from "@/components/blueprint/bridge-hero";
+import { DrawingFrame } from "@/components/blueprint/drawing-frame";
 
 export function Hero() {
+  const h = site.hero;
   return (
-    <section
-      id="top"
-      className="relative mx-auto flex min-h-dvh w-full max-w-6xl flex-col items-center justify-center overflow-hidden px-6 py-24"
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-        className="relative z-10 text-center"
-      >
-        <span className="text-[13px] font-medium uppercase tracking-[0.2em] text-ink-faint">
-          SAP ABAP Cloud · RAP · SAP BTP | CS Student, University of Sydney
-        </span>
+    <section id="top" aria-labelledby="hero-heading" className="mx-auto max-w-[1100px] px-5 pb-6 pt-12 md:px-8 md:pt-20">
+      <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
+        <div>
+          <p className="font-mono text-xs tracking-wide text-accent-text">SHEET 01 · INTRODUCTION</p>
+          <p className="mt-2 font-mono text-xs leading-relaxed text-muted">{h.eyebrow}</p>
+          <h1 id="hero-heading" className="mt-6 font-semibold tracking-tight">
+            <span className="block text-4xl leading-[1.05] sm:text-5xl md:text-6xl">{h.heading}</span>
+            <span className="mt-3 block text-balance text-2xl leading-tight sm:text-3xl">{h.subheading}</span>
+          </h1>
+          <p className="mt-3 text-base text-muted">{h.fullName}</p>
+          <p className="mt-6 max-w-[34rem] text-lg leading-snug sm:text-xl">{h.oneLiner}</p>
 
-        <h1 className="mt-4 font-heading text-5xl font-bold uppercase tracking-tight text-foreground sm:text-7xl md:text-8xl">
-          Rakshith Chandra Shekar
-        </h1>
+          <p className="mt-8 inline-flex items-start gap-2.5 rounded-full border border-line px-4 py-2 text-sm text-balance">
+            <span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-ok" />
+            {h.status}
+          </p>
 
-        <span className="mt-4 block text-[13px] font-medium uppercase tracking-[0.2em] text-ink-faint">
-          Open to graduate roles · Dec 2027
-        </span>
-
-        <p className="mx-auto mt-8 max-w-lg text-ink-muted">
-          Final-year Computer Science student at the University of Sydney
-          (graduating Dec 2027), building SAP RAP apps on SAP BTP and
-          applying deep learning research — open to graduate technology
-          roles anywhere in Australia from Dec 2027.
-        </p>
-
-        <div className="mt-8 flex justify-center gap-3">
-          <a
-            href="#work"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-opacity duration-150 hover:opacity-90"
-          >
-            View Work
-          </a>
-          <a
-            href="#contact"
-            className="rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors duration-150 hover:border-primary/40"
-          >
-            Get in Touch
-          </a>
+          <div className="mt-8 grid gap-4">
+            <div className="flex gap-3">
+            <a
+              href="#work"
+              className="bg-ink px-4 py-3 text-[15px] sm:px-5 font-medium text-bg transition-colors duration-150 hover:bg-accent-text"
+            >
+              View work →
+            </a>
+            <a
+              href={`mailto:${site.contact.email}`}
+              className="border border-ink px-4 py-3 text-[15px] sm:px-5 font-medium transition-colors duration-150 hover:bg-ink hover:text-bg"
+            >
+              Email me
+            </a>
+            </div>
+            <div className="flex gap-6">
+            <a href={site.contact.github} className="text-[15px] text-muted underline underline-offset-4 hover:text-ink">
+              GitHub
+            </a>
+            <a href={site.contact.linkedin} className="text-[15px] text-muted underline underline-offset-4 hover:text-ink">
+              LinkedIn
+            </a>
+            </div>
+          </div>
         </div>
 
-        <motion.dl
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3, ease: "easeOut" }}
-          className="mx-auto mt-14 flex max-w-md flex-wrap items-center justify-center gap-x-10 gap-y-6 border-t border-border/70 pt-8"
-        >
-          {heroStats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <dt className="sr-only">{stat.label}</dt>
-              <dd className="font-mono text-2xl font-semibold text-foreground sm:text-3xl">
-                {stat.value}
-              </dd>
-              <div className="mt-1 max-w-[9rem] text-[11px] uppercase tracking-[0.06em] text-ink-faint">
-                {stat.label}
-              </div>
-            </div>
-          ))}
-        </motion.dl>
-      </motion.div>
+        <div>
+          <DrawingFrame grid>
+            <BridgeHero />
+          </DrawingFrame>
+          {/* Legend for small screens, where in-drawing labels are hidden. */}
+          <ol className="mt-4 grid gap-1 font-mono text-xs text-muted md:hidden">
+            {site.stages.map((s, i) => (
+              <li key={s}>
+                <span className="text-accent-text">{i + 1}</span> {s}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+
+      <dl className="mt-16 grid border-y border-line sm:grid-cols-3">
+        {h.proof.map((p, i) => (
+          <div key={p.label} className={`flex flex-col-reverse py-6 sm:px-8 ${i > 0 ? "border-t border-line sm:border-l sm:border-t-0" : "sm:pl-0"}`}>
+            <dt className="font-mono text-xs uppercase tracking-wide text-muted">{p.label}</dt>
+            <dd className="tnum text-4xl font-semibold tracking-tight">{p.value}</dd>
+          </div>
+        ))}
+      </dl>
     </section>
-  )
+  );
 }
