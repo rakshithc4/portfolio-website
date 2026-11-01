@@ -1,3 +1,4 @@
+import { SpanGauge } from "@/components/blueprint/span-gauge";
 import { SiteHeader } from "@/components/site-header";
 import { Hero } from "@/components/sections/hero";
 import { Work } from "@/components/sections/work";
@@ -16,6 +17,7 @@ export default function Home() {
         Skip to content
       </a>
       <SiteHeader />
+      <SpanGauge />
       <main id="main">
         <Hero />
         <Work />

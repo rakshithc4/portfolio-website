@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { site } from "@/content/site";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { ProgressLine } from "@/components/blueprint/span-gauge";
 
 export function SiteHeader() {
   const [active, setActive] = useState<string>("");
@@ -82,6 +83,8 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
+
+      <ProgressLine />
 
       {open && (
         <nav
