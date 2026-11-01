@@ -1,6 +1,8 @@
-// Hero bridge drawing. Static in step 1; animation is layered on later.
-// Everything is drawn with CSS-variable colours so it works in both themes.
+// Hero bridge drawing, with the "drawing is made" intro.
+// Server component: the intro is pure CSS (see globals.css), timings in lib/motion-config.ts.
+// Everything uses CSS-variable colours so it works in both themes.
 // viewBox 640 x 340. Deck at y=190-196, water at y=290.
+import { intro, t } from "@/lib/motion-config";
 
 const DECK_Y = 190;
 
@@ -12,30 +14,35 @@ const HANGER_TS = [0.15, 0.2, 0.26, 0.32, 0.38, 0.44, 0.5, 0.56, 0.62, 0.68, 0.7
 function Water() {
   return (
     <path
-      d={`M20 290 ${"q 15 -7 30 0 t 30 0 ".repeat(1)}${"t 30 0 ".repeat(19)}`}
-      className="fill-none stroke-muted"
+      pathLength={1}
+      d={`M20 290 q 15 -7 30 0 ${"t 30 0 ".repeat(19)}`}
+      className="draw fill-none stroke-muted"
       strokeWidth="1"
+      style={t(intro.water.delay, intro.water.dur)}
     />
   );
 }
 
 /* ---- pylons ---- */
 function Pylons() {
+  const s = t(intro.pylons.delay, intro.pylons.dur);
   return (
     <g className="fill-bg stroke-ink" strokeWidth="2">
-      <rect x="52" y="130" width="36" height="160" />
-      <rect x="552" y="130" width="36" height="160" />
-      <path d="M52 150h36M552 150h36" strokeWidth="1" />
+      <rect pathLength={1} className="draw" style={s} x="52" y="130" width="36" height="160" />
+      <rect pathLength={1} className="draw" style={s} x="552" y="130" width="36" height="160" />
+      <path pathLength={1} className="draw" style={s} d="M52 150h36" strokeWidth="1" />
+      <path pathLength={1} className="draw" style={s} d="M552 150h36" strokeWidth="1" />
     </g>
   );
 }
 
 /* ---- deck ---- */
 function Deck() {
+  const s = t(intro.deck.delay, intro.deck.dur);
   return (
     <g className="stroke-ink" strokeWidth="2">
-      <line x1="30" x2="610" y1={DECK_Y} y2={DECK_Y} />
-      <line x1="30" x2="610" y1={DECK_Y + 6} y2={DECK_Y + 6} strokeWidth="1" />
+      <line pathLength={1} className="draw" style={s} x1="30" x2="610" y1={DECK_Y} y2={DECK_Y} />
+      <line pathLength={1} className="draw" style={s} x1="30" x2="610" y1={DECK_Y + 6} y2={DECK_Y + 6} strokeWidth="1" />
     </g>
   );
 }
@@ -44,42 +51,57 @@ function Deck() {
 function Arch() {
   return (
     <g className="fill-none stroke-ink">
-      <path d="M90 250 Q320 -50 550 250" strokeWidth="2.5" />
-      <path d="M90 250 Q320 -20 550 250" strokeWidth="1" />
+      <path pathLength={1} className="draw" style={t(intro.arch.delay, intro.arch.dur)} d="M90 250 Q320 -50 550 250" strokeWidth="2.5" />
+      <path pathLength={1} className="draw" style={t(intro.arch.delay + 0.05, intro.arch.dur)} d="M90 250 Q320 -20 550 250" strokeWidth="1" />
     </g>
   );
 }
 
-/* ---- hangers: arch down to deck, left to right ---- */
+/* ---- hangers: arch down to deck, dropping in left to right ---- */
 function Hangers() {
   return (
     <g className="stroke-ink" strokeWidth="1">
-      {HANGER_TS.map((t) => (
-        <line key={t} x1={90 + 460 * t} x2={90 + 460 * t} y1={archY(t)} y2={DECK_Y} />
+      {HANGER_TS.map((ht, i) => (
+        <line
+          key={ht}
+          pathLength={1}
+          className="draw"
+          style={t(intro.hangers.delay + i * intro.hangers.stagger, intro.hangers.dur)}
+          x1={90 + 460 * ht}
+          x2={90 + 460 * ht}
+          y1={archY(ht)}
+          y2={DECK_Y}
+        />
       ))}
     </g>
   );
 }
 
 /* ---- dimension line with end ticks ---- */
-function Dimension({ showText }: { showText: boolean }) {
+function Dimension() {
+  const s = t(intro.dimension.delay, intro.dimension.dur);
   return (
     <g className="stroke-muted" strokeWidth="1">
-      <line x1="90" x2="550" y1="314" y2="314" />
-      <line x1="90" x2="90" y1="308" y2="320" />
-      <line x1="550" x2="550" y1="308" y2="320" />
-      {showText && (
-        <text x="320" y="306" textAnchor="middle" className="fill-muted stroke-none font-mono" fontSize="13">
-          SPAN · REQUEST → RESPONSE
-        </text>
-      )}
+      <line pathLength={1} className="draw" style={s} x1="90" x2="550" y1="314" y2="314" />
+      <line pathLength={1} className="draw" style={s} x1="90" x2="90" y1="308" y2="320" />
+      <line pathLength={1} className="draw" style={s} x1="550" x2="550" y1="308" y2="320" />
+      <text
+        x="320"
+        y="306"
+        textAnchor="middle"
+        className="fade fill-muted stroke-none font-mono"
+        style={s}
+        fontSize="13"
+      >
+        SPAN · REQUEST → RESPONSE
+      </text>
     </g>
   );
 }
 
 /* ---- callouts: numbered circles, leader lines, labels (labels hidden on small screens) ---- */
 const CALLOUTS = [
-  { n: 1, x: 70, y: 40, tx: 130, ty: 130, label: "BUSINESS PROCESS", side: "r" },
+  { n: 1, x: 70, y: 40, tx: 70, ty: 130, label: "BUSINESS PROCESS", side: "r" },
   { n: 2, x: 148, y: 72, tx: 182, ty: archY(0.2), label: "CDS DATA MODEL", side: "r" },
   { n: 3, x: 290, y: 40, tx: 290, ty: archY(0.435), label: "RAP BUSINESS OBJECT", side: "r" },
   { n: 4, x: 450, y: 72, tx: 450, ty: archY(0.783), label: "ODATA V4 SERVICE", side: "l" },
@@ -89,38 +111,63 @@ const CALLOUTS = [
 function Callouts() {
   return (
     <g>
-      {CALLOUTS.map((c) => (
-        <g key={c.n}>
-          <line
-            x1={c.x}
-            y1={c.y + 9}
-            x2={c.n === 1 ? 70 : c.tx}
-            y2={c.n === 1 ? 130 : c.ty}
-            className="stroke-muted"
-            strokeWidth="1"
-          />
-          <circle cx={c.x} cy={c.y} r="9" className="fill-bg stroke-ink" strokeWidth="1.5" />
-          <text x={c.x} y={c.y + 4.5} textAnchor="middle" className="fill-ink font-mono" fontSize="13" fontWeight="600">
-            {c.n}
-          </text>
-          <text
-            x={c.side === "r" ? c.x + 14 : c.x - 14}
-            y={c.y + 4.5}
-            textAnchor={c.side === "r" ? "start" : "end"}
-            className="hidden fill-ink font-mono md:inline"
-            fontSize="13"
-          >
-            {c.label}
-          </text>
-        </g>
-      ))}
+      {CALLOUTS.map((c, i) => {
+        const s = t(intro.callouts.delay + i * intro.callouts.stagger, intro.callouts.dur);
+        return (
+          <g key={c.n}>
+            {/* leader line draws to the bridge */}
+            <line
+              pathLength={1}
+              className="draw stroke-muted"
+              style={s}
+              x1={c.x}
+              y1={c.y + 9}
+              x2={c.tx}
+              y2={c.ty}
+              strokeWidth="1"
+            />
+            <g className="fade" style={s}>
+              <circle cx={c.x} cy={c.y} r="9" className="fill-bg stroke-ink" strokeWidth="1.5" />
+              <text x={c.x} y={c.y + 4.5} textAnchor="middle" className="fill-ink font-mono" fontSize="13" fontWeight="600">
+                {c.n}
+              </text>
+              <text
+                x={c.side === "r" ? c.x + 14 : c.x - 14}
+                y={c.y + 4.5}
+                textAnchor={c.side === "r" ? "start" : "end"}
+                className="hidden fill-ink font-mono md:inline"
+                fontSize="13"
+              >
+                {c.label}
+              </text>
+            </g>
+          </g>
+        );
+      })}
     </g>
   );
 }
 
-/* ---- the travelling request: starts at the left pylon (1 Business process) ---- */
+/* ---- the travelling request: appears at the left pylon (1 Business process), pulses once ---- */
 function Request() {
-  return <circle cx="70" cy={DECK_Y + 3} r="5.5" className="fill-accent" />;
+  return (
+    <g>
+      <circle
+        cx="70"
+        cy={DECK_Y + 3}
+        r="5.5"
+        className="pulse fill-accent"
+        style={t(intro.pulse.delay, intro.pulse.dur)}
+      />
+      <circle
+        cx="70"
+        cy={DECK_Y + 3}
+        r="5.5"
+        className="fade fill-accent"
+        style={t(intro.dot.delay, intro.dot.dur)}
+      />
+    </g>
+  );
 }
 
 export function BridgeHero() {
@@ -132,11 +179,15 @@ export function BridgeHero() {
         <Deck />
         <Arch />
         <Hangers />
-        <Dimension showText />
+        <Dimension />
         <Callouts />
         <Request />
       </svg>
-      <div className="mt-1 flex flex-wrap justify-between gap-x-4 border-t border-line pt-2 font-mono text-sm text-muted">
+      {/* title block */}
+      <div
+        className="fade mt-1 flex flex-wrap justify-between gap-x-4 border-t border-line pt-2 font-mono text-sm text-muted"
+        style={t(intro.titleBlock.delay, intro.titleBlock.dur)}
+      >
         <span>DWG RCS-001 · BUSINESS → CODE</span>
         <span>SCALE 1:1 · SYDNEY</span>
       </div>

@@ -1,6 +1,7 @@
 import { site } from "@/content/site";
 import { BridgeHero } from "@/components/blueprint/bridge-hero";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
+import { textStep } from "@/lib/motion-config";
 
 export function Hero() {
   const h = site.hero;
@@ -8,16 +9,18 @@ export function Hero() {
     <section id="top" aria-labelledby="hero-heading" className="mx-auto max-w-[1100px] px-5 pb-6 pt-12 md:px-8 md:pt-20">
       <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
         <div>
-          <p className="font-mono text-xs tracking-wide text-accent-text">SHEET 01 · INTRODUCTION</p>
-          <p className="mt-2 font-mono text-xs leading-relaxed text-muted">{h.eyebrow}</p>
-          <h1 id="hero-heading" className="mt-6 font-semibold tracking-tight">
+          <div className="rise" style={textStep(0)}>
+            <p className="font-mono text-xs tracking-wide text-accent-text">SHEET 01 · INTRODUCTION</p>
+            <p className="mt-2 font-mono text-xs leading-relaxed text-muted">{h.eyebrow}</p>
+          </div>
+          <h1 id="hero-heading" className="rise mt-6 font-semibold tracking-tight" style={textStep(1)}>
             <span className="block text-4xl leading-[1.05] sm:text-5xl md:text-6xl">{h.heading}</span>
             <span className="mt-3 block text-balance text-2xl leading-tight sm:text-3xl">{h.subheading}</span>
           </h1>
-          <p className="mt-3 text-base text-muted">{h.fullName}</p>
-          <p className="mt-6 max-w-[34rem] text-lg leading-snug sm:text-xl">{h.oneLiner}</p>
+          <p className="rise mt-3 text-base text-muted" style={textStep(2)}>{h.fullName}</p>
+          <p className="rise mt-6 max-w-[34rem] text-lg leading-snug sm:text-xl" style={textStep(3)}>{h.oneLiner}</p>
 
-          <p className="mt-8 inline-flex items-start gap-2.5 rounded-full border border-line px-4 py-2 text-sm text-balance">
+          <p className="rise mt-8 inline-flex items-start gap-2.5 rounded-full border border-line px-4 py-2 text-sm text-balance" style={textStep(4)}>
             <span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-ok" />
             <span>
               {h.status.split(" · ")[0]}
@@ -27,7 +30,7 @@ export function Hero() {
             </span>
           </p>
 
-          <div className="mt-8 grid gap-4">
+          <div className="rise mt-8 grid gap-4" style={textStep(5)}>
             <div className="flex gap-3">
             <a
               href="#work"
@@ -68,7 +71,7 @@ export function Hero() {
         </div>
       </div>
 
-      <dl className="mt-16 grid border-y border-line sm:grid-cols-3">
+      <dl className="rise mt-16 grid border-y border-line sm:grid-cols-3" style={textStep(6)}>
         {h.proof.map((p, i) => (
           <div key={p.label} className={`flex flex-col-reverse py-6 sm:px-8 ${i > 0 ? "border-t border-line sm:border-l sm:border-t-0" : "sm:pl-0"}`}>
             <dt className="font-mono text-xs uppercase tracking-wide text-muted">{p.label}</dt>
