@@ -1,0 +1,2 @@
+// Same share image for Twitter/X.
+export { default, alt, size, contentType } from "./opengraph-image";

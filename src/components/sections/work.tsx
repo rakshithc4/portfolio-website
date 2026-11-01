@@ -17,6 +17,9 @@ function ScanIcon() {
 
 function Rows({ p }: { p: Project }) {
   return (
+    <>
+    {p.summary && <p className="mt-5 text-[15px]">{p.summary}</p>}
+    {(p.problem || p.built) && (
     <dl className="mt-5 grid gap-4 text-[15px]">
       {p.problem && (
         <div>
@@ -30,8 +33,9 @@ function Rows({ p }: { p: Project }) {
           <dd className="mt-1">{p.built}</dd>
         </div>
       )}
-      {p.summary && <p>{p.summary}</p>}
     </dl>
+    )}
+    </>
   );
 }
 
@@ -73,12 +77,12 @@ function ProjectCard({ p }: { p: Project }) {
 
           <dl className="mt-6 grid grid-cols-2 gap-x-6 gap-y-4 border-t border-line pt-5">
             {p.metrics.map((m) => (
-              <div key={m.label}>
-                <dd className="tnum text-3xl font-semibold tracking-tight text-ink">{m.value}</dd>
+              <div key={m.label} className="flex flex-col-reverse justify-end">
                 <dt className="font-mono text-[13px] text-muted">
                   {m.label}
                   {m.sub && <span className="mt-0.5 block text-ink">{m.sub}</span>}
                 </dt>
+                <dd className="tnum text-3xl font-semibold tracking-tight text-ink">{m.value}</dd>
               </div>
             ))}
           </dl>
