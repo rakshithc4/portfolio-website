@@ -31,7 +31,7 @@ function Text({ p }: { p: Pier }) {
 
 function PierCard({ p, i }: { p: Pier; i: number }) {
   return (
-    <div className={`border bg-card p-5 ${p.unfinished ? "border-dashed border-ink" : "border-line"}`}>
+    <div className={`card-draft border bg-card p-5 ${p.unfinished ? "border-dashed border-ink" : "border-line"}`}>
       <div className="flex items-center gap-3">
         <PierIcon name={p.icon} dashed={p.unfinished} />
         <p className="font-mono text-xs leading-snug tracking-wide text-accent-text">

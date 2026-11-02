@@ -55,7 +55,7 @@ function ProjectCard({ p }: { p: Project }) {
       as="article"
       id={p.id}
       aria-labelledby={`${p.id}-name`}
-      className="card-hover border border-line bg-card p-5 md:p-8"
+      className="card-hover card-draft border border-line bg-card p-5 md:p-8"
     >
       <div className={sap ? "grid gap-8 lg:grid-cols-[1.1fr_1fr]" : "grid gap-8 lg:grid-cols-[1.1fr_1fr]"}>
         <div>

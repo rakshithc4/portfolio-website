@@ -22,20 +22,23 @@ export function Experience() {
                 <span
                   aria-hidden
                   data-r="hang"
-                  className="absolute -left-6 top-3 h-px w-6 bg-ink md:left-3 md:top-0 md:h-9 md:w-px"
+                  className="absolute z-10 -left-6 top-3 h-px w-6 bg-ink md:left-3 md:top-0 md:h-9 md:w-px"
                   style={r(b, 0.35)}
                 />
                 <span
                   aria-hidden
                   data-r="pop"
-                  className="absolute -left-[30px] top-[7px] size-2 rounded-full border-2 border-ink bg-bg md:left-[8px] md:top-8"
+                  className="absolute z-10 -left-[30px] top-[7px] size-2 rounded-full border-2 border-ink bg-bg md:left-[8px] md:top-8"
                   style={r(b + 0.3, 0.3)}
                 />
-                <div data-r="up" style={r(b + 0.3)}>
-                  <p className="font-mono text-xs text-accent-text">{role.dates}</p>
-                  <h3 className="mt-1 text-lg font-semibold leading-snug">{role.title}</h3>
-                  <p className="text-muted">{role.org}</p>
-                  <p className="mt-3 text-[15px]">{role.text}</p>
+                {/* ghost card: invisible until hovered/focused; -m-3 + p-[11px] + 1px border keeps the text where it was */}
+                <div className="card-draft -m-3 border border-transparent p-[11px]">
+                  <div data-r="up" style={r(b + 0.3)}>
+                    <p className="font-mono text-xs text-accent-text">{role.dates}</p>
+                    <h3 className="mt-1 text-lg font-semibold leading-snug">{role.title}</h3>
+                    <p className="text-muted">{role.org}</p>
+                    <p className="mt-3 text-[15px]">{role.text}</p>
+                  </div>
                 </div>
               </InView>
             );

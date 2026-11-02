@@ -90,7 +90,7 @@ export function SiteHeader() {
           aria-label={`${site.name}, back to top`}
           className="flex items-center gap-2.5 whitespace-nowrap text-[15px] font-semibold tracking-tight md:text-base"
         >
-          <Mark draw className="h-7 w-auto text-ink" />
+          <Mark draw className="mark-flip h-7 w-auto text-ink" />
           <span className="hidden sm:inline">{site.name}</span>
         </a>
 

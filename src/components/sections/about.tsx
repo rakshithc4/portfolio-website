@@ -80,19 +80,16 @@ export function About() {
           <h3 className="font-mono text-xs tracking-wide text-accent-text">CREDENTIALS</h3>
           <InView as="ul" className="mt-3 border-t-2 border-ink">
             {a.credentials.map((c, i) => (
-              <li
-                key={c.label}
-                data-r="up"
-                className="border-b border-line py-3 text-[15px]"
-                style={r(0.05 + i * reveal.stagger)}
-              >
-                {c.href ? (
-                  <a href={c.href} className="link-u hover:text-accent-text">
-                    {c.label} <Arrow dir="ne" />
-                  </a>
-                ) : (
-                  c.label
-                )}
+              <li key={c.label} className="card-draft border border-transparent border-b-line px-3 py-[11px] text-[15px]">
+                <div data-r="up" style={r(0.05 + i * reveal.stagger)}>
+                  {c.href ? (
+                    <a href={c.href} className="link-u hover:text-accent-text">
+                      {c.label} <Arrow dir="ne" />
+                    </a>
+                  ) : (
+                    c.label
+                  )}
+                </div>
               </li>
             ))}
           </InView>
