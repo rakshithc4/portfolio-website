@@ -5,28 +5,32 @@
    variables, so the drawings work in both. */
 :root,
 [data-theme="paper"] {
-  --bg: #f4f6f8;
+  --bg: #f6f4ef; /* warm off-white */
   --ink: #14284b;
   --muted: #5b6b82;
-  --line: #c9d3df;
-  --panel: #eaeff5;
-  --card: #f9fafb;
+  --line: #d9d3c7; /* warm grey hairlines */
+  --panel: #edeae2;
+  --card: #fbfaf6;
   --accent: #e8590c; /* strokes, dot, large numerals */
   --accent-text: #b8400a; /* small text: AA on --bg */
   --ok: #2f8f5b;
+  --draft-pct: 15%; /* hard "drafting" shadow strength */
+  --water-a: 0.1; /* harbour water line opacity */
   color-scheme: light;
 }
 
 [data-theme="blueprint"] {
-  --bg: #0f2a4a;
+  --bg: #0d2b50; /* a touch richer cyanotype */
   --ink: #eaf0f6;
   --muted: #a9b8cb;
-  --line: #2f4e73;
-  --panel: #0c2340;
-  --card: #123257;
+  --line: #33567f;
+  --panel: #0a2344;
+  --card: #123560;
   --accent: #ff8a4c;
   --accent-text: #ff9a63;
   --ok: #5fcf8e;
+  --draft-pct: 35%;
+  --water-a: 0.18;
   color-scheme: dark;
 }
 
@@ -42,6 +46,7 @@
   --color-ok: var(--ok);
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-hand: var(--font-caveat), "Segoe Print", cursive;
 }
 
 @layer base {
@@ -154,7 +159,14 @@ html[data-js] [data-r="veil"][data-in] { opacity: 0; }
 }
 
 /* ---- Work card hover (pointer devices only) ---- */
-.card-hover { transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.2s; }
+/* Drafting-card feel (.card-draft): on hover, or when a link inside has keyboard focus, the card lifts 3px,
+   its border turns ink and a hard-edged offset shadow appears. Pressing settles it 1px into the paper.
+   box-shadow is deliberate here: it is paint-only (no layout) and only runs on hover. */
+.card-draft {
+  --draft: color-mix(in srgb, var(--ink) var(--draft-pct), transparent);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, border-color 0.15s ease-out, background-color 0.15s ease-out;
+}
+.card-hover { }
 .span-runner::after {
   content: "";
   position: absolute;
@@ -168,14 +180,20 @@ html[data-js] [data-r="veil"][data-in] { opacity: 0; }
   opacity: 0;
 }
 @media (hover: hover) and (pointer: fine) {
-  .card-hover:hover { transform: translateY(-3px); border-color: var(--ink); }
+  .card-draft:hover, .card-draft:has(:focus-visible) {
+    transform: translateY(-3px);
+    border-color: var(--ink);
+    background-color: var(--card);
+    box-shadow: 4px 4px 0 var(--draft);
+  }
+  .card-draft:active { transform: translateY(1px); box-shadow: 1px 1px 0 var(--draft); }
   .card-hover:hover .span-runner { animation: span-run 0.9s cubic-bezier(0.22, 1, 0.36, 1) 1 both; }
   .card-hover:hover .span-runner::after { animation: span-run-dot 0.9s linear 1 both; }
 }
 @keyframes span-run { from { transform: translateX(-100%); } to { transform: translateX(0); } }
 @keyframes span-run-dot { 0% { opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
-  .card-hover:hover { transform: none; }
+  .card-draft:hover, .card-draft:has(:focus-visible), .card-draft:active { transform: none; }
   .card-hover:hover .span-runner, .card-hover:hover .span-runner::after { animation: none; }
 }
 
@@ -231,19 +249,63 @@ a:hover > .arrow-s, a:focus-visible > .arrow-s { transform: translateY(2px); }
   .link-u::after, .u-draw::after { transition: none; }
 }
 
-/* ---- Buttons: 1px lift + colour change on hover (focus rings unchanged) ---- */
+/* ---- Buttons: hover lifts up-left and casts a hard 3px shadow; pressing drops the button onto
+   the shadow (shadow gone, shifted 2px) for a tactile click. Keyboard focus gets the hover state. ---- */
 .btn {
-  transition: transform 0.15s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.15s, color 0.15s, border-color 0.15s;
+  --draft: color-mix(in srgb, var(--ink) var(--draft-pct), transparent);
+  transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, background-color 0.15s, color 0.15s, border-color 0.15s;
 }
 @media (hover: hover) and (pointer: fine) {
-  .btn:hover { transform: translateY(-1px); }
+  .btn:hover, .btn:focus-visible { transform: translate(-1px, -1px); box-shadow: 3px 3px 0 var(--draft); }
+  .btn:active { transform: translate(2px, 2px); box-shadow: 0 0 0 transparent; }
 }
 @media (prefers-reduced-motion: reduce) {
   .btn { transition: background-color 0.15s, color 0.15s, border-color 0.15s; }
-  .btn:hover { transform: none; }
+  .btn:hover, .btn:focus-visible, .btn:active { transform: none; }
 }
+
+/* ---- Touch devices: brief press scale on cards and buttons ---- */
+@media (hover: none) {
+  .card-draft, .btn { transition: transform 0.12s ease-out; }
+  .card-draft:active, .btn:active { transform: scale(0.98); }
+}
+
+/* ---- Theme switch: the header mark flips (~250ms) while the colours fade ---- */
+@keyframes mark-flip {
+  from { transform: perspective(240px) rotateY(90deg); opacity: 0.4; }
+  to { transform: perspective(240px) rotateY(0); opacity: 1; }
+}
+html.theme-anim .mark-flip { animation: mark-flip 0.25s ease-out both; }
 
 /* ---- Theme switch: smooth ~200ms colour change, only while toggling (never on load) ---- */
 html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, fill 0.2s ease, stroke 0.2s ease !important;
+}
+
+/* ---- Paper grain: faint static noise tile on the Paper background only (no animation) ---- */
+[data-theme="paper"] body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .16 0 0 0 0 .29 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Ambient motion (transform/opacity only). Each loop sits inside a wrapper that sets
+   data-paused="true" while off-screen (in-view-pause.tsx) and pauses while the tab is hidden. ---- */
+[data-paused="true"] .ambient,
+[data-tab-hidden] .ambient { animation-play-state: paused; }
+/* harbour water drifts one tile, seamless */
+.drift { animation: drift 30s linear infinite; will-change: transform; }
+@keyframes drift { to { transform: translateX(-50%); } }
+/* breathing request dot */
+.breathe { transform-box: fill-box; transform-origin: center; animation: breathe 3s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.7; } }
+/* a soft glint crosses the hero deck every 9s: ~2.3s of travel, then idle */
+.glint { opacity: 0; animation: glint 9s ease-in-out 4.5s infinite; }
+@keyframes glint {
+  0% { transform: translateX(42px); opacity: 0; }
+  3% { opacity: 0.9; }
+  25% { opacity: 0.9; }
+  28%, 100% { transform: translateX(557px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drift, .breathe { animation: none; }
+  .glint { display: none; }
 }

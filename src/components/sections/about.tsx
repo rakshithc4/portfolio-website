@@ -3,6 +3,7 @@ import Image from "next/image";
 import { site } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
+import { MarginNote } from "@/components/blueprint/margin-note";
 import { Arrow } from "@/components/arrow";
 import { InView } from "@/components/in-view";
 import { r, reveal } from "@/lib/motion-config";
@@ -18,6 +19,7 @@ export function About() {
       <div className="mt-10 grid gap-x-12 gap-y-12 lg:grid-cols-[300px_1fr]">
         <InView as="figure" className="m-0 max-w-[300px] self-start lg:row-span-2">
           <div className="relative">
+          <MarginNote text={a.photo.note} className="-top-9 left-20 -rotate-3" arrow="left-full top-1/2 ml-1 -scale-x-100" />
           <DrawingFrame animate>
             <Image
               src={a.photo.src}
@@ -78,19 +80,16 @@ export function About() {
           <h3 className="font-mono text-xs tracking-wide text-accent-text">CREDENTIALS</h3>
           <InView as="ul" className="mt-3 border-t-2 border-ink">
             {a.credentials.map((c, i) => (
-              <li
-                key={c.label}
-                data-r="up"
-                className="border-b border-line py-3 text-[15px]"
-                style={r(0.05 + i * reveal.stagger)}
-              >
-                {c.href ? (
-                  <a href={c.href} className="link-u hover:text-accent-text">
-                    {c.label} <Arrow dir="ne" />
-                  </a>
-                ) : (
-                  c.label
-                )}
+              <li key={c.label} className="card-draft border border-transparent border-b-line px-3 py-[11px] text-[15px]">
+                <div data-r="up" style={r(0.05 + i * reveal.stagger)}>
+                  {c.href ? (
+                    <a href={c.href} className="link-u hover:text-accent-text">
+                      {c.label} <Arrow dir="ne" />
+                    </a>
+                  ) : (
+                    c.label
+                  )}
+                </div>
               </li>
             ))}
           </InView>

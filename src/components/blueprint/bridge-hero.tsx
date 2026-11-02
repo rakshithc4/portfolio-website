@@ -105,16 +105,25 @@ export function BridgeHero() {
         <Arch />
         <Hangers />
         <Dimension />
+        {/* a soft glint travels pylon 1 -> 5 along the deck every 9s (hero in view only) */}
+        <defs>
+          <linearGradient id="glint-grad">
+            <stop offset="0" stopColor="var(--accent)" stopOpacity="0" />
+            <stop offset="0.6" stopColor="var(--accent)" stopOpacity="1" />
+            <stop offset="1" stopColor="var(--accent)" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <rect className="ambient glint" x="0" y={DECK_Y - 2} width="56" height="4" rx="2" fill="url(#glint-grad)" />
         {/* callouts + travelling request dot (client: scroll-linked) */}
         <BridgeLive />
       </svg>
       {/* title block */}
       <div
-        className="fade mt-1 flex flex-wrap justify-between gap-x-4 border-t border-line pt-2 font-mono text-sm text-muted"
+        className="fade mt-1 border-t border-line pt-2 font-mono text-sm text-muted sm:pr-24 md:pr-28"
         style={t(intro.titleBlock.delay, intro.titleBlock.dur)}
       >
-        <span>DWG RCS-001 · BUSINESS → CODE</span>
-        <span>SCALE 1:1 · SYDNEY</span>
+        {/* the seal (hero.tsx) sits in the right of this block, so scale/Sydney live there */}
+        DWG RCS-001 · BUSINESS → CODE
       </div>
     </div>
   );

@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { site, type Pier } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { PierIcon } from "@/components/blueprint/pier-icon";
+import { MarginNote } from "@/components/blueprint/margin-note";
 import { InView } from "@/components/in-view";
 import { Arrow } from "@/components/arrow";
 import { journey, r } from "@/lib/motion-config";
@@ -30,7 +31,7 @@ function Text({ p }: { p: Pier }) {
 
 function PierCard({ p, i }: { p: Pier; i: number }) {
   return (
-    <div className={`border bg-card p-5 ${p.unfinished ? "border-dashed border-ink" : "border-line"}`}>
+    <div className={`card-draft border bg-card p-5 ${p.unfinished ? "border-dashed border-ink" : "border-line"}`}>
       <div className="flex items-center gap-3">
         <PierIcon name={p.icon} dashed={p.unfinished} />
         <p className="font-mono text-xs leading-snug tracking-wide text-accent-text">
@@ -76,10 +77,17 @@ function Deck({ piers }: { piers: Pier[] }) {
           <Fragment key={p.title}>
             <InView
               data-r="up"
-              className={`px-2 ${above ? "row-start-1 self-end" : "row-start-3 self-start"}`}
+              className={`relative px-2 ${above ? "row-start-1 self-end" : "row-start-3 self-start"}`}
               style={{ ...col, ...r(d + journey.cardLag) }}
             >
               <PierCard p={p} i={i} />
+              {p.note && (
+                <MarginNote
+                  text={p.note}
+                  className={above ? "-top-9 left-8 -rotate-2" : "-bottom-[84px] left-8 w-52 -rotate-1"}
+                  arrow={above ? "left-full top-1/2 ml-1 -scale-x-100" : "-top-8 left-1 -scale-y-100"}
+                />
+              )}
             </InView>
             {/* pier: node on the deck, stem to the card, mono label on the far side */}
             <InView aria-hidden className="relative row-start-2" style={col}>
@@ -140,6 +148,13 @@ function VerticalDeck({ piers }: { piers: Pier[] }) {
           <div data-r="up" style={r(0.25)}>
             <PierCard p={p} i={i} />
           </div>
+          {p.note && (
+            <MarginNote
+              text={p.note}
+              className={`whitespace-nowrap -rotate-1 ${i === 0 ? "-top-8 left-12" : "-bottom-1 left-20"}`}
+              arrow={i === 0 ? "left-full top-1/2 ml-1 -scale-x-100" : "-left-[58px] -top-1 -scale-y-100"}
+            />
+          )}
         </InView>
       ))}
     </ol>

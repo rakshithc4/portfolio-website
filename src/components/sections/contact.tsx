@@ -1,6 +1,9 @@
 import { site } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { ContactArrival, ARRIVAL_DONE } from "@/components/blueprint/contact-arrival";
+import { InView } from "@/components/in-view";
+import { r, reveal } from "@/lib/motion-config";
+import { Seal } from "@/components/logo";
 import { Arrow } from "@/components/arrow";
 
 export function Contact() {
@@ -24,10 +27,27 @@ export function Contact() {
             <li><a href={site.resumeHref} className="link-u hover:text-accent-text">Resume PDF <Arrow dir="s" /></a></li>
           </ul>
           <p className="mt-8 max-w-[40rem] text-muted">{c.line}</p>
+          {/* handwritten sign-off, the last line of the section */}
+          <InView>
+            <p
+              data-r="up"
+              className="mt-6 -rotate-3 pl-1 font-hand text-3xl font-medium text-accent-text"
+              style={r(0.3, 0.5, reveal.headerY)}
+            >
+              {c.signature}
+            </p>
+          </InView>
         </div>
         <ContactArrival />
       </div>
-      <p className="mt-16 border-t border-line pt-6 font-mono text-xs text-muted">{c.footer}</p>
+      <div className="mt-16 flex items-center justify-between gap-6 border-t border-line pt-6">
+        <p className="font-mono text-xs text-muted">
+          {c.footer.split("♥")[0]}
+          <span role="img" aria-label="love" className="text-accent">♥</span>
+          {c.footer.split("♥")[1]}
+        </p>
+        <Seal className="size-24 shrink-0 text-ink" />
+      </div>
     </footer>
   );
 }

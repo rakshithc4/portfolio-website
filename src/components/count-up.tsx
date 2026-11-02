@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { animate, useInView, useReducedMotion } from "motion/react";
 import { reveal } from "@/lib/motion-config";
 
@@ -13,11 +13,13 @@ export function CountUp({ value, delay = 0 }: { value: string; delay?: number })
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.6 });
   const reduced = useReducedMotion();
-  const [text, setText] = useState(value);
 
+  // The element holds the final value as its ONE text node, so screen readers and text
+  // extracts see it exactly once. The animation rewrites that node in place (no copies).
   useEffect(() => {
+    const el = ref.current;
     const m = value.match(NUM);
-    if (!inView || reduced || !m) return;
+    if (!el || !inView || reduced || !m) return;
     const target = parseFloat(m[1].replace(/,/g, ""));
     if (target === 0) return;
     const decimals = m[1].split(".")[1]?.length ?? 0;
@@ -25,24 +27,24 @@ export function CountUp({ value, delay = 0 }: { value: string; delay?: number })
     const fmt = (v: number) =>
       (comma ? v.toLocaleString("en-US", { maximumFractionDigits: 0 }) : v.toFixed(decimals)) + m[2];
     // Start from 0 right away so the final value never flashes before the count.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setText(fmt(0));
+    el.textContent = fmt(0);
     const c = animate(0, target, {
       duration: reveal.count,
       delay,
       ease: "easeOut",
-      onUpdate: (v) => setText(fmt(v)),
-      onComplete: () => setText(value),
+      onUpdate: (v) => (el.textContent = fmt(v)),
+      onComplete: () => (el.textContent = value),
     });
-    return () => c.stop();
+    return () => {
+      c.stop();
+      el.textContent = value;
+    };
   }, [inView, reduced, value, delay]);
 
-  // The invisible final value reserves the width, so digits never shift the layout.
+  // min-width (in digit widths) keeps the box from shrinking while it counts, so nothing shifts.
   return (
-    <span ref={ref} className="tnum inline-grid">
-      <span aria-hidden className="invisible col-start-1 row-start-1">{value}</span>
-      <span aria-hidden className="col-start-1 row-start-1">{text}</span>
-      <span className="sr-only">{value}</span>
+    <span ref={ref} className="tnum inline-block" style={{ minWidth: `${value.length}ch` }}>
+      {value}
     </span>
   );
 }

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { site } from "@/content/site";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { Mark } from "@/components/logo";
 import { ProgressLine } from "@/components/blueprint/span-gauge";
 
 const EASE_ARR = [0.22, 1, 0.36, 1] as const; // same curve as EASE in motion-config
@@ -84,8 +85,13 @@ export function SiteHeader() {
   return (
     <header ref={headerRef} className="sticky top-0 z-40 border-b border-line bg-bg">
       <div className="mx-auto flex max-w-[1100px] items-center justify-between gap-3 px-5 py-3 md:px-8">
-        <a href="#" className="whitespace-nowrap text-[15px] font-semibold tracking-tight md:text-base">
-          {site.name}
+        <a
+          href="#"
+          aria-label={`${site.name}, back to top`}
+          className="flex items-center gap-2.5 whitespace-nowrap text-[15px] font-semibold tracking-tight md:text-base"
+        >
+          <Mark draw className="mark-flip h-7 w-auto text-ink" />
+          <span className="hidden sm:inline">{site.name}</span>
         </a>
 
         <nav ref={navRef} aria-label="Primary" className="relative hidden gap-6 md:flex">

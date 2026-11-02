@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- RCS monogram, blueprint style: paper ground, navy ink, one orange dot -->
-  <rect x="1" y="1" width="30" height="30" fill="#F4F6F8" stroke="#14284B" stroke-width="2"/>
-  <text x="16" y="19.5" text-anchor="middle" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="11" font-weight="700" fill="#14284B">RCS</text>
-  <line x1="5" y1="25" x2="27" y2="25" stroke="#14284B" stroke-width="1.5"/>
-  <circle cx="9" cy="25" r="2" fill="#E8590C"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="14" fill="#14284B"/><g transform="translate(32 32) scale(.86) translate(-33 -31)"><path d="M16 54V10H33A13 13 0 0 1 33 36H16" fill="none" stroke="#EAF0F6" stroke-width="8"/><path d="M30 36L46 54" fill="none" stroke="#EAF0F6" stroke-width="8"/><path d="M6 36H44" fill="none" stroke="#EAF0F6" stroke-width="8"/><circle cx="54" cy="36" r="6" fill="#FF8A4C"/></g></svg>

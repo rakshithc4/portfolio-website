@@ -3,6 +3,9 @@ import { BridgeHero } from "@/components/blueprint/bridge-hero";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
 import { textStep } from "@/lib/motion-config";
 import { Arrow } from "@/components/arrow";
+import { Mark, Seal } from "@/components/logo";
+import { InViewPause } from "@/components/in-view-pause";
+import { MarginNote } from "@/components/blueprint/margin-note";
 import { CountUp } from "@/components/count-up";
 
 export function Hero() {
@@ -12,7 +15,10 @@ export function Hero() {
       <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
         <div>
           <div className="rise" style={textStep(0)}>
-            <p className="font-mono text-xs tracking-wide text-accent-text">SHEET 01 · INTRODUCTION</p>
+            <p className="flex items-center gap-2 font-mono text-xs tracking-wide text-accent-text">
+              <Mark className="h-3.5 w-auto text-ink" />
+              SHEET 01 · INTRODUCTION
+            </p>
             <p className="mt-2 font-mono text-xs leading-relaxed text-muted">{h.eyebrow}</p>
           </div>
           <h1 id="hero-heading" className="rise mt-6 font-semibold tracking-tight" style={textStep(1)}>
@@ -59,9 +65,14 @@ export function Hero() {
         </div>
 
         <div>
-          <DrawingFrame grid>
-            <BridgeHero />
-          </DrawingFrame>
+          <InViewPause className="relative">
+            <DrawingFrame grid>
+              <BridgeHero />
+            </DrawingFrame>
+            <MarginNote text={h.note} className="left-[26%] top-[66%] -rotate-3" arrow="-left-[58px] -top-1 -scale-y-100" />
+            {/* title-block stamp, like an engineer's approval seal */}
+            <Seal className="absolute -bottom-5 right-4 hidden size-24 -rotate-6 rounded-full bg-bg text-ink sm:block md:size-28" />
+          </InViewPause>
           {/* Legend for small screens, where in-drawing labels are hidden. */}
           <ol className="mt-4 grid gap-1 font-mono text-xs text-muted md:hidden">
             {site.stages.map((s, i) => (
