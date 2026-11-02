@@ -1,12 +1,14 @@
 import { site } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { ContactArrival, ARRIVAL_DONE } from "@/components/blueprint/contact-arrival";
+import { Seal } from "@/components/logo";
 import { Arrow } from "@/components/arrow";
 
 export function Contact() {
   const c = site.contact;
   return (
     <footer id="contact" aria-label="contact" className="mx-auto max-w-[1100px] px-5 pb-10 pt-16 md:px-8">
+      <Seal className="mb-6 size-28 text-ink" />
       {/* heading fades up after the arrival drawing finishes */}
       <SheetHeader n="06" name="CONTACT" title={c.heading} headingDelay={ARRIVAL_DONE} />
       <div className="mt-8 grid items-end gap-10 lg:grid-cols-[1fr_280px]">
@@ -27,7 +29,10 @@ export function Contact() {
         </div>
         <ContactArrival />
       </div>
-      <p className="mt-16 border-t border-line pt-6 font-mono text-xs text-muted">{c.footer}</p>
+      <div className="mt-16 flex items-center justify-between gap-6 border-t border-line pt-6">
+        <p className="font-mono text-xs text-muted">{c.footer}</p>
+        <Seal className="size-24 shrink-0 text-ink" />
+      </div>
     </footer>
   );
 }

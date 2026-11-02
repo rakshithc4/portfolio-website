@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useTransform } from "motion/react";
+import { MarkPaths } from "@/components/logo";
 import { site } from "@/content/site";
 import { SPAN_IDS, TICKS, useSpanProgress } from "@/lib/use-span-progress";
 
@@ -47,6 +48,10 @@ export function SpanGauge() {
             strokeWidth="1.5"
           />
         ))}
+        {/* end cap: the mark, above the far pylon */}
+        <g transform="translate(138 1) scale(.34) translate(-4 -4)" className="text-ink">
+          <MarkPaths />
+        </g>
         {/* the request */}
         <motion.circle cx="0" cy="36" r="3.5" className="fill-accent" style={{ x: reduced ? staticX : x }} />
       </svg>

@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { ImageResponse } from "next/og";
 
 // 1200x630 share image in the blueprint style: name, one-liner, bridge line art.
@@ -12,7 +14,9 @@ const ACCENT = "#E8590C";
 const ACCENT_TEXT = "#B8400A";
 const BG = "#F4F6F8";
 
-export default function Image() {
+export default async function Image() {
+  // satori cannot draw text-on-path, so the seal is embedded as the PNG render of public/brand/seal.svg.
+  const seal = `data:image/png;base64,${(await readFile(join(process.cwd(), "public/brand/seal.png"))).toString("base64")}`;
   const bracket = { position: "absolute", width: 28, height: 28, display: "flex" } as const;
   const hangers = [0.15, 0.2, 0.26, 0.32, 0.38, 0.44, 0.5, 0.56, 0.62, 0.68, 0.74, 0.8, 0.85].map((t) => {
     const x = 90 + 460 * t;
@@ -39,6 +43,9 @@ export default function Image() {
         <div style={{ ...bracket, top: 32, right: 32, borderTop: `3px solid ${INK}`, borderRight: `3px solid ${INK}` }} />
         <div style={{ ...bracket, bottom: 32, left: 32, borderBottom: `3px solid ${INK}`, borderLeft: `3px solid ${INK}` }} />
         <div style={{ ...bracket, bottom: 32, right: 32, borderBottom: `3px solid ${INK}`, borderRight: `3px solid ${INK}` }} />
+
+        {/* engineer's seal, bottom right of the drawing */}
+        <img src={seal} alt="" width={128} height={128} style={{ position: "absolute", right: 78, bottom: 122 }} />
 
         <div style={{ display: "flex", flex: 1, alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", flexDirection: "column", width: 600 }}>

@@ -110,11 +110,11 @@ export function BridgeHero() {
       </svg>
       {/* title block */}
       <div
-        className="fade mt-1 flex flex-wrap justify-between gap-x-4 border-t border-line pt-2 font-mono text-sm text-muted"
+        className="fade mt-1 border-t border-line pt-2 pr-24 font-mono text-sm text-muted md:pr-28"
         style={t(intro.titleBlock.delay, intro.titleBlock.dur)}
       >
-        <span>DWG RCS-001 · BUSINESS → CODE</span>
-        <span>SCALE 1:1 · SYDNEY</span>
+        {/* the seal (hero.tsx) sits in the right of this block, so scale/Sydney live there */}
+        DWG RCS-001 · BUSINESS → CODE
       </div>
     </div>
   );
