@@ -1,4 +1,4 @@
-import { useId } from "react";
+import { SEAL_TEXT_D } from "@/components/seal-text";
 import { t } from "@/lib/motion-config";
 
 // Brand marks. Geometry matches public/brand/mark.svg and seal.svg (the masters).
@@ -40,17 +40,12 @@ export function Mark({ className = "", draw = false, label }: { className?: stri
 
 /** Engineer's seal. Only for >= 96px: it reads as a (R) when smaller. */
 export function Seal({ className = "" }: { className?: string }) {
-  const id = "seal-" + useId().replace(/\W/g, "");
   return (
     <svg viewBox="0 0 64 64" aria-hidden className={className}>
       <circle cx="32" cy="32" r="30" fill="none" stroke="currentColor" strokeWidth="2.6" />
       <circle cx="32" cy="32" r="17" fill="none" stroke="currentColor" strokeWidth="1.8" />
-      <path id={id} d="M32 32m-22.5 0a22.5 22.5 0 1 1 45 0a22.5 22.5 0 1 1-45 0" fill="none" />
-      <text fontFamily="var(--font-mono)" fontWeight="700" fontSize="4.6" fill="currentColor">
-        <textPath href={`#${id}`} textLength="140" lengthAdjust="spacing">
-          RAKSHITH CHANDRA SHEKAR · SYDNEY ·
-        </textPath>
-      </text>
+      {/* ring text as outlines, so it renders the same everywhere (generated, see seal-text.ts) */}
+      <path d={SEAL_TEXT_D} fill="currentColor" />
       <g transform="translate(32 32) scale(.46) translate(-33 -31)">
         <MarkPaths />
       </g>

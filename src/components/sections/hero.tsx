@@ -68,7 +68,7 @@ export function Hero() {
               <BridgeHero />
             </DrawingFrame>
             {/* title-block stamp, like an engineer's approval seal */}
-            <Seal className="absolute -bottom-5 right-4 size-24 -rotate-6 rounded-full bg-bg text-ink md:size-28" />
+            <Seal className="absolute -bottom-5 right-4 hidden size-24 -rotate-6 rounded-full bg-bg text-ink sm:block md:size-28" />
           </div>
           {/* Legend for small screens, where in-drawing labels are hidden. */}
           <ol className="mt-4 grid gap-1 font-mono text-xs text-muted md:hidden">

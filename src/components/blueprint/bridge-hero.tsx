@@ -110,7 +110,7 @@ export function BridgeHero() {
       </svg>
       {/* title block */}
       <div
-        className="fade mt-1 border-t border-line pt-2 pr-24 font-mono text-sm text-muted md:pr-28"
+        className="fade mt-1 border-t border-line pt-2 font-mono text-sm text-muted sm:pr-24 md:pr-28"
         style={t(intro.titleBlock.delay, intro.titleBlock.dur)}
       >
         {/* the seal (hero.tsx) sits in the right of this block, so scale/Sydney live there */}

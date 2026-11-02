@@ -8,7 +8,6 @@ export function Contact() {
   const c = site.contact;
   return (
     <footer id="contact" aria-label="contact" className="mx-auto max-w-[1100px] px-5 pb-10 pt-16 md:px-8">
-      <Seal className="mb-6 size-28 text-ink" />
       {/* heading fades up after the arrival drawing finishes */}
       <SheetHeader n="06" name="CONTACT" title={c.heading} headingDelay={ARRIVAL_DONE} />
       <div className="mt-8 grid items-end gap-10 lg:grid-cols-[1fr_280px]">
