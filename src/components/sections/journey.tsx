@@ -84,8 +84,8 @@ function Deck({ piers }: { piers: Pier[] }) {
               {p.note && (
                 <MarginNote
                   text={p.note}
-                  className={above ? "-top-9 left-8 -rotate-2" : "-bottom-[52px] left-8 w-52 -rotate-1"}
-                  arrow={above ? "left-full top-1/2 ml-1 -scale-x-100" : "-left-[58px] top-0 -scale-y-100"}
+                  className={above ? "-top-9 left-8 -rotate-2" : "-bottom-[84px] left-8 w-52 -rotate-1"}
+                  arrow={above ? "left-full top-1/2 ml-1 -scale-x-100" : "-top-8 left-1 -scale-y-100"}
                 />
               )}
             </InView>

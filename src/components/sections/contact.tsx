@@ -12,16 +12,6 @@ export function Contact() {
     <footer id="contact" aria-label="contact" className="mx-auto max-w-[1100px] px-5 pb-10 pt-16 md:px-8">
       {/* heading fades up after the arrival drawing finishes */}
       <SheetHeader n="06" name="CONTACT" title={c.heading} headingDelay={ARRIVAL_DONE} />
-      {/* handwritten sign-off, appears right after the heading */}
-      <InView>
-        <p
-          data-r="up"
-          className="mt-1 -rotate-3 pl-1 font-hand text-3xl font-medium text-accent-text"
-          style={r(ARRIVAL_DONE + 0.3, 0.5, reveal.headerY)}
-        >
-          {c.signature}
-        </p>
-      </InView>
       <div className="mt-8 grid items-end gap-10 lg:grid-cols-[1fr_280px]">
         <div>
           <a
@@ -37,6 +27,16 @@ export function Contact() {
             <li><a href={site.resumeHref} className="link-u hover:text-accent-text">Resume PDF <Arrow dir="s" /></a></li>
           </ul>
           <p className="mt-8 max-w-[40rem] text-muted">{c.line}</p>
+          {/* handwritten sign-off, the last line of the section */}
+          <InView>
+            <p
+              data-r="up"
+              className="mt-6 -rotate-3 pl-1 font-hand text-3xl font-medium text-accent-text"
+              style={r(0.3, 0.5, reveal.headerY)}
+            >
+              {c.signature}
+            </p>
+          </InView>
         </div>
         <ContactArrival />
       </div>

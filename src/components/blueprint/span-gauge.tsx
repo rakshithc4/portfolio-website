@@ -10,7 +10,7 @@ const X0 = 10;
 const X1 = 150;
 const tickX = (f: number) => X0 + f * (X1 - X0);
 
-/** Desktop (>=1400px, in the left margin): reading progress as the request crossing the span. */
+/** Desktop (>=1440px, in the left margin): reading progress as the request crossing the span. */
 export function SpanGauge() {
   const { reduced, smooth, active, visible } = useSpanProgress();
   const x = useTransform(smooth, (f) => tickX(f));
@@ -22,7 +22,7 @@ export function SpanGauge() {
     <aside
       aria-label="Page progress"
       inert={!visible}
-      className={`fixed left-4 top-1/2 z-30 hidden w-40 -translate-y-1/2 transition-opacity duration-300 min-[1400px]:block ${
+      className={`fixed left-4 top-1/2 z-30 hidden w-40 -translate-y-1/2 transition-opacity duration-300 min-[1440px]:block ${
         visible ? "opacity-60 focus-within:opacity-100 hover:opacity-100" : "pointer-events-none opacity-0"
       }`}
     >
@@ -78,13 +78,13 @@ export function SpanGauge() {
   );
 }
 
-/** Mobile / small laptops (<1400px): 2px orange progress line, drawn under the nav. */
+/** Mobile / small laptops (<1440px): 2px orange progress line, drawn under the nav. */
 export function ProgressLine() {
   const { reduced, page, active } = useSpanProgress();
   return (
     <motion.div
       aria-hidden
-      className="absolute inset-x-0 -bottom-px h-0.5 origin-left bg-accent min-[1400px]:hidden"
+      className="absolute inset-x-0 -bottom-px h-0.5 origin-left bg-accent min-[1440px]:hidden"
       style={{ scaleX: reduced ? (active + 1) / SPAN_IDS.length : page }}
     />
   );
