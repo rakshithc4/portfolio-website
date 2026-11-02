@@ -13,7 +13,7 @@ function ScanIcon() {
   return (
     <svg aria-hidden viewBox="0 0 48 48" className="size-10 fill-none stroke-ink" strokeWidth="1.5">
       <path d="M4 14V4h10M34 4h10v10M44 34v10H34M14 44H4V34" />
-      <ellipse cx="24" cy="24" rx="12" ry="14" />
+      <ellipse cx="24" cy="24" rx="12" ry="14" className="fill-accent/[.09]" />
       <path d="M24 10v28M16 20c4 2 12 2 16 0M16 29c4-2 12-2 16 0" strokeWidth="1" />
     </svg>
   );

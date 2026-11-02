@@ -10,6 +10,8 @@ export type Pier = {
   text: string;
   links?: { text: string; href: string }[];
   cta?: Link;
+  /** Handwritten margin note beside the card (desktop/tablet only). */
+  note?: string;
   /** Drawn as dashed line-work: the span that isn't built yet. */
   unfinished?: boolean;
 };
@@ -61,6 +63,7 @@ export const site = {
     heading: "Hey, I'm Rakshith.",
     subheading: "I build bridges between business and code.",
     fullName: "Rakshith Chandra Shekar · Sydney",
+    note: "where every project starts",
     oneLiner:
       "SAP ABAP Cloud applications that turn business processes into reliable, tested software — and when I'm not coding, you'll find me on the Sydney Harbour Bridge.",
     status: "Open to summer internships · Dec 2026 – Feb 2027",
@@ -197,6 +200,7 @@ export const site = {
         stage: "FOUNDATIONS",
         title: "Bangalore",
         icon: "house",
+        note: "where it all started",
         text: "I grew up in a middle-class family in Bangalore and had never left my home state. My parents are my world. They taught me to be organised, to finish every job I'm given, and to listen. I always had one instinct: if everyone went one way, I'd look at the other.",
       },
       {
@@ -215,6 +219,7 @@ export const site = {
         stage: "LOAD TEST",
         title: "BridgeClimb",
         icon: "speech",
+        note: "this is where I learned to talk to anyone",
         text: "My job on the Sydney Harbour Bridge changed that. Guiding climbers from all over the world taught me to communicate clearly under pressure. Today people tell me I'm a confident speaker — I wasn't when I arrived. I learned because I was willing to.",
       },
       {
@@ -274,6 +279,7 @@ export const site = {
     photo: {
       src: "/headshot.jpeg",
       alt: "Portrait of Rakshith Chandra Shekar",
+      note: "hi! that's me",
       width: 405,
       height: 542,
     },
@@ -338,6 +344,8 @@ export const site = {
     linkedin: "https://linkedin.com/in/rakshithc46",
     github: "https://github.com/rakshithc4",
     line: "Open to summer internships (Dec 2026 – Feb 2027) and SAP ABAP Cloud / BTP graduate roles across Australia from Dec 2027.",
-    footer: "© 2026 Rakshith Chandra Shekar · Drawn in Sydney",
+    signature: "— Rakshith",
+    // The ♥ is drawn in orange by contact.tsx.
+    footer: "© 2026 Rakshith Chandra Shekar · Drawn in Sydney with ♥ for my parents",
   },
 };

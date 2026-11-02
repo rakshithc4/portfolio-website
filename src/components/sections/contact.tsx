@@ -1,6 +1,8 @@
 import { site } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { ContactArrival, ARRIVAL_DONE } from "@/components/blueprint/contact-arrival";
+import { InView } from "@/components/in-view";
+import { r, reveal } from "@/lib/motion-config";
 import { Seal } from "@/components/logo";
 import { Arrow } from "@/components/arrow";
 
@@ -10,6 +12,16 @@ export function Contact() {
     <footer id="contact" aria-label="contact" className="mx-auto max-w-[1100px] px-5 pb-10 pt-16 md:px-8">
       {/* heading fades up after the arrival drawing finishes */}
       <SheetHeader n="06" name="CONTACT" title={c.heading} headingDelay={ARRIVAL_DONE} />
+      {/* handwritten sign-off, appears right after the heading */}
+      <InView>
+        <p
+          data-r="up"
+          className="mt-1 -rotate-3 pl-1 font-hand text-3xl font-medium text-accent-text"
+          style={r(ARRIVAL_DONE + 0.3, 0.5, reveal.headerY)}
+        >
+          {c.signature}
+        </p>
+      </InView>
       <div className="mt-8 grid items-end gap-10 lg:grid-cols-[1fr_280px]">
         <div>
           <a
@@ -29,7 +41,11 @@ export function Contact() {
         <ContactArrival />
       </div>
       <div className="mt-16 flex items-center justify-between gap-6 border-t border-line pt-6">
-        <p className="font-mono text-xs text-muted">{c.footer}</p>
+        <p className="font-mono text-xs text-muted">
+          {c.footer.split("♥")[0]}
+          <span role="img" aria-label="love" className="text-accent">♥</span>
+          {c.footer.split("♥")[1]}
+        </p>
         <Seal className="size-24 shrink-0 text-ink" />
       </div>
     </footer>

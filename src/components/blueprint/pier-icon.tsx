@@ -28,6 +28,8 @@ export function PierIcon({ name, dashed = false }: { name: Pier["icon"]; dashed?
       strokeWidth="1.5"
       strokeDasharray={dashed ? "3 3" : undefined}
     >
+      {/* warm underlay: orange at 9% behind the ink lines */}
+      <circle cx="16" cy="16" r="14" className="fill-accent/[.09] stroke-none" />
       <path d={PATHS[name]} />
     </svg>
   );

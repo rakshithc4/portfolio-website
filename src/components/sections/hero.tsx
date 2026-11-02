@@ -4,6 +4,7 @@ import { DrawingFrame } from "@/components/blueprint/drawing-frame";
 import { textStep } from "@/lib/motion-config";
 import { Arrow } from "@/components/arrow";
 import { Mark, Seal } from "@/components/logo";
+import { MarginNote } from "@/components/blueprint/margin-note";
 import { CountUp } from "@/components/count-up";
 
 export function Hero() {
@@ -67,6 +68,7 @@ export function Hero() {
             <DrawingFrame grid>
               <BridgeHero />
             </DrawingFrame>
+            <MarginNote text={h.note} className="left-[26%] top-[66%] -rotate-3" arrow="-left-[58px] -top-1 -scale-y-100" />
             {/* title-block stamp, like an engineer's approval seal */}
             <Seal className="absolute -bottom-5 right-4 hidden size-24 -rotate-6 rounded-full bg-bg text-ink sm:block md:size-28" />
           </div>

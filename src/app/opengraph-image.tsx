@@ -9,10 +9,10 @@ export const contentType = "image/png";
 
 const INK = "#14284B";
 const MUTED = "#5B6B82";
-const LINE = "#C9D3DF";
+const LINE = "#D9D3C7";
 const ACCENT = "#E8590C";
 const ACCENT_TEXT = "#B8400A";
-const BG = "#F4F6F8";
+const BG = "#F6F4EF";
 
 export default async function Image() {
   // satori cannot draw text-on-path, so the seal is embedded as the PNG render of public/brand/seal.svg.

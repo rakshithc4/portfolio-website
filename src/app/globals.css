@@ -5,12 +5,12 @@
    variables, so the drawings work in both. */
 :root,
 [data-theme="paper"] {
-  --bg: #f4f6f8;
+  --bg: #f6f4ef; /* warm off-white */
   --ink: #14284b;
   --muted: #5b6b82;
-  --line: #c9d3df;
-  --panel: #eaeff5;
-  --card: #f9fafb;
+  --line: #d9d3c7; /* warm grey hairlines */
+  --panel: #edeae2;
+  --card: #fbfaf6;
   --accent: #e8590c; /* strokes, dot, large numerals */
   --accent-text: #b8400a; /* small text: AA on --bg */
   --ok: #2f8f5b;
@@ -18,12 +18,12 @@
 }
 
 [data-theme="blueprint"] {
-  --bg: #0f2a4a;
+  --bg: #0d2b50; /* a touch richer cyanotype */
   --ink: #eaf0f6;
   --muted: #a9b8cb;
-  --line: #2f4e73;
-  --panel: #0c2340;
-  --card: #123257;
+  --line: #33567f;
+  --panel: #0a2344;
+  --card: #123560;
   --accent: #ff8a4c;
   --accent-text: #ff9a63;
   --ok: #5fcf8e;
@@ -42,6 +42,7 @@
   --color-ok: var(--ok);
   --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+  --font-hand: var(--font-caveat), "Segoe Print", cursive;
 }
 
 @layer base {
