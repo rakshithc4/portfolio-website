@@ -15,6 +15,7 @@
   --accent-text: #b8400a; /* small text: AA on --bg */
   --ok: #2f8f5b;
   --draft-pct: 15%; /* hard "drafting" shadow strength */
+  --water-a: 0.1; /* harbour water line opacity */
   color-scheme: light;
 }
 
@@ -29,6 +30,7 @@
   --accent-text: #ff9a63;
   --ok: #5fcf8e;
   --draft-pct: 35%;
+  --water-a: 0.18;
   color-scheme: dark;
 }
 
@@ -278,4 +280,32 @@ html.theme-anim .mark-flip { animation: mark-flip 0.25s ease-out both; }
 /* ---- Theme switch: smooth ~200ms colour change, only while toggling (never on load) ---- */
 html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, fill 0.2s ease, stroke 0.2s ease !important;
+}
+
+/* ---- Paper grain: faint static noise tile on the Paper background only (no animation) ---- */
+[data-theme="paper"] body {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .16 0 0 0 0 .29 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- Ambient motion (transform/opacity only). Each loop sits inside a wrapper that sets
+   data-paused="true" while off-screen (in-view-pause.tsx) and pauses while the tab is hidden. ---- */
+[data-paused="true"] .ambient,
+[data-tab-hidden] .ambient { animation-play-state: paused; }
+/* harbour water drifts one tile, seamless */
+.drift { animation: drift 30s linear infinite; will-change: transform; }
+@keyframes drift { to { transform: translateX(-50%); } }
+/* breathing request dot */
+.breathe { transform-box: fill-box; transform-origin: center; animation: breathe 3s ease-in-out infinite; }
+@keyframes breathe { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.7; } }
+/* a soft glint crosses the hero deck every 9s: ~2.3s of travel, then idle */
+.glint { opacity: 0; animation: glint 9s ease-in-out 4.5s infinite; }
+@keyframes glint {
+  0% { transform: translateX(42px); opacity: 0; }
+  3% { opacity: 0.9; }
+  25% { opacity: 0.9; }
+  28%, 100% { transform: translateX(557px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drift, .breathe { animation: none; }
+  .glint { display: none; }
 }

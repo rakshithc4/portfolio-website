@@ -115,13 +115,15 @@ export function BridgeLive() {
           className="pulse fill-accent"
           style={t(intro.pulse.delay, intro.pulse.dur)}
         />
-        <circle
-          cx={STAGE_X[0]}
-          cy={DECK_Y + 3}
-          r="5.5"
-          className="fade fill-accent"
-          style={t(intro.dot.delay, intro.dot.dur)}
-        />
+        <g className="ambient breathe">
+          <circle
+            cx={STAGE_X[0]}
+            cy={DECK_Y + 3}
+            r="5.5"
+            className="fade fill-accent"
+            style={t(intro.dot.delay, intro.dot.dur)}
+          />
+        </g>
       </motion.g>
     </g>
   );

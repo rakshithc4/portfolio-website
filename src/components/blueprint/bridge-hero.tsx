@@ -105,6 +105,15 @@ export function BridgeHero() {
         <Arch />
         <Hangers />
         <Dimension />
+        {/* a soft glint travels pylon 1 -> 5 along the deck every 9s (hero in view only) */}
+        <defs>
+          <linearGradient id="glint-grad">
+            <stop offset="0" stopColor="var(--accent)" stopOpacity="0" />
+            <stop offset="0.6" stopColor="var(--accent)" stopOpacity="1" />
+            <stop offset="1" stopColor="var(--accent)" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <rect className="ambient glint" x="0" y={DECK_Y - 2} width="56" height="4" rx="2" fill="url(#glint-grad)" />
         {/* callouts + travelling request dot (client: scroll-linked) */}
         <BridgeLive />
       </svg>

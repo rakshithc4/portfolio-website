@@ -22,6 +22,7 @@ export function SpanGauge() {
     <aside
       aria-label="Page progress"
       inert={!visible}
+      data-paused={visible ? "false" : "true"}
       className={`fixed left-4 top-1/2 z-30 hidden w-40 -translate-y-1/2 transition-opacity duration-300 min-[1440px]:block ${
         visible ? "opacity-60 focus-within:opacity-100 hover:opacity-100" : "pointer-events-none opacity-0"
       }`}
@@ -53,7 +54,9 @@ export function SpanGauge() {
           <MarkPaths />
         </g>
         {/* the request */}
-        <motion.circle cx="0" cy="36" r="3.5" className="fill-accent" style={{ x: reduced ? staticX : x }} />
+        <motion.g style={{ x: reduced ? staticX : x }}>
+          <circle cx="0" cy="36" r="3.5" className="ambient breathe fill-accent" />
+        </motion.g>
       </svg>
       <nav aria-label="Jump to section" className="mt-2">
         <ul className="grid gap-0.5 font-mono text-[11px]">

@@ -48,7 +48,9 @@ const themeScript = `(function(){var t;try{t=localStorage.getItem("theme")}catch
 if(t!=="paper"&&t!=="blueprint"){t=matchMedia("(prefers-color-scheme: dark)").matches?"blueprint":"paper"}
 document.documentElement.dataset.theme=t;
 // Marks that scripts run: scroll reveals only hide content when this is set, so no-JS visitors see everything.
-document.documentElement.dataset.js=""})()`;
+document.documentElement.dataset.js="";
+// Ambient animations pause while the tab is hidden.
+document.addEventListener("visibilitychange",function(){document.documentElement.toggleAttribute("data-tab-hidden",document.hidden)})})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
