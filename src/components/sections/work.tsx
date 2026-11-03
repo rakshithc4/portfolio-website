@@ -101,7 +101,15 @@ function ProjectCard({ p }: { p: Project }) {
 
           <div data-r="up" className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[15px]" style={r(0.8)}>
             {p.links.map((l) => (
-              <a key={l.href} href={l.href} className="font-medium link-u hover:text-accent-text">
+              <a
+                key={l.href}
+                href={l.href}
+                className={`link-u ${
+                  l.label.startsWith("Live demo")
+                    ? "font-medium text-accent-text decoration-accent-text"
+                    : "font-medium hover:text-accent-text"
+                }`}
+              >
                 {l.label} <Arrow dir="ne" />
               </a>
             ))}
