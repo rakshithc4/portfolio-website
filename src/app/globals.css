@@ -227,6 +227,8 @@ a:hover > .arrow-s, a:focus-visible > .arrow-s { transform: translateY(2px); }
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .link-u:hover::after, .link-u:focus-visible::after { transform: scaleX(1); }
+/* primary link (Live demo): orange underline at rest */
+.link-u.link-primary { text-decoration-color: var(--accent-text); }
 /* big email link: constant hairline, accent underline draws left to right on hover/focus */
 .u-draw { position: relative; padding-bottom: 8px; }
 .u-draw::before, .u-draw::after {

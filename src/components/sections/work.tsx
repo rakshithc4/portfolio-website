@@ -106,7 +106,7 @@ function ProjectCard({ p }: { p: Project }) {
                 href={l.href}
                 className={`link-u ${
                   l.label.startsWith("Live demo")
-                    ? "font-medium text-accent-text decoration-accent-text"
+                    ? "font-medium text-accent-text link-primary"
                     : "font-medium hover:text-accent-text"
                 }`}
               >
