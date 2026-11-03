@@ -33,7 +33,7 @@ export type Project = {
   image: { src: string; alt: string; width: number; height: number };
 };
 
-export const coffeeUrl = "https://cal.com/rakshith-c-aniqbd/coffee";
+export const coffeeUrl = "https://cal.com/rakshithcs/coffee";
 
 export const site = {
   meta: {

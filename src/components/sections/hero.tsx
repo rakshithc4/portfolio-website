@@ -64,7 +64,7 @@ export function Hero() {
                 href={coffeeUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Book a 15-minute coffee or video call with Rakshith"
+                aria-label="Grab a coffee — book a 15-minute coffee or video call with Rakshith"
                 className="btn coffee inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-sm text-muted hover:text-ink"
               >
                 <svg aria-hidden viewBox="0 0 16 16" className="size-4 fill-none stroke-ink" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
