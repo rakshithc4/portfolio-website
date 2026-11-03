@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { site } from "@/content/site";
+import { site, coffeeUrl } from "@/content/site";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Mark } from "@/components/logo";
 import { ProgressLine } from "@/components/blueprint/span-gauge";
@@ -167,6 +167,15 @@ export function SiteHeader() {
                 {n.label}
               </a>
             ))}
+            <a
+              href={coffeeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setOpen(false)}
+              className="border-b border-line py-3 text-base text-muted"
+            >
+              <span aria-hidden>☕</span> Coffee chat
+            </a>
             <a href={site.resumeHref} className="btn mt-4 border border-ink px-4 py-3 text-center text-[15px] font-medium">
               Resume ↓
             </a>

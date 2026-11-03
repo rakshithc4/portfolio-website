@@ -1,4 +1,4 @@
-import { site } from "@/content/site";
+import { site, coffeeUrl } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { ContactArrival, ARRIVAL_DONE } from "@/components/blueprint/contact-arrival";
 import { InView } from "@/components/in-view";
@@ -26,7 +26,12 @@ export function Contact() {
             <li><a href={c.github} className="link-u hover:text-accent-text">GitHub <Arrow dir="ne" /></a></li>
             <li><a href={site.resumeHref} className="link-u hover:text-accent-text">Resume PDF <Arrow dir="s" /></a></li>
           </ul>
-          <p className="mt-8 max-w-[40rem] text-muted">{c.line}</p>
+          <p className="mt-6 text-[15px]">
+            <a href={coffeeUrl} target="_blank" rel="noopener noreferrer" className="link-u hover:text-accent-text">
+              <span aria-hidden>☕</span> Prefer a chat? Book a 15-minute coffee or video call <Arrow dir="e" />
+            </a>
+          </p>
+          <p className="mt-6 max-w-[40rem] text-muted">{c.line}</p>
           {/* handwritten sign-off, the last line of the section */}
           <InView>
             <p

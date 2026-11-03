@@ -309,3 +309,18 @@ html.theme-anim, html.theme-anim *, html.theme-anim *::before, html.theme-anim *
   .drift, .breathe { animation: none; }
   .glint { display: none; }
 }
+
+/* ---- Hero coffee pill: two steam wisps drift up and fade (3s loop). Paused off-screen by InViewPause,
+   static under reduced motion. Hover strengthens the steam; the lift comes from .btn. ---- */
+.steam-g { opacity: 0.7; transition: opacity 0.15s; }
+.coffee:hover .steam-g, .coffee:focus-visible .steam-g { opacity: 1; }
+.steam { animation: steam 3s ease-out infinite; }
+.steam-2 { animation-delay: 1.5s; }
+@keyframes steam {
+  0% { transform: translateY(1.5px); opacity: 0; }
+  30% { opacity: 1; }
+  100% { transform: translateY(-2.5px); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .steam { animation: none; opacity: 1; }
+}
