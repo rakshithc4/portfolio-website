@@ -1,4 +1,4 @@
-import { site } from "@/content/site";
+import { site, coffeeUrl } from "@/content/site";
 import { BridgeHero } from "@/components/blueprint/bridge-hero";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
 import { textStep } from "@/lib/motion-config";
@@ -53,14 +53,30 @@ export function Hero() {
               Email me
             </a>
             </div>
-            <div className="flex gap-6">
-            <a href={site.contact.github} className="text-[15px] text-muted link-u hover:text-ink">
-              GitHub
-            </a>
-            <a href={site.contact.linkedin} className="text-[15px] text-muted link-u hover:text-ink">
-              LinkedIn
-            </a>
-            </div>
+            <InViewPause className="flex flex-wrap items-center gap-x-6 gap-y-3">
+              <a href={site.contact.github} className="text-[15px] text-muted link-u hover:text-ink">
+                GitHub
+              </a>
+              <a href={site.contact.linkedin} className="text-[15px] text-muted link-u hover:text-ink">
+                LinkedIn
+              </a>
+              <a
+                href={coffeeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Book a 15-minute coffee or video call with Rakshith"
+                className="btn coffee inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1 text-sm text-muted hover:text-ink"
+              >
+                <svg aria-hidden viewBox="0 0 16 16" className="size-4 fill-none stroke-ink" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 7h8v3.5a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3Z M11 8h1a1.5 1.5 0 0 1 0 3h-1 M2 15h10" />
+                  <g className="steam-g stroke-accent">
+                    <path className="ambient steam" d="M5.5 5.2c-.8-.8.8-1.4 0-2.4" />
+                    <path className="ambient steam steam-2" d="M8.5 5.2c-.8-.8.8-1.4 0-2.4" />
+                  </g>
+                </svg>
+                Grab a coffee
+              </a>
+            </InViewPause>
           </div>
         </div>
 
