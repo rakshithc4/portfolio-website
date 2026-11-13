@@ -3,9 +3,9 @@ import { site, type Pier } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { PierIcon } from "@/components/blueprint/pier-icon";
 import { MarginNote } from "@/components/blueprint/margin-note";
-import { InView } from "@/components/in-view";
+import { JourneyBridge } from "@/components/blueprint/journey-bridge";
+import { Reveal } from "@/components/motion/reveal";
 import { Arrow } from "@/components/arrow";
-import { journey, r } from "@/lib/motion-config";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -35,8 +35,7 @@ function PierCard({ p, i }: { p: Pier; i: number }) {
       <div className="flex items-center gap-3">
         <PierIcon name={p.icon} dashed={p.unfinished} />
         <p className="font-mono text-xs leading-snug tracking-wide text-accent-text">
-          <span className="lg:hidden">PIER {pad(i + 1)} · </span>
-          {p.stage}
+          PIER {pad(i + 1)} · {p.stage}
         </p>
       </div>
       <h3 className="mt-3 text-xl font-semibold tracking-tight">{p.title}</h3>
@@ -52,123 +51,28 @@ function PierCard({ p, i }: { p: Pier; i: number }) {
   );
 }
 
-// Desktop: one long horizontal deck. Piers sit one grid column apart; cards alternate
-// above/below the deck and span two columns, so neighbours never collide.
-function Deck({ piers }: { piers: Pier[] }) {
-  return (
-    <div className="mt-12 hidden grid-cols-8 grid-rows-[auto_104px_auto] lg:grid">
-      {/* deck line: draws left to right; solid to the last built pier, dashed beyond it (draws last) */}
-      <InView aria-hidden className="relative col-span-8 col-start-1 row-start-2">
-        <div data-r="line-x" className="absolute left-0 top-1/2 h-0 w-[81.25%] border-t-2 border-ink" style={r(0, journey.deckDur)} />
-        <div
-          data-r="line-x"
-          className="absolute left-[81.25%] top-1/2 h-0 w-[18.75%] border-t-2 border-dashed border-ink"
-          style={r(journey.dashedDeckDelay, 0.4)}
-        />
-        <div data-r="fade" className="absolute left-0 top-1/2 h-4 w-0 -translate-y-1/2 border-l-2 border-ink" style={r(0, 0.3)} />
-      </InView>
-
-      {piers.map((p, i) => {
-        const start = i + 1; // pier centre sits on the boundary between columns `start` and `start+1`
-        const above = i % 2 === 0; // card above the deck for odd piers
-        const col = { gridColumn: `${start} / span 2` };
-        const d = journey.pierStart + i * journey.pierStep; // node -> stem -> card, ~150ms apart per pier
-        return (
-          <Fragment key={p.title}>
-            <InView
-              data-r="up"
-              className={`relative px-2 ${above ? "row-start-1 self-end" : "row-start-3 self-start"}`}
-              style={{ ...col, ...r(d + journey.cardLag) }}
-            >
-              <PierCard p={p} i={i} />
-              {p.note && (
-                <MarginNote
-                  text={p.note}
-                  className={above ? "-top-9 left-8 -rotate-2" : "-bottom-[84px] left-8 w-52 -rotate-1"}
-                  arrow={above ? "left-full top-1/2 ml-1 -scale-x-100" : "-top-8 left-1 -scale-y-100"}
-                />
-              )}
-            </InView>
-            {/* pier: node on the deck, stem to the card, mono label on the far side */}
-            <InView aria-hidden className="relative row-start-2" style={col}>
-              <span
-                data-r="pop"
-                className="absolute left-1/2 top-1/2 size-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-ink bg-bg"
-                style={r(d, 0.3)}
-              />
-              <span
-                data-r={above ? "stem-up" : "stem-down"}
-                className={`absolute left-1/2 w-0 border-l ${p.unfinished ? "border-dashed border-ink" : "border-ink"} ${
-                  above ? "top-0 h-1/2" : "bottom-0 h-1/2"
-                }`}
-                style={r(d + journey.stemLag, 0.3)}
-              />
-              <span
-                data-r="fade"
-                className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-xs text-muted ${
-                  above ? "top-[calc(50%+14px)]" : "bottom-[calc(50%+14px)]"
-                }`}
-                style={r(d, 0.3)}
-              >
-                PIER {pad(i + 1)}
-              </span>
-            </InView>
-          </Fragment>
-        );
-      })}
-    </div>
-  );
-}
-
-// Mobile / tablet: the same deck turned vertical. Each pier reveals as it scrolls into view:
-// deck line draws downward, node pops, card fades up.
-function VerticalDeck({ piers }: { piers: Pier[] }) {
-  return (
-    <ol className="mt-10 ml-2 lg:hidden">
-      {piers.map((p, i) => (
-        <InView
-          as="li"
-          key={p.title}
-          className={`relative pl-6 ${i < piers.length - 1 ? "pb-8" : ""}`}
-        >
-          <span
-            aria-hidden
-            data-r="line-y"
-            className={`absolute bottom-0 left-0 top-0 w-0 border-l-2 border-ink ${p.unfinished ? "border-dashed" : ""}`}
-            style={r(0, 0.6)}
-          />
-          <span
-            aria-hidden
-            data-r="pop"
-            className={`absolute -left-[7px] top-6 size-4 rounded-full border-2 border-ink bg-bg ${
-              p.unfinished ? "border-dashed" : ""
-            }`}
-            style={r(0.1, 0.3)}
-          />
-          <div data-r="up" style={r(0.25)}>
-            <PierCard p={p} i={i} />
-          </div>
-          {p.note && (
-            <MarginNote
-              text={p.note}
-              className={`whitespace-nowrap -rotate-1 ${i === 0 ? "-top-8 left-12" : "-bottom-1 left-20"}`}
-              arrow={i === 0 ? "left-full top-1/2 ml-1 -scale-x-100" : "-left-[58px] -top-1 -scale-y-100"}
-            />
-          )}
-        </InView>
-      ))}
-    </ol>
-  );
-}
-
+// One list of pier cards (a single copy in the DOM). The bridge drawing beside it (a strip above it on
+// small screens) builds pier by pier as the cards scroll past: see journey-bridge.tsx.
 export function Journey() {
   const j = site.journey;
   return (
     <section id="journey" aria-labelledby="journey-heading" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
       <SheetHeader id="journey-heading" n="03" name="CONSTRUCTION LOG" title={j.heading} />
       <p className="mt-3 text-muted">{j.intro}</p>
-      <Deck piers={j.piers} />
-      <VerticalDeck piers={j.piers} />
+      <JourneyBridge piers={j.piers.map((p) => ({ stage: p.stage, title: p.title, unfinished: !!p.unfinished }))}>
+        {j.piers.map((p, i) => (
+          <Reveal as="li" key={p.title} className={`relative ${p.note ? "sm:mt-8" : ""}`}>
+            <PierCard p={p} i={i} />
+            {p.note && (
+              <MarginNote
+                text={p.note}
+                className="-top-8 left-6 -rotate-2 whitespace-nowrap"
+                arrow="left-full top-1/2 ml-1 -scale-x-100"
+              />
+            )}
+          </Reveal>
+        ))}
+      </JourneyBridge>
     </section>
   );
 }

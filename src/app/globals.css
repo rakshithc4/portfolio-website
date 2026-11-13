@@ -175,6 +175,23 @@ html[data-js] [data-r="veil"][data-in] { opacity: 0; }
   html[data-js] [data-r="wipe"] { clip-path: none; }
 }
 
+/* ---- Construction log ---- */
+/* the card whose pier is going up */
+li[data-active] > .card-draft { border-color: var(--ink); }
+/* drawing caption swaps when the active pier changes */
+.swap { animation: swap-from 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes swap-from { from { opacity: 0; transform: translateY(6px); } }
+/* Scroll-scrubbed drawings start unbuilt in the server HTML; with JS off, show them finished. */
+html:not([data-js]) [data-scrub] svg * {
+  transform: none !important;
+  opacity: 1 !important;
+  stroke-dashoffset: 0 !important;
+  stroke-dasharray: none !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .swap { animation: none; }
+}
+
 /* ---- Work card hover (pointer devices only) ---- */
 /* Drafting-card feel (.card-draft): on hover, or when a link inside has keyboard focus, the card lifts 3px,
    its border turns ink and a hard-edged offset shadow appears. Pressing settles it 1px into the paper.
