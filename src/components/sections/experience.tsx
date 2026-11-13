@@ -7,8 +7,8 @@ import { r } from "@/lib/motion-config";
 // The deck draws, then each role hangs from it: hanger drops, node appears, text fades in beside it.
 export function Experience() {
   return (
-    <section id="experience" aria-label="experience" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
-      <SheetHeader n="04" name="EXPERIENCE" title={site.experience.heading} />
+    <section id="experience" aria-labelledby="experience-heading" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
+      <SheetHeader id="experience-heading" n="04" name="EXPERIENCE" title={site.experience.heading} />
       <InView className="relative mt-12">
         {/* deck line */}
         <span aria-hidden data-r="line-y" className="absolute bottom-0 left-0 top-0 w-0 border-l-2 border-ink md:hidden" style={r(0, 0.8)} />

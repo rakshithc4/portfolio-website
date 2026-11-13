@@ -164,8 +164,8 @@ function VerticalDeck({ piers }: { piers: Pier[] }) {
 export function Journey() {
   const j = site.journey;
   return (
-    <section id="journey" aria-label="journey" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
-      <SheetHeader n="03" name="CONSTRUCTION LOG" title={j.heading} />
+    <section id="journey" aria-labelledby="journey-heading" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
+      <SheetHeader id="journey-heading" n="03" name="CONSTRUCTION LOG" title={j.heading} />
       <p className="mt-3 text-muted">{j.intro}</p>
       <Deck piers={j.piers} />
       <VerticalDeck piers={j.piers} />

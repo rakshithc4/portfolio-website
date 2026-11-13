@@ -11,13 +11,13 @@ import { r, reveal } from "@/lib/motion-config";
 export function About() {
   const a = site.about;
   return (
-    <section id="about" aria-label="about" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
-      <SheetHeader n="05" name="ABOUT" title={a.heading} />
+    <section id="about" aria-labelledby="about-heading" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
+      <SheetHeader id="about-heading" n="05" name="ABOUT" title={a.heading} />
 
       {/* Mobile order: photo, text, bill of materials, credentials.
           Desktop: photo | text + credentials, then bill of materials full width. */}
       <div className="mt-10 grid gap-x-12 gap-y-12 lg:grid-cols-[300px_1fr]">
-        <InView as="figure" className="m-0 max-w-[300px] self-start lg:row-span-2">
+        <InView as="figure" className="m-0 max-w-[200px] self-start sm:max-w-[300px] lg:row-span-2">
           <div className="relative">
           <MarginNote text={a.photo.note} className="-top-9 left-20 -rotate-3" arrow="left-full top-1/2 ml-1 -scale-x-100" />
           <DrawingFrame animate>
@@ -83,7 +83,7 @@ export function About() {
               <li key={c.label} className="card-draft border border-transparent border-b-line px-3 py-[11px] text-[15px]">
                 <div data-r="up" style={r(0.05 + i * reveal.stagger)}>
                   {c.href ? (
-                    <a href={c.href} className="link-u hover:text-accent-text">
+                    <a href={c.href} className="link-u tap hover:text-accent-text">
                       {c.label} <Arrow dir="ne" />
                     </a>
                   ) : (

@@ -227,6 +227,9 @@ a:hover > .arrow-s, a:focus-visible > .arrow-s { transform: translateY(2px); }
   transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .link-u:hover::after, .link-u:focus-visible::after { transform: scaleX(1); }
+/* stand-alone links (lists, not mid-sentence): 3px padding makes the target 24px+ tall (WCAG 2.5.8) */
+.link-u.tap { display: inline-block; padding-block: 3px; }
+.link-u.tap::after { bottom: 1px; }
 /* primary link (Live demo): orange underline at rest */
 .link-u.link-primary { text-decoration-color: var(--accent-text); }
 /* big email link: constant hairline, accent underline draws left to right on hover/focus */

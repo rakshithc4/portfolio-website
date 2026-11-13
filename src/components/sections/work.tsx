@@ -148,8 +148,8 @@ function ProjectCard({ p }: { p: Project }) {
 
 export function Work() {
   return (
-    <section id="work" aria-label="work" className="mx-auto max-w-[1100px] px-5 pb-16 pt-12 md:px-8">
-      <SheetHeader n="02" name="WORK" title={site.work.heading} />
+    <section id="work" aria-labelledby="work-heading" className="mx-auto max-w-[1100px] px-5 pb-16 pt-12 md:px-8">
+      <SheetHeader id="work-heading" n="02" name="WORK" title={site.work.heading} />
       <div className="mt-10 grid gap-8">
         {site.work.projects.map((p) => (
           <ProjectCard key={p.id} p={p} />

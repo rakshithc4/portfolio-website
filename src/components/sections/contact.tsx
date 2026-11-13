@@ -9,9 +9,9 @@ import { Arrow } from "@/components/arrow";
 export function Contact() {
   const c = site.contact;
   return (
-    <footer id="contact" aria-label="contact" className="mx-auto max-w-[1100px] px-5 pb-10 pt-16 md:px-8">
+    <footer id="contact" aria-labelledby="contact-heading" className="mx-auto max-w-[1100px] px-5 pb-10 pt-16 md:px-8">
       {/* heading fades up after the arrival drawing finishes */}
-      <SheetHeader n="06" name="CONTACT" title={c.heading} headingDelay={ARRIVAL_DONE} />
+      <SheetHeader id="contact-heading" n="06" name="CONTACT" title={c.heading} headingDelay={ARRIVAL_DONE} />
       <div className="mt-8 grid items-end gap-10 lg:grid-cols-[1fr_280px]">
         <div>
           <a
@@ -21,13 +21,13 @@ export function Contact() {
             {c.email}
           </a>
           <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-[15px]">
-            <li><a href={c.phoneHref} className="link-u hover:text-accent-text">{c.phone}</a></li>
-            <li><a href={c.linkedin} className="link-u hover:text-accent-text">LinkedIn <Arrow dir="ne" /></a></li>
-            <li><a href={c.github} className="link-u hover:text-accent-text">GitHub <Arrow dir="ne" /></a></li>
-            <li><a href={site.resumeHref} className="link-u hover:text-accent-text">Resume PDF <Arrow dir="s" /></a></li>
+            <li><a href={c.phoneHref} className="link-u tap hover:text-accent-text">{c.phone}</a></li>
+            <li><a href={c.linkedin} className="link-u tap hover:text-accent-text">LinkedIn <Arrow dir="ne" /></a></li>
+            <li><a href={c.github} className="link-u tap hover:text-accent-text">GitHub <Arrow dir="ne" /></a></li>
+            <li><a href={site.resumeHref} className="link-u tap hover:text-accent-text">Resume PDF <Arrow dir="s" /></a></li>
           </ul>
           <p className="mt-6 text-[15px]">
-            <a href={coffeeUrl} target="_blank" rel="noopener noreferrer" className="link-u hover:text-accent-text">
+            <a href={coffeeUrl} target="_blank" rel="noopener noreferrer" className="link-u tap hover:text-accent-text">
               <span aria-hidden>☕</span> Prefer a chat? Book a 15-minute coffee or video call <Arrow dir="e" />
             </a>
           </p>
