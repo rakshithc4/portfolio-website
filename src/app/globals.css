@@ -108,6 +108,13 @@
   transform-origin: center;
   animation: pulse var(--dur, 0.4s) var(--ease, ease-out) var(--delay, 0s) forwards;
 }
+/* one word of a <SplitText>: rises a third of its own height */
+.word {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.3em);
+  animation: rise var(--dur, 0.5s) var(--ease, ease-out) var(--delay, 0s) forwards;
+}
 @keyframes draw { to { stroke-dashoffset: 0; } }
 @keyframes fade { to { opacity: 1; } }
 @keyframes rise { to { opacity: 1; transform: none; } }
@@ -118,7 +125,7 @@
 /* Reduced motion: show the final state instantly. */
 @media (prefers-reduced-motion: reduce) {
   .draw { stroke-dashoffset: 0; animation: none; }
-  .fade, .rise { opacity: 1; transform: none; animation: none; }
+  .fade, .rise, .word { opacity: 1; transform: none; animation: none; }
   .pulse { display: none; }
 }
 
@@ -144,6 +151,7 @@ html[data-js] [data-r="stem-down"] { transform: scaleY(0); transform-origin: top
 html[data-js] [data-r="pop"] { opacity: 0; transform: scale(0.5); transform-box: fill-box; transform-origin: center; }
 html[data-js] [data-r="bracket"] { opacity: 0; transform: translate(var(--bx, 0), var(--by, 0)); }
 html[data-js] [data-r="veil"] { opacity: 0.7; }
+html[data-js] [data-r="wipe"] { clip-path: inset(0 100% 0 0); transition-property: clip-path; }
 html[data-js] [data-r="hang"] { transform: scaleX(0); transform-origin: left; }
 @media (min-width: 768px) {
   html[data-js] [data-r="hang"] { transform: scaleY(0); transform-origin: top; }
@@ -151,11 +159,14 @@ html[data-js] [data-r="hang"] { transform: scaleX(0); transform-origin: left; }
 /* shown state: the item is, or sits inside, an element that has scrolled into view */
 html[data-js] [data-in] [data-r],
 html[data-js] [data-r][data-in] { opacity: 1; transform: none; stroke-dashoffset: 0; }
+html[data-js] [data-in] [data-r="wipe"],
+html[data-js] [data-r="wipe"][data-in] { clip-path: inset(0); }
 html[data-js] [data-in] [data-r="veil"],
 html[data-js] [data-r="veil"][data-in] { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
   html[data-js] [data-r] { opacity: 1; transform: none; stroke-dashoffset: 0; transition: none; }
   html[data-js] [data-r="veil"] { opacity: 0; }
+  html[data-js] [data-r="wipe"] { clip-path: none; }
 }
 
 /* ---- Work card hover (pointer devices only) ---- */

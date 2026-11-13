@@ -6,7 +6,7 @@ import { Arrow } from "@/components/arrow";
 import { Mark, Seal } from "@/components/logo";
 import { InViewPause } from "@/components/in-view-pause";
 import { MarginNote } from "@/components/blueprint/margin-note";
-import { CountUp } from "@/components/count-up";
+import { CountUp } from "@/components/motion/count-up";
 
 export function Hero() {
   const h = site.hero;

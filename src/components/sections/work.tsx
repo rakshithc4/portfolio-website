@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Arrow } from "@/components/arrow";
 import { InView } from "@/components/in-view";
-import { CountUp } from "@/components/count-up";
+import { CountUp } from "@/components/motion/count-up";
 import { r } from "@/lib/motion-config";
 import { site, type Project } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";

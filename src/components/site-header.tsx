@@ -5,9 +5,9 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { site, coffeeUrl } from "@/content/site";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Mark } from "@/components/logo";
+import { ease } from "@/lib/motion-config";
 import { ProgressLine } from "@/components/blueprint/span-gauge";
 
-const EASE_ARR = [0.22, 1, 0.36, 1] as const; // same curve as EASE in motion-config
 
 export function SiteHeader() {
   const reduced = useReducedMotion();
@@ -153,7 +153,7 @@ export function SiteHeader() {
             initial={{ opacity: 0, y: reduced ? 0 : -8 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduced ? 0 : -8 }}
-            transition={{ duration: reduced ? 0 : 0.2, ease: EASE_ARR }}
+            transition={{ duration: reduced ? 0 : 0.2, ease: ease.out }}
             className="absolute inset-x-0 top-full flex flex-col border-b border-line bg-bg px-5 pb-4 md:hidden"
           >
             {site.nav.map((n) => (
