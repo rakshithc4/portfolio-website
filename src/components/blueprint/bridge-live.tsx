@@ -65,6 +65,15 @@ export function BridgeLive() {
               y2={c.ty}
               strokeWidth="1"
             />
+            {/* the node lights once as it lands: an accent ring that expands and fades */}
+            <circle
+              cx={c.x}
+              cy={c.y}
+              r="9"
+              className="pulse fill-none stroke-accent"
+              strokeWidth="1.5"
+              style={{ ...t(intro.callouts.delay + i * intro.callouts.stagger + intro.callouts.dur, 0.35), "--pulse-s": "2" } as React.CSSProperties}
+            />
             <g className="fade" style={s}>
               <circle
                 cx={c.x}

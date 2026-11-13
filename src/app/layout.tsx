@@ -49,6 +49,8 @@ if(t!=="paper"&&t!=="blueprint"){t=matchMedia("(prefers-color-scheme: dark)").ma
 document.documentElement.dataset.theme=t;
 // Marks that scripts run: scroll reveals only hide content when this is set, so no-JS visitors see everything.
 document.documentElement.dataset.js="";
+// The intro is skippable: the first scroll, key press or tap jumps every on-load animation to its end (globals.css).
+["wheel","touchstart","keydown","pointerdown"].forEach(function(e){addEventListener(e,function(){document.documentElement.dataset.skip=""},{once:true,passive:true})});
 // Ambient animations pause while the tab is hidden.
 document.addEventListener("visibilitychange",function(){document.documentElement.toggleAttribute("data-tab-hidden",document.hidden)})})()`;
 
