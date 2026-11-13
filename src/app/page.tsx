@@ -7,6 +7,7 @@ import { Experience } from "@/components/sections/experience";
 import { About } from "@/components/sections/about";
 import { Harbour } from "@/components/blueprint/harbour";
 import { Contact } from "@/components/sections/contact";
+import { Crosshair } from "@/components/motion/crosshair";
 
 export default function Home() {
   return (
@@ -29,6 +30,7 @@ export default function Home() {
       </main>
       <Harbour />
       <Contact />
+      <Crosshair />
     </>
   );
 }

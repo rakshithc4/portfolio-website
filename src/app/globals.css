@@ -82,6 +82,11 @@
   background-blend-mode: normal;
 }
 
+/* Inside drawings the drafting crosshair (crosshair.tsx) replaces the cursor. Mouse devices only,
+   and only once the script has mounted, so the native cursor is never lost. */
+html[data-crosshair] [data-drawing] { cursor: none; }
+html[data-crosshair] [data-drawing] a { cursor: pointer; }
+
 .tnum {
   font-variant-numeric: tabular-nums;
 }
@@ -181,6 +186,8 @@ li[data-active] > .card-draft { border-color: var(--ink); }
 html:not([data-js]) :is([data-scrub] svg *, [data-scrub="line"]) {
   transform: none !important;
   opacity: 1 !important;
+}
+html:not([data-js]) [data-scrub] svg [pathLength] {
   stroke-dashoffset: 0 !important;
   stroke-dasharray: none !important;
 }

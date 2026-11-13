@@ -6,7 +6,7 @@ import { site, coffeeUrl } from "@/content/site";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Mark } from "@/components/logo";
 import { ease } from "@/lib/motion-config";
-import { ProgressLine } from "@/components/blueprint/span-gauge";
+import { SectionProgress } from "@/components/blueprint/span-gauge";
 
 
 export function SiteHeader() {
@@ -142,7 +142,7 @@ export function SiteHeader() {
         </div>
       </div>
 
-      <ProgressLine />
+      <SectionProgress />
 
       <AnimatePresence>
         {open && (

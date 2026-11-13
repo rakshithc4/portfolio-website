@@ -29,13 +29,14 @@ Read `AGENTS.md` first — this project pins **Next.js 16**, which has breaking 
 - **`src/content/site.ts`** — single source of truth for all copy: hero, projects, experience, about, credentials, contact. Edit text here, not in components. Projects have an optional `videoUrl`; a "Watch demo" button renders only when it is set. Preserve `TODO(Rakshith)` comments and provenance notes when editing.
 - **`src/app/layout.tsx`** — root layout: Inter Tight + JetBrains Mono via `next/font/google`, metadata (`metadataBase` https://rakshithchandrashekar.com), and an inline script that sets `data-theme` before first paint.
 - **`src/app/globals.css`** — Tailwind v4 `@theme inline` plus the two theme token sets (`paper`, `blueprint`).
-- **`src/components/blueprint/*`** — drawing-language building blocks (`BridgeHero`, `SpanDiagram`, `SheetHeader`, `DrawingFrame`). Further animation components are added per the redesign plan.
+- **`src/components/blueprint/*`** — drawing-language building blocks (`BridgeHero`, `JourneyBridge`, `SpanDiagram`, `SheetHeader`, `DrawingFrame`).
+- **`src/components/motion/*`** — reusable motion pieces (`Reveal`, `SplitText`, `DrawPath`, `CountUp`, `Magnetic`, `Parallax`, `Tilt`, `ScrubLine`, `Crosshair`). Timings and easings come from `src/lib/motion-config.ts`; use these before writing a new animation.
 - **`src/components/sections/*`** — one component per page section, each consuming `site.ts`.
 - **`src/components/site-header.tsx`** / **`theme-toggle.tsx`** — sticky nav with active-section highlight; Paper/Blueprint toggle (localStorage in try/catch).
 
 ## Design system — read before touching UI
 
-`.claude/skills/portfolio-design/SKILL.md` is the binding spec: "Blueprint for a bridge" — an engineering-drawing look (pale blue-grey paper / dark cyanotype themes, navy ink, one safety-orange accent, thin strokes, hand-authored inline SVG), where scrolling = a business request crossing the bridge from pylon ① to pylon ⑤. Use the CSS-variable tokens, never ad hoc colors. No glows, particles, parallax or ambient motion. Animate only transform/opacity/SVG stroke, once-only entries, and honour `prefers-reduced-motion`.
+`.claude/skills/portfolio-design/SKILL.md` is the binding spec: "Blueprint for a bridge" — an engineering-drawing look (pale blue-grey paper / dark cyanotype themes, navy ink, one safety-orange accent, thin strokes, hand-authored inline SVG), where scrolling = a business request crossing the bridge from pylon ① to pylon ⑤. Use the CSS-variable tokens, never ad hoc colors. No glows, particles, background parallax, scroll-jacking or new ambient loops. Animate only transform/opacity/SVG stroke/clip-path, keep pointer effects tiny and mouse-only, and honour `prefers-reduced-motion`. No animation library other than `motion`.
 
 Stack: Tailwind v4 (config in CSS, no `tailwind.config`), `motion` (`motion/react`) for animation. shadcn/ui, `three` and the old particle/WebGL background were removed in the redesign.
 
