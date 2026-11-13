@@ -1,25 +1,27 @@
 import { site, coffeeUrl } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
-import { ContactArrival, ARRIVAL_DONE } from "@/components/blueprint/contact-arrival";
+import { ContactArrival } from "@/components/blueprint/contact-arrival";
 import { InView } from "@/components/in-view";
 import { r, reveal } from "@/lib/motion-config";
 import { Seal } from "@/components/logo";
 import { Arrow } from "@/components/arrow";
+import { Magnetic } from "@/components/motion/magnetic";
 
 export function Contact() {
   const c = site.contact;
   return (
     <footer id="contact" aria-labelledby="contact-heading" className="mx-auto max-w-[1100px] px-5 pb-10 pt-16 md:px-8">
-      {/* heading fades up after the arrival drawing finishes */}
-      <SheetHeader id="contact-heading" n="06" name="CONTACT" title={c.heading} headingDelay={ARRIVAL_DONE} />
+      <SheetHeader id="contact-heading" n="06" name="CONTACT" title={c.heading} />
       <div className="mt-8 grid items-end gap-10 lg:grid-cols-[1fr_280px]">
         <div>
-          <a
-            href={`mailto:${c.email}`}
-            className="u-draw inline-block break-all text-3xl font-semibold tracking-tight hover:text-accent-text md:text-5xl"
-          >
-            {c.email}
-          </a>
+          <Magnetic max={4} className="max-w-full">
+            <a
+              href={`mailto:${c.email}`}
+              className="u-draw inline-block break-all text-3xl font-semibold tracking-tight hover:text-accent-text md:text-5xl"
+            >
+              {c.email}
+            </a>
+          </Magnetic>
           <ul className="mt-8 flex flex-wrap gap-x-8 gap-y-2 text-[15px]">
             <li><a href={c.phoneHref} className="link-u tap hover:text-accent-text">{c.phone}</a></li>
             <li><a href={c.linkedin} className="link-u tap hover:text-accent-text">LinkedIn <Arrow dir="ne" /></a></li>

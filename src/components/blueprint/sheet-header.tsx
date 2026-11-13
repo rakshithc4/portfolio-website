@@ -10,7 +10,6 @@ export function SheetHeader({
   name,
   title,
   as: Tag = "h2",
-  headingDelay = 0.25,
 }: {
   /** id for the heading, so the section can point at it with aria-labelledby. */
   id?: string;
@@ -18,8 +17,6 @@ export function SheetHeader({
   name: string;
   title: string;
   as?: "h1" | "h2";
-  /** Seconds before the heading appears (the contact sheet waits for its drawing). */
-  headingDelay?: number;
 }) {
   return (
     <InView>
@@ -28,7 +25,7 @@ export function SheetHeader({
         <Mark className="h-3.5 w-auto text-ink" />
         SHEET {n} · {name}
       </p>
-      <Tag id={id} data-r="up" className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl" style={r(headingDelay, 0.5, reveal.headerY)}>
+      <Tag id={id} data-r="up" className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl" style={r(0.25, 0.5, reveal.headerY)}>
         {title}
       </Tag>
     </InView>

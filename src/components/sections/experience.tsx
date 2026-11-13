@@ -1,18 +1,19 @@
 import { site } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { InView } from "@/components/in-view";
+import { ScrubLine } from "@/components/motion/scrub-line";
 import { r } from "@/lib/motion-config";
 
 // Timeline as a bridge deck: horizontal on desktop, vertical on mobile.
-// The deck draws, then each role hangs from it: hanger drops, node appears, text fades in beside it.
+// The deck draws with the scroll, and each role hangs from it: hanger drops, node appears, text fades in beside it.
 export function Experience() {
   return (
     <section id="experience" aria-labelledby="experience-heading" className="mx-auto max-w-[1100px] px-5 py-16 md:px-8">
       <SheetHeader id="experience-heading" n="04" name="EXPERIENCE" title={site.experience.heading} />
       <InView className="relative mt-12">
-        {/* deck line */}
-        <span aria-hidden data-r="line-y" className="absolute bottom-0 left-0 top-0 w-0 border-l-2 border-ink md:hidden" style={r(0, 0.8)} />
-        <span aria-hidden data-r="line-x" className="absolute inset-x-0 top-0 hidden h-0 border-t-2 border-ink md:block" style={r(0, 0.8)} />
+        {/* deck line: draws with the scroll (down the list on mobile, across on desktop) */}
+        <ScrubLine axis="y" className="absolute bottom-0 left-0 top-0 w-0 border-l-2 border-ink md:hidden" />
+        <ScrubLine axis="x" className="absolute inset-x-0 top-0 hidden h-0 border-t-2 border-ink md:block" />
         <ol className="grid gap-10 pl-6 md:grid-cols-3 md:gap-8 md:pl-0">
           {site.experience.roles.map((role, i) => {
             const b = 0.2 + i * 0.2; // staggered, left to right
