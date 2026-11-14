@@ -3,6 +3,7 @@
 // Reading progress mapped onto the "span": hero = left pylon, one tick per section,
 // page bottom = far pylon. Shared by the desktop span gauge and the mobile progress line.
 import { useEffect, useRef, useState } from "react";
+import { SPRING } from "@/lib/motion-config";
 import { useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 
 export const SPAN_IDS = ["work", "journey", "experience", "about", "contact"] as const;
@@ -58,8 +59,8 @@ export function useSpanProgress() {
   useMotionValueEvent(scrollY, "change", update);
 
   const fraction = useTransform(scrollY, (y) => lerp(y, stops.current.x, stops.current.f));
-  const smooth = useSpring(fraction, { stiffness: 140, damping: 26, mass: 0.5 });
-  const page = useSpring(scrollYProgress, { stiffness: 140, damping: 26, mass: 0.5 });
+  const smooth = useSpring(fraction, SPRING);
+  const page = useSpring(scrollYProgress, SPRING);
 
   return { reduced: !!reduced, smooth, page, active, visible };
 }

@@ -6,13 +6,16 @@ import { Arrow } from "@/components/arrow";
 import { Mark, Seal } from "@/components/logo";
 import { InViewPause } from "@/components/in-view-pause";
 import { MarginNote } from "@/components/blueprint/margin-note";
-import { CountUp } from "@/components/count-up";
+import { CountUp } from "@/components/motion/count-up";
+import { Magnetic } from "@/components/motion/magnetic";
+import { SplitText } from "@/components/motion/split-text";
 
 export function Hero() {
   const h = site.hero;
   return (
     <section id="top" aria-labelledby="hero-heading" className="mx-auto max-w-[1100px] px-5 pb-6 pt-12 md:px-8 md:pt-20">
-      <div className="grid items-center gap-12 lg:grid-cols-[1fr_1.05fr]">
+      {/* one grid: text | drawing, proof strip below. Below lg the proof strip moves up under the CTAs (order only). */}
+      <div className="grid items-center gap-x-12 gap-y-10 lg:grid-cols-[1fr_1.05fr] lg:gap-y-16">
         <div>
           <div className="rise" style={textStep(0)}>
             <p className="flex items-center gap-2 font-mono text-xs tracking-wide text-accent-text">
@@ -21,9 +24,10 @@ export function Hero() {
             </p>
             <p className="mt-2 font-mono text-xs leading-relaxed text-muted">{h.eyebrow}</p>
           </div>
-          <h1 id="hero-heading" className="rise mt-6 font-semibold tracking-tight" style={textStep(1)}>
-            <span className="block text-4xl leading-[1.05] sm:text-5xl md:text-6xl">{h.heading}</span>
-            <span className="mt-3 block text-balance text-2xl leading-tight sm:text-3xl">{h.subheading}</span>
+          {/* headline arrives word by word; plain text to screen readers */}
+          <h1 id="hero-heading" className="mt-6 font-semibold tracking-tight">
+            <SplitText text={h.heading} delay={0.07} className="block text-4xl leading-[1.05] sm:text-5xl md:text-6xl" />{" "}
+            <SplitText text={h.subheading} delay={0.24} className="mt-3 block text-balance text-2xl leading-tight sm:text-3xl" />
           </h1>
           <p className="rise mt-3 text-base text-muted" style={textStep(2)}>{h.fullName}</p>
           <p className="rise mt-6 max-w-[34rem] text-lg leading-snug sm:text-xl" style={textStep(3)}>{h.oneLiner}</p>
@@ -32,20 +36,21 @@ export function Hero() {
             <span aria-hidden className="mt-1.5 size-2 shrink-0 rounded-full bg-ok" />
             <span>
               {h.status.split(" · ")[0]}
-              <span aria-hidden className="hidden sm:inline"> · </span>
-              <span className="sr-only sm:hidden"> · </span>
+              <span className="max-sm:sr-only"> · </span>
               <span className="block sm:inline">{h.status.split(" · ")[1]}</span>
             </span>
           </p>
 
           <div className="rise mt-8 grid gap-4" style={textStep(5)}>
             <div className="flex gap-3">
-            <a
-              href="#work"
-              className="btn bg-ink px-4 py-3 text-[15px] sm:px-5 font-medium text-bg transition-colors duration-150 hover:bg-accent-text"
-            >
-              View work <Arrow dir="e" />
-            </a>
+            <Magnetic>
+              <a
+                href="#work"
+                className="btn inline-block bg-ink px-4 py-3 text-[15px] font-medium text-bg transition-colors duration-150 hover:bg-accent-text sm:px-5"
+              >
+                View work <Arrow dir="e" />
+              </a>
+            </Magnetic>
             <a
               href={`mailto:${site.contact.email}`}
               className="btn border border-ink px-4 py-3 text-[15px] sm:px-5 font-medium transition-colors duration-150 hover:bg-ink hover:text-bg"
@@ -80,7 +85,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div>
+        <div className="max-lg:order-3">
           <InViewPause className="relative">
             <DrawingFrame grid>
               <BridgeHero />
@@ -98,9 +103,8 @@ export function Hero() {
             ))}
           </ol>
         </div>
-      </div>
 
-      <dl className="rise mt-16 grid border-y border-line sm:grid-cols-3" style={textStep(6)}>
+      <dl className="rise grid border-y border-line max-lg:order-2 sm:grid-cols-3 lg:col-span-2" style={textStep(6)}>
         {h.proof.map((p, i) => (
           <div key={p.label} className={`flex flex-col-reverse py-6 sm:px-8 ${i > 0 ? "border-t border-line sm:border-l sm:border-t-0" : "sm:pl-0"}`}>
             <dt className="font-mono text-xs uppercase tracking-wide text-muted">{p.label}</dt>
@@ -110,6 +114,7 @@ export function Hero() {
           </div>
         ))}
       </dl>
+      </div>
     </section>
   );
 }

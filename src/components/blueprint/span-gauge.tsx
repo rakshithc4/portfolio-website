@@ -66,7 +66,7 @@ export function SpanGauge() {
                 href={`#${n.id}`}
                 aria-label={`Go to ${n.label}`}
                 aria-current={i === active ? "true" : undefined}
-                className={`flex items-center gap-2 py-0.5 transition-colors duration-150 hover:text-ink ${
+                className={`flex items-center gap-2 py-1 transition-colors duration-150 hover:text-ink ${
                   i === active ? "text-accent-text" : "text-muted"
                 }`}
               >
@@ -81,14 +81,22 @@ export function SpanGauge() {
   );
 }
 
-/** Mobile / small laptops (<1440px): 2px orange progress line, drawn under the nav. */
-export function ProgressLine() {
-  const { reduced, page, active } = useSpanProgress();
+/** Below 1440px: reading progress as a measure line under the nav. A tick marks where each
+ *  section starts; the orange rule is how far the request has travelled (transform only). */
+export function SectionProgress() {
+  const { reduced, smooth, active } = useSpanProgress();
+  // Reduced motion: no scrubbing. The rule just reaches the current section's tick.
+  const staticF = active < 0 ? 0 : TICKS[active];
   return (
-    <motion.div
-      aria-hidden
-      className="absolute inset-x-0 -bottom-px h-0.5 origin-left bg-accent min-[1440px]:hidden"
-      style={{ scaleX: reduced ? (active + 1) / SPAN_IDS.length : page }}
-    />
+    <div aria-hidden className="pointer-events-none absolute inset-x-0 top-full h-1.5 min-[1440px]:hidden">
+      {TICKS.map((f, i) => (
+        <span
+          key={f}
+          className={`absolute top-0 h-1.5 w-px transition-colors duration-200 ${i <= active ? "bg-accent" : "bg-muted"}`}
+          style={{ left: `${f * 100}%` }}
+        />
+      ))}
+      <motion.div className="absolute inset-x-0 -top-px h-0.5 origin-left bg-accent" style={{ scaleX: reduced ? staticF : smooth }} />
+    </div>
   );
 }

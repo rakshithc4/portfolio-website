@@ -5,18 +5,18 @@ import { r, reveal } from "@/lib/motion-config";
 // Section opener styled as a drawing sheet: hairline rule draws across,
 // then the orange mono label and the heading fade up 8px. Plays once.
 export function SheetHeader({
+  id,
   n,
   name,
   title,
   as: Tag = "h2",
-  headingDelay = 0.25,
 }: {
+  /** id for the heading, so the section can point at it with aria-labelledby. */
+  id?: string;
   n: string;
   name: string;
   title: string;
   as?: "h1" | "h2";
-  /** Seconds before the heading appears (the contact sheet waits for its drawing). */
-  headingDelay?: number;
 }) {
   return (
     <InView>
@@ -25,7 +25,7 @@ export function SheetHeader({
         <Mark className="h-3.5 w-auto text-ink" />
         SHEET {n} · {name}
       </p>
-      <Tag data-r="up" className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl" style={r(headingDelay, 0.5, reveal.headerY)}>
+      <Tag id={id} data-r="up" className="mt-2 text-3xl font-semibold tracking-tight md:text-4xl" style={r(0.25, 0.5, reveal.headerY)}>
         {title}
       </Tag>
     </InView>

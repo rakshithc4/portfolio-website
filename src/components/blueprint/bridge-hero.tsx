@@ -5,6 +5,7 @@
 import { intro, t } from "@/lib/motion-config";
 import { DECK_Y, HANGER_TS, archY } from "./bridge-geometry";
 import { BridgeLive } from "./bridge-live";
+import { Parallax } from "@/components/motion/parallax";
 
 /* ---- water line ---- */
 function Water() {
@@ -98,6 +99,8 @@ function Dimension() {
 export function BridgeHero() {
   return (
     <div>
+      {/* the drawing floats ~3px over the grid as the mouse moves (mouse devices only) */}
+      <Parallax depth={3}>
       <svg viewBox="0 0 640 340" aria-hidden className="block h-auto w-full">
         <Water />
         <Pylons />
@@ -117,6 +120,7 @@ export function BridgeHero() {
         {/* callouts + travelling request dot (client: scroll-linked) */}
         <BridgeLive />
       </svg>
+      </Parallax>
       {/* title block */}
       <div
         className="fade mt-1 border-t border-line pt-2 font-mono text-sm text-muted sm:pr-24 md:pr-28"

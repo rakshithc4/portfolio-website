@@ -1,14 +1,12 @@
 import { InView } from "@/components/in-view";
 import { r } from "@/lib/motion-config";
 
-// End of the span: the far-bank pylon and a small flag draw in with the label "⑤ DELIVERED".
-// Sequence (s): water 0 -> deck .1 -> pylon .4 -> pole .8 -> flag .95 -> label 1.15.
-// The contact heading waits for ARRIVAL_DONE before it fades up.
-export const ARRIVAL_DONE = 1.35;
+// End of the span: the far-bank pylon and a small flag draw in, then the sheet is stamped "⑤ DELIVERED".
+// Sequence (s): water 0 -> deck .05 -> pylon .3 -> pole .55 -> flag .65 -> stamp .85 (lands ~1.1).
 
 export function ContactArrival() {
   return (
-    <InView margin="0px">
+    <InView margin="0px" className="relative max-w-[280px]">
       <svg viewBox="0 0 280 170" aria-hidden className="block h-auto w-full max-w-[280px] overflow-visible">
         {/* water */}
         <path
@@ -21,8 +19,8 @@ export function ContactArrival() {
         />
         {/* last stretch of deck, arriving at the pylon */}
         <g className="stroke-ink" strokeWidth="2">
-          <line data-r="draw" pathLength={1} x1="0" x2="190" y1="110" y2="110" style={r(0.1, 0.5)} />
-          <line data-r="draw" pathLength={1} x1="0" x2="190" y1="116" y2="116" strokeWidth="1" style={r(0.1, 0.5)} />
+          <line data-r="draw" pathLength={1} x1="0" x2="190" y1="110" y2="110" style={r(0.05, 0.4)} />
+          <line data-r="draw" pathLength={1} x1="0" x2="190" y1="116" y2="116" strokeWidth="1" style={r(0.05, 0.4)} />
         </g>
         {/* far pylon */}
         <rect
@@ -34,31 +32,26 @@ export function ContactArrival() {
           height="90"
           className="fill-bg stroke-ink"
           strokeWidth="2"
-          style={r(0.4, 0.4)}
+          style={r(0.3, 0.3)}
         />
         {/* flag pole and flag */}
-        <line data-r="draw" pathLength={1} x1="208" x2="208" y1="70" y2="22" className="stroke-ink" strokeWidth="2" style={r(0.8, 0.25)} />
+        <line data-r="draw" pathLength={1} x1="208" x2="208" y1="70" y2="22" className="stroke-ink" strokeWidth="2" style={r(0.55, 0.2)} />
         <path
           data-r="draw"
           pathLength={1}
           d="M208 22 H238 L231 30 L238 38 H208"
           className="fill-accent stroke-accent"
           strokeWidth="1.5"
-          style={r(0.95, 0.3)}
+          style={r(0.65, 0.25)}
         />
-        {/* label */}
-        <text
-          data-r="fade"
-          x="0"
-          y="96"
-          className="fill-accent-text font-mono"
-          fontSize="13"
-          fontWeight="600"
-          style={r(1.15, 0.3)}
-        >
-          ⑤ DELIVERED
-        </text>
       </svg>
+      {/* rubber stamp over the deck: thuds down once the flag is up (CSS: .stamp) */}
+      <span
+        className="stamp absolute left-0 top-[26%] rounded-[3px] border-2 border-accent-text px-2.5 py-1 font-mono text-[13px] font-semibold tracking-[0.14em] text-accent-text"
+        style={r(0.85)}
+      >
+        ⑤ DELIVERED
+      </span>
     </InView>
   );
 }

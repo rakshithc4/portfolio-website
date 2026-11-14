@@ -5,7 +5,7 @@
 // Rendered inside the hero <svg>, so it also server-renders (static, dot at stage 1).
 import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
-import { intro, t } from "@/lib/motion-config";
+import { SPRING, intro, t } from "@/lib/motion-config";
 import { CALLOUTS, DECK_Y, STAGE_X } from "./bridge-geometry";
 
 const clamp01 = (v: number) => Math.min(1, Math.max(0, v));
@@ -38,7 +38,7 @@ export function BridgeLive() {
   }, [scrollY]);
 
   const raw = useTransform(scrollY, (y) => clamp01((y - range.current.start) / (range.current.end - range.current.start)));
-  const p = useSpring(raw, { stiffness: 140, damping: 26, mass: 0.5 });
+  const p = useSpring(raw, SPRING);
   // Equal scroll share per stage; x follows the stage positions along the deck.
   const dotX = useTransform(p, [0, 0.25, 0.5, 0.75, 1], STAGE_X.map((x) => x - STAGE_X[0]));
 
@@ -64,6 +64,15 @@ export function BridgeLive() {
               x2={c.tx}
               y2={c.ty}
               strokeWidth="1"
+            />
+            {/* the node lights once as it lands: an accent ring that expands and fades */}
+            <circle
+              cx={c.x}
+              cy={c.y}
+              r="9"
+              className="pulse fill-none stroke-accent"
+              strokeWidth="1.5"
+              style={{ ...t(intro.callouts.delay + i * intro.callouts.stagger + intro.callouts.dur, 0.35), "--pulse-s": "2" } as React.CSSProperties}
             />
             <g className="fade" style={s}>
               <circle

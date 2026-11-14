@@ -24,6 +24,8 @@ export type Project = {
   problem?: string;
   built?: string;
   summary?: string;
+  /** The project's own process, drawn as the card's span diagram (words come from the copy above). */
+  flow?: string[];
   tags: string[];
   metrics: { value: string; label: string; sub?: string }[];
   links: Link[];
@@ -39,7 +41,7 @@ export const site = {
   meta: {
     title: "Rakshith Chandra Shekar — SAP ABAP Cloud & BTP Developer",
     description:
-      "SAP ABAP Cloud applications that turn business processes into reliable, tested software — and when I'm not coding, you'll find me on the Sydney Harbour Bridge.",
+      "I turn everyday business processes, like approving a purchase or getting broken equipment repaired, into reliable, tested software on SAP. When I'm not coding, you'll find me on the Sydney Harbour Bridge.",
   },
   name: "Rakshith Chandra Shekar",
   resumeHref: "/Rakshith-Chandra-Shekar-Resume.pdf",
@@ -67,7 +69,7 @@ export const site = {
     fullName: "Rakshith Chandra Shekar · Sydney",
     note: "where every project starts",
     oneLiner:
-      "SAP ABAP Cloud applications that turn business processes into reliable, tested software — and when I'm not coding, you'll find me on the Sydney Harbour Bridge.",
+      "I turn everyday business processes, like approving a purchase or getting broken equipment repaired, into reliable, tested software on SAP. When I'm not coding, you'll find me on the Sydney Harbour Bridge.",
     status: "Open to summer internships · Dec 2026 – Feb 2027",
     proof: [
       { value: "2", label: "SAP RAP apps built" },
@@ -88,6 +90,7 @@ export const site = {
           "Purchase requests get stuck in email. Approved requests are re-keyed into purchase orders.",
         built:
           "A RAP managed business object (strict(2)) on SAP BTP ABAP Environment. Requisition, approve or reject, then purchase order. A Next.js front end talks to it through a server-side proxy that handles CSRF tokens and session cookies.",
+        flow: ["Requisition", "Approve / reject", "Purchase order"],
         tags: [
           "ABAP Cloud",
           "RAP",
@@ -128,6 +131,7 @@ export const site = {
           "Equipment downtime is expensive. Faults must move quickly from report to repair, and managers need reliability metrics.",
         built:
           "3 RAP managed business objects with 6 actions and cross-object status logic. A fault becomes a work order, then scheduled, started, completed. A FastAPI analytics service and a Next.js control-room dashboard show MTTR, availability % and backlog.",
+        flow: ["Fault", "Work order", "Scheduled", "Started", "Completed"],
         tags: [
           "SAP BTP",
           "RAP",

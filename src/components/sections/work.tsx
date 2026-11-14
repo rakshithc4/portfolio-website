@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { Arrow } from "@/components/arrow";
 import { InView } from "@/components/in-view";
-import { CountUp } from "@/components/count-up";
-import { r } from "@/lib/motion-config";
+import { CountUp } from "@/components/motion/count-up";
+import { Tilt } from "@/components/motion/tilt";
+import { r, stagger } from "@/lib/motion-config";
 import { site, type Project } from "@/content/site";
 import { SheetHeader } from "@/components/blueprint/sheet-header";
 import { DrawingFrame } from "@/components/blueprint/drawing-frame";
@@ -19,7 +20,7 @@ function ScanIcon() {
   );
 }
 
-// Text blocks fade up in step with the span diagram nodes lighting (delays match nodeDelay in span-diagram).
+// Text blocks fade up as the span diagram draws.
 function Rows({ p }: { p: Project }) {
   return (
     <>
@@ -57,7 +58,7 @@ function ProjectCard({ p }: { p: Project }) {
       aria-labelledby={`${p.id}-name`}
       className="card-hover card-draft border border-line bg-card p-5 md:p-8"
     >
-      <div className={sap ? "grid gap-8 lg:grid-cols-[1.1fr_1fr]" : "grid gap-8 lg:grid-cols-[1.1fr_1fr]"}>
+      <div className="grid gap-8 lg:grid-cols-[1.1fr_1fr]">
         <div>
           <div className="flex items-start gap-4">
             {!sap && <ScanIcon />}
@@ -69,17 +70,18 @@ function ProjectCard({ p }: { p: Project }) {
             </div>
           </div>
 
-          {sap && (
+          {p.flow && (
             <div className="mt-6">
-              <SpanDiagram />
+              <SpanDiagram labels={p.flow} />
             </div>
           )}
 
           <Rows p={p} />
 
-          <ul data-r="up" className="mt-5 flex flex-wrap gap-2" aria-label="Technologies" style={r(0.5)}>
-            {p.tags.map((t) => (
-              <li key={t} className="whitespace-nowrap border border-line px-2 py-0.5 font-mono text-xs text-muted">
+          {/* tags are set down one at a time */}
+          <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technologies">
+            {p.tags.map((t, i) => (
+              <li key={t} data-r="up" className="whitespace-nowrap border border-line px-2 py-0.5 font-mono text-xs text-muted" style={r(0.45 + i * stagger.tags, 0.3, 6)}>
                 {t}
               </li>
             ))}
@@ -127,16 +129,19 @@ function ProjectCard({ p }: { p: Project }) {
         </div>
 
         <figure className="m-0 self-start">
-          <DrawingFrame animate veil>
-            <Image
-              src={p.image.src}
-              alt={p.image.alt}
-              width={p.image.width}
-              height={p.image.height}
-              sizes="(min-width: 1024px) 480px, 90vw"
-              className="h-auto w-full"
-            />
-          </DrawingFrame>
+          {/* the print tips a couple of degrees toward the mouse; the text never moves */}
+          <Tilt>
+            <DrawingFrame animate wipe>
+              <Image
+                src={p.image.src}
+                alt={p.image.alt}
+                width={p.image.width}
+                height={p.image.height}
+                sizes="(min-width: 1024px) 480px, 90vw"
+                className="h-auto w-full"
+              />
+            </DrawingFrame>
+          </Tilt>
           <figcaption className="mt-2 font-mono text-[11px] text-muted">
             FIG. · {p.name.toUpperCase()}
           </figcaption>
@@ -148,8 +153,8 @@ function ProjectCard({ p }: { p: Project }) {
 
 export function Work() {
   return (
-    <section id="work" aria-label="work" className="mx-auto max-w-[1100px] px-5 pb-16 pt-12 md:px-8">
-      <SheetHeader n="02" name="WORK" title={site.work.heading} />
+    <section id="work" aria-labelledby="work-heading" className="mx-auto max-w-[1100px] px-5 pb-16 pt-12 md:px-8">
+      <SheetHeader id="work-heading" n="02" name="WORK" title={site.work.heading} />
       <div className="mt-10 grid gap-8">
         {site.work.projects.map((p) => (
           <ProjectCard key={p.id} p={p} />
